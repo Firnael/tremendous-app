@@ -1,9 +1,17 @@
 <div class = "row">
-  <div class="col-md-12">
-    <h2>
-      Test : {{ vm.nice }}
-      https://www.npmjs.com/package/battlenet-api
-      https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-    </h2>
-  </div>
+    <div class="col-md-12">
+        <h2>{{ vm.nice }}</h2>
+        <br/>
+        <p>
+            https://www.npmjs.com/package/battlenet-api
+            <br/>
+            https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+        </p>
+        <hr/>
+        Data:
+        <pre>{{ vm.data }}</pre>
+        <br/>
+        <input ng-model="vm.character" type="text" placeholder="Personnage"/>
+        <a class="btn" ng-click="vm.getCharacterInfo()">Get info !</a>
+    </div>
 </div>
