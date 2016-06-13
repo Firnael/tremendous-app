@@ -12,7 +12,6 @@ var port = server.address().port;
 	console.log("App now running on port", port);
 });
 
-
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
@@ -20,5 +19,5 @@ function handleError(res, reason, message, code) {
 }
 
 app.get("/test", function(req, res) {
-res.status(200);
+	res.status(200);
 });
