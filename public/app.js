@@ -3,7 +3,8 @@ angular.module("app", ['ngRoute'])
         $routeProvider
             .when("/", {
                 templateUrl: "views/test.html",
-                controller: "testCtrl"
+                controller: "testCtrl",
+                controllerAs: "vm"
             })
             .otherwise({
                 redirectTo: "/"
