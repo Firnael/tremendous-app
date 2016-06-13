@@ -18,6 +18,11 @@ router.get('/', function(req, res) {
 	res.json({ message: 'Test route working !'});
 });
 
+router.get('/test', function(req, res) {
+
+	res.json({ message: 'Test route working !'});
+});
+
 app.use('/api', router);
 
 // Initialize the app.
