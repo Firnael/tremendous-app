@@ -12,8 +12,11 @@
             https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
         </p>
         <hr/>
-        Data:
-        <pre>{{ vm.data }}</pre>
+        Character data:
+        <pre>{{ vm.characterInfo }}</pre>
+        <br/>
+        Guild members:
+        <pre>{{ vm.guildMembers }}</pre>
         <br/>
         <input ng-model="vm.character" type="text" placeholder="Personnage"/>
         <a class="btn" ng-click="vm.getCharacterInfo()">Get info !</a>

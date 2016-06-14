@@ -25,4 +25,17 @@ bnetApiRouter.get('/character/:characterName', function(request, response) {
     });
 });
 
+// Get guild members
+bnetApiRouter.get('/guild/members', function(request, response) {
+    console.log('yay');
+    bnet.wow.guild.members({ origin: 'eu', realm: 'ysondre', name: 'fesseroll' }, function(err, body, res){
+        if(!err) {
+            response.send(body);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
 module.exports = bnetApiRouter;

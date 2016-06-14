@@ -13,6 +13,7 @@
         vm.character = '';
 
         vm.getCharacterInfo = getCharacterInfo;
+        vm.getGuildMembers = getGuildMembers;
         activate();
 
         //////////////
@@ -22,6 +23,7 @@
             // BnetApiSvc.getTest(vm.character).then(function(data){
             //     console.log(data);
             // });
+            vm.getGuildMembers();
         }
 
         function getCharacterInfo() {
@@ -30,7 +32,13 @@
             }
 
             BnetApiSvc.getCharacterInfo(vm.character).then(function(data){
-                vm.data = data;
+                vm.characterInfo = data;
+            });
+        }
+
+        function getGuildMembers() {
+            BnetApiSvc.getGuildMembers().then(function(data){
+                vm.guildMembers = data;
             });
         }
     }
