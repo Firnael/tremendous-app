@@ -1,0 +1,12 @@
+.cover {
+    text-align: center;
+    color: #121212;
+    text-shadow: 0px 2px 3px #333;
+}
+
+.cover h1 {
+    font: 90px Tahoma, Helvetica, Arial, Sans-Serif;
+}
+.cover h2 {
+    font: 50px Tahoma, Helvetica, Arial, Sans-Serif;
+}
