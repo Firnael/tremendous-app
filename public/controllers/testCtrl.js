@@ -3,35 +3,19 @@
 
     angular
         .module('app')
-        .controller('testCtrl', TestCtrl);
+        .controller('coverCtrl', CoverCtrl);
 
-    TestCtrl.$inject = ['$scope', 'BnetApiSvc'];
+    TestCtrl.$inject = ['$scope'];
 
-    function TestCtrl($scope, BnetApiSvc){
+    function CoverCtrl($scope){
         var vm = this;
-        vm.nice = "Nice";
-        vm.character = '';
 
-        vm.getCharacterInfo = getCharacterInfo;
         activate();
 
         //////////////
 
         function activate() {
-            console.log('TestCtrl activate');
-            BnetApiSvc.getTest(vm.character).then(function(data){
-                console.log(data);
-            });
-        }
-
-        function getCharacterInfo() {
-            if(vm.character === undefined) {
-                return;
-            }
-
-            BnetApiSvc.getCharacterInfo(vm.character).then(function(data){
-                vm.data = data;
-            });
+            console.log('CoverCtrl activate');
         }
     }
 })();
