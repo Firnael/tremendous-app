@@ -3,9 +3,11 @@ var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
 var bnetApiRouter = require('./routes/bnetApiRouter');
+var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 
 var router = express.Router();
@@ -15,11 +17,12 @@ router.use(function(req, res, next) {
 });
 
 router.get('/', function(req, res) {
-	res.json({ message: 'Test route working !'});
+	res.json({ message: 'Qu\'est ce que tu fais là :) ?' });
 });
 
 app.use('/api', router);
 app.use('/api/bnet', bnetApiRouter);
+app.use('/api/wowprogress', wowProgressApiRouter);
 
 // Initialize the app.
 var server = app.listen(process.env.PORT || 8080, function () {

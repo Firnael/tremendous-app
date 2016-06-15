@@ -1,7 +1,27 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Audren
- * Date: 15/06/16
- * Time: 19:35
- * To change this template use File | Settings | File Templates.
- */
+(function () {
+    'use strict';
+
+    angular
+        .module('app')
+        .factory('WowProgressApiSvc', WowProgressApiSvc);
+
+    WowProgressApiSvc.$inject = ['$http', '$location'];
+
+    function WowProgressApiSvc($http, $location) {
+
+        var prefix = 'http://';
+        var service = {
+            getTest: getTest
+        };
+        return service;
+
+        function getTest(){
+            console.log("WowProgressApiSvc.getTest");
+            var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/wowprogress/").then(function(response){
+                return response.data;
+            });
+            return promise;
+        }
+
+    }
+})();

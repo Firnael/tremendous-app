@@ -5,14 +5,13 @@
         .module('app')
         .controller('homeCtrl', HomeCtrl);
 
-    HomeCtrl.$inject = ['$scope', 'BnetApiSvc'];
+    HomeCtrl.$inject = ['BnetApiSvc', 'WowProgressApiSvc'];
 
-    function HomeCtrl($scope, BnetApiSvc){
+    function HomeCtrl(BnetApiSvc, WowProgressApiSvc){
         var vm = this;
         vm.nice = "Nice";
         vm.character = '';
-        vm.thumbnailPath = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
-        // inset - profilemain - avatar
+        vm.thumbnailPath = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/'; // inset - profilemain - avatar
 
         vm.getCharacterInfo = getCharacterInfo;
         vm.getGuildMembers = getGuildMembers;
@@ -24,9 +23,9 @@
 
         function activate() {
             console.log('HomeCtrl activate');
-            // BnetApiSvc.getTest(vm.character).then(function(data){
-            //     console.log(data);
-            // });
+            WowProgressApiSvc.getTest().then(function(data){
+                 console.log(data);
+            });
         }
 
         function getCharacterInfo() {
@@ -51,14 +50,14 @@
             case 2: return 'Paladin';
             case 3: return 'Chasseur';
             case 4: return 'Voleur';
-            case 5: return 'Prêtre';
+            case 5: return 'Prï¿½tre';
             case 6: return 'Chevalier de la mort';
             case 7: return 'Chaman';
             case 8: return 'Mage';
-            case 9: return 'Démoniste';
+            case 9: return 'Dï¿½moniste';
             case 10: return 'Moine';
             case 11: return 'Druide';
-            case 12: return 'Chasseur de démon';
+            case 12: return 'Chasseur de dï¿½mon';
           }
         }
     }

@@ -2,11 +2,12 @@
     text-align: center;
     color: #121212;
     text-shadow: 0px 2px 3px #333;
+    font-family: 'Oswald', sans-serif;
 }
 
 .cover h1 {
-    font: 90px Tahoma, Helvetica, Arial, Sans-Serif;
+    font-size: 90px;
 }
 .cover h2 {
-    font: 50px Tahoma, Helvetica, Arial, Sans-Serif;
+    font: 50px;
 }
