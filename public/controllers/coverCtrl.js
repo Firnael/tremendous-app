@@ -5,7 +5,7 @@
         .module('app')
         .controller('coverCtrl', CoverCtrl);
 
-    TestCtrl.$inject = ['$scope'];
+    CoverCtrl.$inject = ['$scope'];
 
     function CoverCtrl($scope){
         var vm = this;

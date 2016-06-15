@@ -6,18 +6,76 @@
     <div class="col-md-12">
         <h2>{{ vm.nice }}</h2>
         <br/>
-        <p>
-            https://www.npmjs.com/package/battlenet-api
-            <br/>
-            https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-        </p>
+
+        <a href="https://www.npmjs.com/package/battlenet-api" target="_blank">
+          Battlenet Community API
+        </a>
+        <br/>
+        <a href="https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4" target="_blank">
+          Build a RESTful API with Node.js and Express.js
+        </a>
+        <br/>
+        <a href="http://jtblin.github.io/angular-chart.js/" target="_blank">
+          Angular Charts 1
+        </a>
+        <a href="http://chinmaymk.github.io/angular-charts/" target="_blank">
+          Angular Charts 2
+        </a>
+        <br/>
+        <a href="http://www.bootstrapzero.com/blocks/" target="_blank">
+          Dashboard example
+        </a>
+
         <hr/>
         Character data:
         <pre>{{ vm.characterInfo }}</pre>
         <br/>
-        Guild members:
-        <pre>{{ vm.guildMembers }}</pre>
+
+        Guild members:<br/>
+
+        <div class="media" ng-repeat="member in vm.guildMembers.members">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object" src="{{ vm.thumbnailPath + member.character.thumbnail }}" alt="thumbnail">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+              {{ member.character.name }} - Lvl {{ member.character.level }} -
+              {{ member.character.achievementPoints }} - Rang {{ member.rank }}
+            </h4>
+            {{ vm.getClassLabel(member.character.class) }} {{ member.character.spec.name }}<br/>
+          </div>
+        </div>
+
+        <!-- <table class="table table-hover table-condensed">
+          <thead>
+            <th>Name</th>
+            <th>Class</th>
+            <th>Spec</th>
+            <th>Race</th>
+            <th>Gender</th>
+            <th>Level</th>
+            <th>Achiv.</th>
+            <th>Thumb.</th>
+            <th>Rank</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="member in vm.guildMembers.members">
+              <td>{{ member.character.name }}</td>
+              <td>{{ vm.getClassLabel(member.character.class) }}</td>
+              <td>{{ member.character.spec.name }}</td>
+              <td>{{ member.character.race }}</td>
+              <td>{{ member.character.gender }}</td>
+              <td>{{ member.character.level }}</td>
+              <td>{{ member.character.achievementPoints }}</td>
+              <td><img src="{{ vm.thumbnailPath + member.character.thumbnail }}"/></td>
+              <td>{{ member.rank }}</td>
+            </tr>
+          </tbody>
+        </table> -->
         <br/>
+
         <input ng-model="vm.character" type="text" placeholder="Personnage"/>
         <a class="btn" ng-click="vm.getCharacterInfo()">Get info !</a>
     </div>

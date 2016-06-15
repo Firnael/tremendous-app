@@ -13,7 +13,8 @@
         var service = {
             getTest: getTest,
             getCharacterInfo: getCharacterInfo,
-            getGuildMembers: getGuildMembers
+            getGuildMembers: getGuildMembers,
+            getGuildNews: getGuildNews
         };
         return service;
 
@@ -22,7 +23,7 @@
                 return response.data;
             });
             return promise;
-        };
+        }
 
         function getCharacterInfo(characterName){
             if(characterName !== undefined) {
@@ -31,16 +32,21 @@
                 });
                 return promise;
             }
-        };
+        }
 
         function getGuildMembers(){
             var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/bnet/guild/members").then(function(response){
                 return response.data;
             });
             return promise;
-        };
+        }
+
+        function getGuildNews(){
+            var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/bnet/guild/news").then(function(response){
+                return response.data;
+            });
+            return promise;
+        }
 
     }
 })();
-
-
