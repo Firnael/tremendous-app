@@ -23,9 +23,6 @@
 
         function activate() {
             console.log('HomeCtrl activate');
-            WowProgressApiSvc.getTest().then(function(data){
-                 console.log(data);
-            });
         }
 
         function getCharacterInfo() {
