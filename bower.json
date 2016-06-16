@@ -1,20 +1,6 @@
 {
   "name": "tremendous",
-  "description": "Guild analytics app for Tremendous on Ysondre",
-  "main": "server.js",
-  "authors": [
-    "Nael <audren.burlot@gmail.com>"
-  ],
-  "license": "MIT",
-  "homepage": "",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "version": "0.0.0",
   "dependencies": {
     "angular-timer": "^1.3.4"
   }
