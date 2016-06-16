@@ -4,8 +4,9 @@
     "description": "Guild analytics app for Tremendous on Ysondre",
     "main": "server.js",
     "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node server.js",
+      "postinstall": "bower install"
     },
     "dependencies": {
     "battlenet-api": "^0.11.0",
@@ -14,9 +15,5 @@
     "mongodb": "^2.1.6",
     "request": "2.72.0",
     "bower": "1.7.9"
-    },
-    "scripts": {
-        "start": "node server.js",
-        "postinstall": "bower install"
     }
 }
