@@ -1,5 +1,5 @@
 {
-    "name": "Tremendous",
+    "name": "tremendous",
     "version": "1.0.0",
     "description": "Guild analytics app for Tremendous on Ysondre",
     "main": "server.js",
@@ -17,6 +17,6 @@
     },
     "scripts": {
         "start": "node server.js",
-        "postinstall": "./node_modules/bower/bin/bower install"
+        "postinstall": "bower install"
     }
 }

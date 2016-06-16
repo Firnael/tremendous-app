@@ -1,5 +1,5 @@
 {
-  "name": "Tremendous",
+  "name": "tremendous",
   "description": "Guild analytics app for Tremendous on Ysondre",
   "main": "server.js",
   "authors": [
