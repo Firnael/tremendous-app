@@ -1,4 +1,4 @@
-angular.module("app", ['ngRoute'])
+angular.module("app", ['ngRoute', 'timer'])
     .config(function($routeProvider) {
         $routeProvider
             .when("/", {
