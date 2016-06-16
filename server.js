@@ -2,8 +2,11 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require("body-parser");
+
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
+var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
+
 
 var app = express();
 app.use(express.static(__dirname + "/public"));
@@ -23,6 +26,7 @@ router.get('/', function(req, res) {
 app.use('/api', router);
 app.use('/api/bnet', bnetApiRouter);
 app.use('/api/wowprogress', wowProgressApiRouter);
+app.use('/api/warcraftlogs', warcraftLogsApiRouter);
 
 // Initialize the app.
 var server = app.listen(process.env.PORT || 8080, function () {
