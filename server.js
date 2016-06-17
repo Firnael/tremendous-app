@@ -6,6 +6,7 @@ var bodyParser = require("body-parser");
 
 // Routers
 var characterApiRouter = require('./routes/characterApiRouter');
+var guildApiRouter = require('./routes/guildApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
@@ -13,7 +14,7 @@ var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
 // Connecting to MongoLab
 mongoose.connect('mongodb://admin:admin@ds015934.mlab.com:15934/heroku_fgn342m5', function (err, res) {
     if (err) { console.log ('MONGOOSE ERROR, cannot connect to heroku_fgn342m5 : ' + err); }
-    else { console.log ('MONGOOSE SUCCESS, Connected to heroku_fgn342m5 !'); }
+    else { console.log ('App now connected to DB heroku_fgn342m5'); }
 });
 
 // Setting up Express server
@@ -27,13 +28,14 @@ app.use(bodyParser.urlencoded({
 
 var router = express.Router();
 router.use(function(req, res, next) {
-	console.log('Routing...');
+	console.log('Routing : ' + req.method + ' ' + req.originalUrl);
 	next();
 });
 
 // Local APIs
 app.use('/api', router)
 app.use('/api/character', characterApiRouter);
+app.use('/api/guild', guildApiRouter);
 
 // External APIs
 app.use('/api/bnet', bnetApiRouter);

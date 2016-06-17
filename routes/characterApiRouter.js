@@ -1,14 +1,12 @@
 var express = require('express');
 var characterApiRouter = express.Router();
-
 // Model
 var Character = require('../models/character');
 
 
-characterApiRouter.route('/character')
+// Get collection
+characterApiRouter.route('/')
     .post(function(req, res) {
-        console.log('POST /api/character');
-
         var character = new Character();
         character.name = req.body.name;
         character.save(function(err) {
@@ -18,8 +16,6 @@ characterApiRouter.route('/character')
     })
 
     .get(function(req, res) {
-        console.log('GET /api/character');
-
         Character.find(function(err, characters) {
             if (err) { res.send(err); }
             res.json(characters);

@@ -11,6 +11,11 @@ angular.module("app", ['ngRoute', 'timer'])
                 controller: "homeCtrl",
                 controllerAs: "vm"
             })
+            .when("/admin", {
+                templateUrl: "views/admin.html",
+                controller: "adminCtrl",
+                controllerAs: "vm"
+            })
             .otherwise({
                 redirectTo: "/"
             });

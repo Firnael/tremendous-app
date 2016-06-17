@@ -13,8 +13,7 @@
         var service = {
             getTest: getTest,
             getCharacterInfo: getCharacterInfo,
-            getGuildMembers: getGuildMembers,
-            getGuildNews: getGuildNews
+            getGuildInfo: getGuildInfo
         };
         return service;
 
@@ -34,15 +33,8 @@
             }
         }
 
-        function getGuildMembers(){
+        function getGuildInfo(){
             var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/bnet/guild/members").then(function(response){
-                return response.data;
-            });
-            return promise;
-        }
-
-        function getGuildNews(){
-            var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/bnet/guild/news").then(function(response){
                 return response.data;
             });
             return promise;
