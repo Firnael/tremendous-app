@@ -21,7 +21,7 @@ mongoose.connect('mongodb://admin:admin@ds015934.mlab.com:15934/heroku_fgn342m5'
 var app = express();
 app.use(express.static(__dirname + "/public"));
 app.use('/bower_components',  express.static(__dirname + '/bower_components'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({
     extended: true
 }));

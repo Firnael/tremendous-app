@@ -16,7 +16,6 @@
         return service;
 
         function getTest(){
-            console.log("WowProgressApiSvc.getTest");
             var promise = $http.get(prefix + $location.host() + ":" + $location.port() + "/api/wowprogress/").then(function(response){
                 return response.data;
             });
