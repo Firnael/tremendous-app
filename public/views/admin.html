@@ -1,7 +1,36 @@
 <!-- Admin page -->
 <div class = "row">
     <div class="col-md-12">
-        <h1>{{ vm.title }}</h1>
-        <a ng-click="vm.updateGuild()" class="btn btn-default">Update guild</a>
+      <h1>{{ vm.title }}</h1>
+      <br/>
     </div>
+</div>
+
+<!-- Guild -->
+<div class="row">
+  <div class="col-md-2">
+    <a ng-click="vm.updateGuild()" ng-disabled="vm.waitingForGuildData" class="btn btn-default">
+      Update guild
+    </a>
+  </div>
+  <div class="col-md-3" ng-show="vm.waitingForGuildData">
+    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+  </div>
+  <div class="col-md-3" ng-show="vm.guildUpdateMessage">
+    {{ vm.guildUpdateMessage }}
+    <br/>
+    Last BNET update : {{ vm.guildLastModified }}
+  </div>
+  <div class="col-md-7" ng-show="vm.guildMemberCount">
+    Members : {{ vm.guildMemberCount }}
+  </div>
+</div>
+<br/>
+
+<!-- Characters -->
+<div class="row">
+  <div class="col-md-2">
+    <a ng-click="vm.updateCharacters()" class="btn btn-default">Update characters</a>
+  </div>
+  <div class="col-md-10"></div>
 </div>

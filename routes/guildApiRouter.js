@@ -1,7 +1,9 @@
 var express = require('express');
+var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
 var guildApiRouter = express.Router();
 // Model
 var Guild = require('../models/guild');
+// Data
 var guildName = 'Millenium';
 
 
@@ -16,64 +18,72 @@ guildApiRouter.route('/').get(function(req, res) {
 // Create or update guild
 guildApiRouter.route('/update').post(function(req, res) {
 
-    // console.log(req.body);
-    Guild.findOne({ 'name': guildName }, function(err, guild) {
-        if (err) { res.send(err); }
+  // Retrieve Bnet Api guild data
+  bnet.wow.guild.members({ origin: 'eu', realm: 'ysondre', name: guildName }, function(err, data){
+      if(err) { res.send(err); }
 
-        // If guild doesn't exist, create
-        if(guild == null) {
-          console.log('Guild does not exist, creating...');
-          var newGuild = new Guild();
-          newGuild = populateGuildObjectFromData(newGuild, req.body);
-          newGuild.save(function(errsave) {
-              if (errsave) { res.send(errsave); }
-              console.log('Guild ' + newGuild.name + ' created !');
-              res.send({ message: 'Guild ' + newGuild.name + ' created !' });
-          });
-        }
-        // If exists, update
-        else {
-          console.log('Guild exists, updating...');
-          if(guild.lastModified == req.body.lastModified) {
-            console.log('Guild ' + guild.name + ' is already up to date');
-            res.send({ message: 'Guild ' + guild.name + ' is already up to date' });
-          }
-          else {
-            guild = updateGuildObjectFromData(guild, req.body);
-            guild.save(function(errupdate) {
-                if (errupdate) { res.send(errupdate); }
-                console.log('Guild ' + guild.name + ' updated !');
-                res.send({ message: 'Guild ' + guild.name + ' updated !' });
+      Guild.findOne({ 'name': guildName }, function(err, guild) {
+          if (err) { res.send(err); }
+
+          // If guild doesn't exist, create
+          if(guild == null) {
+            console.log('Guild does not exist, creating...');
+            var newGuild = new Guild();
+            newGuild = populateGuildObjectFromData(newGuild, data, false);
+            newGuild.save(function(errcreate) {
+                if (errcreate) { res.send(errcreate); }
+                console.log('Guild ' + newGuild.name + ' created !');
+                res.json({
+                  message: 'Guild ' + newGuild.name + ' created !',
+                  memberCount: newGuild.members.length,
+                  lastModified: newGuild.lastModified
+                });
             });
           }
+          // If exists, update
+          else {
+            console.log('Guild exists, updating...');
+            if(guild.lastModified == data.lastModified) {
+              console.log('Guild ' + guild.name + ' is already up to date');
+              res.json({
+                message: 'Guild ' + guild.name + ' is already up to date',
+                memberCount: guild.members.length,
+                lastModified: guild.lastModified
+              });
+            }
+            else {
+              guild = populateGuildObjectFromData(guild, data, true);
+              guild.save(function(errupdate) {
+                  if (errupdate) { res.send(errupdate); }
+                  console.log('Guild ' + guild.name + ' updated !');
+                  res.json({
+                    message: 'Guild ' + guild.name + ' updated !',
+                    memberCount: guild.members.length,
+                    lastModified: guild.lastModified
+                  });
+              });
+            }
+          }
+      });
+
+      function populateGuildObjectFromData(guildObject, data, update) {
+        if(!update) {
+          guildObject.name = data.name;
         }
-    });
-
-    function populateGuildObjectFromData(guildObject, data) {
-      guildObject.lastModified = data.lastModified;
-      guildObject.name = data.name;
-      guildObject.level = data.level;
-      guildObject.achievementPoints = data.achievementPoints;
-      guildObject.members = [];
-      for(var i=0; i<data.members.length; i++) {
-        var member = {};
-        member.name = data.members[i].character.name;
-        member.rank = data.members[i].rank;
-        guildObject.members.push(member);
+        guildObject.lastModified = data.lastModified;
+        guildObject.level = data.level;
+        guildObject.achievementPoints = data.achievementPoints;
+        guildObject.members = [];
+        for(var i=0; i<data.members.length; i++) {
+          var member = {};
+          member.name = data.members[i].character.name;
+          member.rank = data.members[i].rank;
+          guildObject.members.push(member);
+        }
+        return guildObject;
       }
-      return guildObject;
-    }
 
-    function updateGuildObjectFromData(guildObject, data) {
-      guildObject.lastModified = data.lastModified;
-      guildObject.level = data.level;
-      guildObject.achievementPoints = data.achievementPoints;
-
-      // if(guildObject.members.length != data.members.character.length) {
-      //
-      // }
-      return guildObject;
-    }
+  });
 });
 
 // Drop collection

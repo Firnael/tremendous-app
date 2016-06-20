@@ -5,13 +5,18 @@
         .module('app')
         .controller('adminCtrl', AdminCtrl);
 
-    AdminCtrl.$inject = ['BnetApiSvc', 'GuildSvc'];
+    AdminCtrl.$inject = ['BnetApiSvc', 'GuildSvc', 'CharacterSvc'];
 
-    function AdminCtrl(BnetApiSvc, GuildSvc){
+    function AdminCtrl(BnetApiSvc, GuildSvc, CharacterSvc){
         var vm = this;
         vm.title = 'Admin Page';
+        // Guild
+        vm.guildUpdateMessage;
+        vm.guildMemberCount;
+        vm.guildLastModified;
 
         vm.updateGuild = updateGuild;
+        vm.updateCharacters = updateCharacters;
         activate();
 
         //////////////
@@ -21,10 +26,19 @@
         }
 
         function updateGuild() {
-          BnetApiSvc.getGuildInfo().then(function(data){
-              GuildSvc.update(data).then(function () {
-                console.log('Guild updated');
-              });
+          vm.waitingForGuildData = true;
+
+          GuildSvc.update().then(function(result) {
+            vm.guildUpdateMessage = result.message;
+            vm.guildMemberCount = result.memberCount;
+            vm.guildLastModified = moment(result.lastModified).calendar();
+            vm.waitingForGuildData = false;
+          });
+        }
+
+        function updateCharacters() {
+          CharacterSvc.update().then(function (result) {
+            console.log('Characters updated: ' + result.message);
           });
         }
     }

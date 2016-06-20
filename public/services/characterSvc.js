@@ -3,11 +3,11 @@
 
     angular
         .module('app')
-        .factory('GuildSvc', GuildSvc);
+        .factory('CharacterSvc', CharacterSvc);
 
-    GuildSvc.$inject = ['$http', '$location'];
+    CharacterSvc.$inject = ['$http', '$location'];
 
-    function GuildSvc($http, $location) {
+    function CharacterSvc($http, $location) {
 
         var service = {
             update: update
@@ -15,7 +15,7 @@
         return service;
 
         function update(){
-            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/guild/update";
+            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/character/update";
             var promise = $http.post(url).then(function(response) {
               return response.data;
             });
