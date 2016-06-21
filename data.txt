@@ -1,16 +1,16 @@
 // Character
 (root)
-- lastModified
-- name
-- class
-- race
-- gender
-- level
-- achievementPoints
-- thumbnail
+  [x] - lastModified
+  [x] - name
+  [x] - class
+  [x] - race
+  [x] - gender
+  [x] - level
+  [x] - achievementPoints
+  [x] - thumbnail
 (items)
-- items.averageItemLevel
-- items.averageItemLevelEquipped
+  [x] - items.averageItemLevel
+  [x] - items.averageItemLevelEquipped
 (professions)
 - professions.primary[0].name -- Alchimie
 - professions.primary[0].rank -- 715
@@ -19,20 +19,21 @@
 - professions.primary[1].rank -- 700
 - professions.primary[1].max -- 700
 (pvp)
-- pvp.brackets.ARENA_BRACKET_2v2.rating
-- pvp.brackets.ARENA_BRACKET_3v3.rating
-- pvp.brackets.ARENA_BRACKET_5v5.rating
+  [x] - pvp.brackets.ARENA_BRACKET_2v2.rating
+  [x] - pvp.brackets.ARENA_BRACKET_3v3.rating
+  [x] - pvp.brackets.ARENA_BRACKET_5v5.rating
+(// à ajouter)
+- arrivalDate
 
 // Guild
 (root)
-- lastModified
-- name
-- level
-- achievementPoints
+  [x] - lastModified
+  [x] - name
+  [x] - level
+  [x] - achievementPoints
 (members)
-- members[0].character.name
-- members[0].rank
-- members[...]
+  [x] - members[0].character.name
+  [x] - members[0].rank
 
 //=================================
 Members since:

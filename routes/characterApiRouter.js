@@ -37,6 +37,17 @@ characterApiRouter.route('/').get(function(req, res) {
     });
 });
 
+// Get one
+characterApiRouter.route('/info/:characterName').get(function(req, res) {
+    Character.findOne({ 'name': req.params.characterName }, function(err, character) {
+        if (err) { return res.send(err); }
+        if (character == null ) {
+          return res.send({ message: 'Cannot find character ' + req.params.characterName });
+        }
+        res.json(character);
+    });
+});
+
 // Create or update guild characters
 characterApiRouter.route('/update').post(function(req, res) {
   console.log('Updating guild characters...');
@@ -62,6 +73,7 @@ characterApiRouter.route('/update').post(function(req, res) {
               // If character doesn't exist, create
               if(character == null) {
                   var newCharacter = new Character();
+                  newCharacter.lastModified = 0;
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
                   newCharacter.save(function(errcreate) {
@@ -101,6 +113,7 @@ characterApiRouter.route('/update').post(function(req, res) {
         });
       }
 
+      // End of job callback, sending response
       function jobDone() {
         console.log('Results: ' + addedCharacters.length + ' added, ' + removedCharacters.length + ' removed.');
         return res.send({
@@ -112,12 +125,76 @@ characterApiRouter.route('/update').post(function(req, res) {
   });
 });
 
+// Update a specific character
+characterApiRouter.route('/update/:characterName').get(function(req, res) {
+    Character.findOne({ 'name': req.params.characterName }, function(errlocal, character) {
+        if (errlocal) { res.send(errlocal); return; }
+        if (character == null ) {
+          res.send({ message: 'Cannot find character ' + req.params.characterName });
+          return;
+        }
+        console.log('Updating character ' + character.name + '...');
+
+        // Getting character from bnet API
+        bnet.wow.character.aggregate({
+          origin: 'eu', realm: 'ysondre', name: req.params.characterName,
+          fields: ['items', 'pvp']
+        },
+        function(errbnet, body, bnetres) {
+            if(errbnet) { res.send(errbnet); }
+
+            // Don't update if nothing change since the last time
+            if(character.lastModified == body.lastModified) {
+              console.log('Character ' + character.name + ' is already up to date');
+              return res.json({
+                message: 'Character ' + character.name + ' is already up to date',
+                lastModified: character.lastModified
+              });
+            }
+            else {
+              // Root
+              character.lastModified = body.lastModified;
+              character.class = body.class;
+              character.race = body.race;
+              character.gender = body.gender;
+              character.level = body.level;
+              character.achievementPoints = body.achievementPoints;
+              character.thumbnail = body.thumbnail;
+              // Items
+              character.averageItemLevel = body.items.averageItemLevel;
+              character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
+              // PvP
+              character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
+              character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
+              character.arena5v5Rating = body.pvp.brackets.ARENA_BRACKET_5v5.rating;
+
+              character.save(function(errsave) {
+                  if (errsave) { return res.send(errsave); }
+                  console.log('Character ' + character.name + ' updated !');
+                  return res.json({
+                    message: 'Character ' + character.name + ' updated !',
+                    lastModified: character.lastModified
+                  });
+              });
+            }
+        });
+    });
+});
+
 // Drop collection
 characterApiRouter.route('/drop').get(function(req, res) {
+  console.log('Dropping character collection...');
   Character.remove({}, function(err) {
-      console.log('Character collection dropped')
+      if (err) { return res.send(err); }
+      console.log('Character collection dropped.')
+      return res.send({ message: 'Character collection dropped' });
   });
-  res.send({ message: 'Character collection dropped' });
 });
+
+characterApiRouter.route('/test').get(function (req, res) {
+    console.log('test');
+    return res.send({ message: 'test '});
+});
+
 
 module.exports = characterApiRouter;
