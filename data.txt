@@ -1,16 +1,4 @@
 // Character
-(root)
-  [x] - lastModified
-  [x] - name
-  [x] - class
-  [x] - race
-  [x] - gender
-  [x] - level
-  [x] - achievementPoints
-  [x] - thumbnail
-(items)
-  [x] - items.averageItemLevel
-  [x] - items.averageItemLevelEquipped
 (professions)
 - professions.primary[0].name -- Alchimie
 - professions.primary[0].rank -- 715
@@ -18,35 +6,30 @@
 - professions.primary[1].name -- Joaillerie
 - professions.primary[1].rank -- 700
 - professions.primary[1].max -- 700
-(pvp)
-  [x] - pvp.brackets.ARENA_BRACKET_2v2.rating
-  [x] - pvp.brackets.ARENA_BRACKET_3v3.rating
-  [x] - pvp.brackets.ARENA_BRACKET_5v5.rating
-(// à ajouter)
+(// ï¿½ ajouter)
 - arrivalDate
-
-// Guild
-(root)
-  [x] - lastModified
-  [x] - name
-  [x] - level
-  [x] - achievementPoints
-(members)
-  [x] - members[0].character.name
-  [x] - members[0].rank
 
 //=================================
 Members since:
 
-20/06/2016
+20/06/2016 (10)
 ----------
 Fourbux
 Canope
 Petokask
 Furialis
-Legrørobert
-Furïalis
-Sinôcx
-Kåmuii
+Legrï¿½robert
+Furï¿½alis
+Sinï¿½cx
+Kï¿½muii
 Trishyam
 Sheepeo
+
+21/06/2016 (6)
+----------
+Shamux
+KyÃ´ryokux
+Trewdux
+Starbux
+Bandidux
+Khat
