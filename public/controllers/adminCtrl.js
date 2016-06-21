@@ -26,19 +26,24 @@
         }
 
         function updateGuild() {
-          vm.waitingForGuildData = true;
+          vm.updatingGuild = true;
 
           GuildSvc.update().then(function(result) {
-            vm.guildUpdateMessage = result.message;
-            vm.guildMemberCount = result.memberCount;
-            vm.guildLastModified = moment(result.lastModified).calendar();
-            vm.waitingForGuildData = false;
+              vm.guildUpdateMessage = result.message;
+              vm.guildMemberCount = result.memberCount;
+              vm.guildLastModified = moment(result.lastModified).calendar();
+              vm.updatingGuild = false;
           });
         }
 
         function updateCharacters() {
+          vm.updatingCharacters = true;
+
           CharacterSvc.update().then(function (result) {
-            console.log('Characters updated: ' + result.message);
+              vm.charactersUpdateMessage = result.message;
+              vm.addedCharacters = result.addedCharacters;
+              vm.removedCharacters = result.removedCharacters;
+              vm.updatingCharacters = false;
           });
         }
     }

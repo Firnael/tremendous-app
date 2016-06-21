@@ -39,49 +39,76 @@ characterApiRouter.route('/').get(function(req, res) {
 
 // Create or update guild characters
 characterApiRouter.route('/update').post(function(req, res) {
-  console.log('Updating guild characters');
+  console.log('Updating guild characters...');
+
+  var addedCharacters = [];
+  var removedCharacters = [];
+  function overrideCallback(added, characterName, asyncCallback) {
+      if(characterName) {
+          added ? addedCharacters.push(characterName) : removedCharacters.push(characterName);
+      }
+      asyncCallback();
+  }
 
   Guild.findOne({ 'name': guildName }, function(errFindGuild, guild) {
       if (errFindGuild) { res.send(errFindGuild); }
 
       // Iterate over guild members and add / remove them
-      async.each(guild.members, function (member, callback) {
+      async.each(guild.members, function (member, asyncAddCallback) {
 
           Character.findOne({ 'name': member.name }).exec(function (errFindChar, character) {
             if (errFindChar) { res.send(errFindChar); }
+
               // If character doesn't exist, create
               if(character == null) {
-                  console.log('Character ' + member.name + ' does not exist, creating...');
                   var newCharacter = new Character();
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
                   newCharacter.save(function(errcreate) {
                       if (errcreate) { res.send(errcreate); }
-                      console.log('Character ' + newCharacter.name + ' created !');
+                      overrideCallback(true, member.name, asyncAddCallback);
                   });
+              } else {
+                overrideCallback(null, null, asyncAddCallback);
               }
           });
       },
-      function (errorAsync) {
-          return res.send({ message: 'GG' });
-          // http://stackoverflow.com/questions/28478606/saving-items-in-mongoose-for-loop-with-schema-methods
+      function (errAddAsync) {
+          if(errAddAsync) { res.send(errAddAsync); }
+          console.log('Characters added.');
+          removeKickedCharacters();
       });
 
-      // If exists in database but not in guild, remove
-      /*
-      var memberNames = [];
-      for(var i=0; i<guild.members.length; i++) {
-          memberNames.push(guild.members[i].name);
+      function removeKickedCharacters() {
+        // If exists in database but not in guild, remove
+        var memberNames = [];
+        for(var i=0; i<guild.members.length; i++) {
+            memberNames.push(guild.members[i].name);
+        }
+
+        Character.find({ name: { $nin: memberNames } }).exec(function (err, characters) {
+            if (err) { res.send(err); }
+
+            async.each(characters, function (characterToRemove, asyncRemoveCallback) {
+                characterToRemove.remove();
+                overrideCallback(false, characterToRemove.name, asyncRemoveCallback);
+            },
+            function(errRemoveAsync) {
+                if(errRemoveAsync) { res.send(errRemoveAsync); }
+                console.log('Characters removed.');
+                jobDone();
+            });
+        });
       }
-      Character.find({ name: { $nin: memberNames } }).exec(function (err, characters) {
-          if (err) { res.send(err); }
-          for(var k=0; k<characters.length; k++) {
-              var character = characters[k];
-              console.log('Characted ' + character.name + ' no longer in guild, removed.');
-              character.remove();
-          }
-      });
-      */
+
+      function jobDone() {
+        console.log('Results: ' + addedCharacters.length + ' added, ' + removedCharacters.length + ' removed.');
+        return res.send({
+          message: 'Characters updated',
+          addedCharacters: addedCharacters,
+          removedCharacters: removedCharacters
+        });
+      }
   });
 });
 

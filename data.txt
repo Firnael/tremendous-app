@@ -33,3 +33,19 @@
 - members[0].character.name
 - members[0].rank
 - members[...]
+
+//=================================
+Members since:
+
+20/06/2016
+----------
+Fourbux
+Canope
+Petokask
+Furialis
+Legrørobert
+Furïalis
+Sinôcx
+Kåmuii
+Trishyam
+Sheepeo

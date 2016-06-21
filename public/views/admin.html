@@ -8,19 +8,23 @@
 
 <!-- Guild -->
 <div class="row">
+  <!-- Update button -->
   <div class="col-md-2">
-    <a ng-click="vm.updateGuild()" ng-disabled="vm.waitingForGuildData" class="btn btn-default">
+    <a ng-click="vm.updateGuild()" ng-disabled="vm.updatingGuild" class="btn btn-default">
       Update guild
     </a>
   </div>
-  <div class="col-md-3" ng-show="vm.waitingForGuildData">
+  <!-- Refresh rotating icon -->
+  <div class="col-md-3" ng-show="vm.updatingGuild">
     <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
   </div>
+  <!-- Update message & last BNET update date -->
   <div class="col-md-3" ng-show="vm.guildUpdateMessage">
     {{ vm.guildUpdateMessage }}
     <br/>
     Last BNET update : {{ vm.guildLastModified }}
   </div>
+  <!-- Guild members count -->
   <div class="col-md-7" ng-show="vm.guildMemberCount">
     Members : {{ vm.guildMemberCount }}
   </div>
@@ -29,8 +33,23 @@
 
 <!-- Characters -->
 <div class="row">
+  <!-- Update button -->
   <div class="col-md-2">
-    <a ng-click="vm.updateCharacters()" class="btn btn-default">Update characters</a>
+    <a ng-click="vm.updateCharacters()" ng-disabled="vm.updatingCharacters" class="btn btn-default">
+      Update characters
+    </a>
   </div>
-  <div class="col-md-10"></div>
+  <!-- Refresh rotating icon -->
+  <div class="col-md-3" ng-show="vm.updatingCharacters">
+    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+  </div>
+  <div class="col-md-4" ng-show="vm.charactersUpdateMessage">
+    {{ vm.charactersUpdateMessage }}
+  </div>
+  <div class="col-md-3" ng-show="vm.addedCharacters">
+    Added : {{ vm.addedCharacters.length }}
+  </div>
+  <div class="col-md-3" ng-show="vm.removedCharacters">
+    Removed : {{ vm.removedCharacters.length }}
+  </div>
 </div>
