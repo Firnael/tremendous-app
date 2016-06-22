@@ -1,11 +1,13 @@
 var request = require('request');
 var express = require('express');
 var wowProgressApiRouter = express.Router();
-
+// Data
 var url = "http://www.wowprogress.com/guild/eu/ysondre/Millenium/json_rank";
 
 
-// Test route
+/**
+ * Test route
+ */
 wowProgressApiRouter.get('/', function(req, res) {
     request(url, function (err, response, body) {
         if (!err && response.statusCode == 200) {

@@ -33,16 +33,11 @@
           Warcraft Logs API
         </a>
         <br/>
-        <a href="#/character/Croclardon" class="btn btn-primary">Croclardon</a>
-
+        <a href="#/character/Sheepeo" class="btn btn-primary">Sheepeo</a>
 
         <hr/>
-        Character data:
-        <pre>{{ vm.characterInfo }}</pre>
-        <br/>
 
         Guild members:<br/>
-
         <div class="media" ng-repeat="member in vm.guildMembers.members">
           <div class="media-left">
             <a href="#">
@@ -58,35 +53,6 @@
           </div>
         </div>
 
-        <!-- <table class="table table-hover table-condensed">
-          <thead>
-            <th>Name</th>
-            <th>Class</th>
-            <th>Spec</th>
-            <th>Race</th>
-            <th>Gender</th>
-            <th>Level</th>
-            <th>Achiv.</th>
-            <th>Thumb.</th>
-            <th>Rank</th>
-          </thead>
-          <tbody>
-            <tr ng-repeat="member in vm.guildMembers.members">
-              <td>{{ member.character.name }}</td>
-              <td>{{ vm.getClassLabel(member.character.class) }}</td>
-              <td>{{ member.character.spec.name }}</td>
-              <td>{{ member.character.race }}</td>
-              <td>{{ member.character.gender }}</td>
-              <td>{{ member.character.level }}</td>
-              <td>{{ member.character.achievementPoints }}</td>
-              <td><img src="{{ vm.thumbnailPath + member.character.thumbnail }}"/></td>
-              <td>{{ member.rank }}</td>
-            </tr>
-          </tbody>
-        </table> -->
         <br/>
-
-        <input ng-model="vm.character" type="text" placeholder="Personnage"/>
-        <a class="btn" ng-click="vm.getCharacterInfo()">Get info !</a>
     </div>
 </div>

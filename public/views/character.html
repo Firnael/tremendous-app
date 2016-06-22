@@ -1,9 +1,42 @@
 <!-- Navbar -->
 <trmds-nav-bar></trmds-nav-bar>
 
-<!-- Home page -->
+<!-- Character page -->
 <div class = "row">
     <div class="col-md-12">
         <h2>{{ vm.title }}</h2>
     </div>
+</div>
+<div class = "row">
+    <div class="col-md-6">
+        <span>{{ vm.character.name }}</span>
+        <br/>
+        <span>
+          Guild rank :
+          <trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank>
+        </span>
+        <br/>
+        <span>{{ vm.character.class }}</span>
+        <br/>
+        <span>{{ vm.character.race }}</span>
+        <br/>
+        <span>{{ vm.character.gender }}</span>
+        <br/>
+        <span>{{ vm.character.level }}</span>
+        <br/>
+        <span>{{ vm.character.achievementPoints }}</span>
+        <br/>
+        <span>{{ vm.character.thumbnail }}</span>
+        <br/>
+        <span>{{ vm.character.averageItemLevel }}</span>
+        <br/>
+        <span>{{ vm.character.averageItemLevelEquipped }}</span>
+        <br/>
+        <span>{{ vm.character.arena2v2Rating }}</span>
+        <br/>
+        <span>{{ vm.character.arena3v3Rating }}</span>
+        <br/>
+        <span>{{ vm.character.arena5v5Rating }}</span>
+    </div>
+    <div class="col-md-6"></div>
 </div>

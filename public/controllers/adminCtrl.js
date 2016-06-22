@@ -16,7 +16,7 @@
         vm.guildLastModified;
 
         vm.updateGuild = updateGuild;
-        vm.updateCharacters = updateCharacters;
+        vm.updateCharacterCollection = updateCharacterCollection;
         activate();
 
         //////////////
@@ -36,14 +36,14 @@
           });
         }
 
-        function updateCharacters() {
-          vm.updatingCharacters = true;
+        function updateCharacterCollection() {
+          vm.updatingCharacterCollection = true;
 
-          CharacterSvc.update().then(function (result) {
-              vm.charactersUpdateMessage = result.message;
+          CharacterSvc.updateCollection().then(function (result) {
+              vm.characterCollectionUpdateMessage = result.message;
               vm.addedCharacters = result.addedCharacters;
               vm.removedCharacters = result.removedCharacters;
-              vm.updatingCharacters = false;
+              vm.updatingCharacterCollection = false;
           });
         }
     }

@@ -4,18 +4,22 @@ var guildApiRouter = express.Router();
 // Model
 var Guild = require('../models/guild');
 // Data
-var guildName = 'Millenium';
+var guildName = 'Tremendous';
 
 
-// Get collection
+/**
+ * Get one
+ */
 guildApiRouter.route('/').get(function(req, res) {
-    Guild.find({ 'name': guildName }, function(err, guild) {
+    Guild.findOne({ 'name': guildName }, function(err, guild) {
         if (err) { res.send(err); }
         res.json(guild);
     });
 });
 
-// Create or update guild
+/**
+ * Create or update guild
+ */
 guildApiRouter.route('/update').post(function(req, res) {
 
   // Retrieve Bnet Api guild data
@@ -86,12 +90,15 @@ guildApiRouter.route('/update').post(function(req, res) {
   });
 });
 
-// Drop collection
+/**
+ * Drop collection
+ */
 guildApiRouter.route('/drop').get(function(req, res) {
   Guild.remove({}, function(err) {
       console.log('Guild collection dropped')
   });
   res.send({ message: 'Guild collection dropped' });
 });
+
 
 module.exports = guildApiRouter;

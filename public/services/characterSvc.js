@@ -10,14 +10,23 @@
     function CharacterSvc($http, $location) {
 
         var service = {
-            update: update
+            getCharacter: getCharacter,
+            updateCollection: updateCollection
         };
         return service;
 
-        function update(){
-            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/character/update";
+        function getCharacter(characterName){
+            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/character/info/";
+            var promise = $http.get(url + characterName).then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+
+        function updateCollection(){
+            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/character/update-collection";
             var promise = $http.post(url).then(function(response) {
-              return response.data;
+                return response.data;
             });
             return promise;
         }

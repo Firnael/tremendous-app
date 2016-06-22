@@ -6,7 +6,7 @@ var characterApiRouter = express.Router();
 var Character = require('../models/character');
 var Guild = require('../models/guild');
 // Data
-var guildName = 'Millenium';
+var guildName = 'Tremendous';
 
 
 // TODO REMOVE
@@ -29,7 +29,9 @@ characterApiRouter.route('/createhyrm').get(function(req, res) {
     });
 })
 
-// Get collection
+/**
+ * Get all
+ */
 characterApiRouter.route('/').get(function(req, res) {
     Character.find(function(err, characters) {
         if (err) { res.send(err); }
@@ -37,7 +39,9 @@ characterApiRouter.route('/').get(function(req, res) {
     });
 });
 
-// Get one
+/**
+ * Get one
+ */
 characterApiRouter.route('/info/:characterName').get(function(req, res) {
     Character.findOne({ 'name': req.params.characterName }, function(err, character) {
         if (err) { return res.send(err); }
@@ -48,9 +52,11 @@ characterApiRouter.route('/info/:characterName').get(function(req, res) {
     });
 });
 
-// Create or update guild characters
-characterApiRouter.route('/update').post(function(req, res) {
-  console.log('Updating guild characters...');
+/**
+ * Update collection, create or remove guild characters based on BNET guild data
+ */
+characterApiRouter.route('/update-collection').post(function(req, res) {
+  console.log('Updating character collection...');
 
   var addedCharacters = [];
   var removedCharacters = [];
@@ -117,7 +123,7 @@ characterApiRouter.route('/update').post(function(req, res) {
       function jobDone() {
         console.log('Results: ' + addedCharacters.length + ' added, ' + removedCharacters.length + ' removed.');
         return res.send({
-          message: 'Characters updated',
+          message: 'Character collection updated',
           addedCharacters: addedCharacters,
           removedCharacters: removedCharacters
         });
@@ -125,7 +131,9 @@ characterApiRouter.route('/update').post(function(req, res) {
   });
 });
 
-// Update a specific character
+/**
+ * Update a specific character based on BNET character data
+ */
 characterApiRouter.route('/update/:characterName').get(function(req, res) {
     Character.findOne({ 'name': req.params.characterName }, function(errlocal, character) {
         if (errlocal) { res.send(errlocal); return; }
@@ -181,7 +189,9 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
     });
 });
 
-// Drop collection
+/**
+ * Drop collection
+ */
 characterApiRouter.route('/drop').get(function(req, res) {
   console.log('Dropping character collection...');
   Character.remove({}, function(err) {
@@ -189,11 +199,6 @@ characterApiRouter.route('/drop').get(function(req, res) {
       console.log('Character collection dropped.')
       return res.send({ message: 'Character collection dropped' });
   });
-});
-
-characterApiRouter.route('/test').get(function (req, res) {
-    console.log('test');
-    return res.send({ message: 'test '});
 });
 
 
