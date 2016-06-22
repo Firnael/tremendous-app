@@ -1,13 +1,46 @@
+/* Full height */
+html, body {
+    height: 100%;
+    font-family: 'Open Sans',sans-serif;
+}
+.fill {
+    min-height: 100%;
+    height: 100%;
+}
+
+/* Cover */
 .cover {
     text-align: center;
     color: #121212;
+}
+.cover h1 {
+    font-size: 90px;
+    text-shadow: 0px 2px 3px #333;
+    font-family: 'Oswald', sans-serif;
+}
+.cover h2 {
+    font-size: 50px;
     text-shadow: 0px 2px 3px #333;
     font-family: 'Oswald', sans-serif;
 }
 
-.cover h1 {
-    font-size: 90px;
+
+/* Character */
+.character-row {
+    height: 45%;
 }
-.cover h2 {
-    font: 50px;
+.character-unit {
+    width: 31%;
+    margin: 10px 10px 10px 10px;
+    background-color: #3c3c3c;
+}
+.character-unit:hover {
+    background-color: #494949;
+}
+.character-unit-header {
+    font-size: 11px;
+    height: 24px;
+    padding-top: 4px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed #222;
 }

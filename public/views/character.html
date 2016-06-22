@@ -2,41 +2,69 @@
 <trmds-nav-bar></trmds-nav-bar>
 
 <!-- Character page -->
-<div class = "row">
-    <div class="col-md-12">
-        <h2>{{ vm.title }}</h2>
+<!-- Top row -->
+<div class="row character-row">
+    <!-- Name + Thumbnail -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        PERSONNAGE
+      </div>
+      <span>{{ vm.character.name }}</span>
+      <br/>
+      <img ng-src="{{ vm.getThumbnailPath('inset') }}"/>
+      <br/>
+    </div>
+    <!-- Class + Thumbnail -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        CLASS + LEVEL
+      </div>
+      <span>Class : {{ vm.character.class }}</span>
+      <br/>
+      <span>Level : {{ vm.character.level }}</span>
+      <br/>
+      <span>
+        Guild rank :
+        <trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank>
+      </span>
+    </div>
+    <!-- iLvl -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        ILVL
+      </div>
+      <span>iLvl : {{ vm.character.averageItemLevel }}</span>
+      <br/>
+      <span>iLvl (equipped) : {{ vm.character.averageItemLevelEquipped }}</span>
     </div>
 </div>
-<div class = "row">
-    <div class="col-md-6">
-        <span>{{ vm.character.name }}</span>
-        <br/>
-        <span>
-          Guild rank :
-          <trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank>
-        </span>
-        <br/>
-        <span>{{ vm.character.class }}</span>
-        <br/>
-        <span>{{ vm.character.race }}</span>
-        <br/>
-        <span>{{ vm.character.gender }}</span>
-        <br/>
-        <span>{{ vm.character.level }}</span>
-        <br/>
-        <span>{{ vm.character.achievementPoints }}</span>
-        <br/>
-        <span>{{ vm.character.thumbnail }}</span>
-        <br/>
-        <span>{{ vm.character.averageItemLevel }}</span>
-        <br/>
-        <span>{{ vm.character.averageItemLevelEquipped }}</span>
-        <br/>
-        <span>{{ vm.character.arena2v2Rating }}</span>
-        <br/>
-        <span>{{ vm.character.arena3v3Rating }}</span>
-        <br/>
-        <span>{{ vm.character.arena5v5Rating }}</span>
+<!-- Bottom row -->
+<div class="row character-row">
+    <!-- Achievement points -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        HAUT-FAITS
+      </div>
+      <span>HF points : {{ vm.character.achievementPoints }}</span>
     </div>
-    <div class="col-md-6"></div>
+    <!-- Arena -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        ARENA
+      </div>
+      <span>2c2 : {{ vm.character.arena2v2Rating }}</span>
+      <br/>
+      <span>3c3 : {{ vm.character.arena3v3Rating }}</span>
+      <br/>
+      <span>5c5 : {{ vm.character.arena5v5Rating }}</span>
+    </div>
+    <!-- Professions -->
+    <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">
+        METIERS
+      </div>
+      <span>Métier1 : Bientôt</span>
+      <br/>
+      <span>Métier2 : Bientôt</span>
+    </div>
 </div>

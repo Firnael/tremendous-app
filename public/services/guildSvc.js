@@ -9,15 +9,17 @@
 
     function GuildSvc($http, $location) {
 
+        var prefix = 'http://';
+        var url = prefix + $location.host() + ":" + $location.port();
+
         var service = {
             update: update
         };
         return service;
 
         function update(){
-            var url = 'http://' + $location.host() + ":" + $location.port() + "/api/guild/update";
-            var promise = $http.post(url).then(function(response) {
-              return response.data;
+            var promise = $http.post(url + "/api/guild/update").then(function(response) {
+                return response.data;
             });
             return promise;
         }

@@ -9,11 +9,10 @@
 
     function CharacterCtrl($routeParams, CharacterSvc){
         var vm = this;
-        vm.title = 'Character Page';
         vm.character = {};
-        vm.test = 0;
 
         vm.getCharacter = getCharacter;
+        vm.getThumbnailPath = getThumbnailPath;
         activate();
 
         //////////////
@@ -28,6 +27,20 @@
                 console.log(result);
                 vm.character = result;
             });
+        }
+
+        /**
+         * Accepte 'avatar', 'inset' ou 'profile-main', du plus petit au plus grand
+         */
+        function getThumbnailPath(type) {
+            console.log('getThumbnailPath, type=' + type);
+            if(type !== 'avatar' && type !== 'inset' && type !== 'profile-main') {
+                console.log('getThumbnailPath : bad param');
+                return;
+            }
+            var path = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
+            var result = vm.character.thumbnail.replace('avatar', type);
+            return path + result;
         }
     }
 })();
