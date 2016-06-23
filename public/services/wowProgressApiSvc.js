@@ -5,12 +5,9 @@
         .module('app')
         .factory('WowProgressApiSvc', WowProgressApiSvc);
 
-    WowProgressApiSvc.$inject = ['$http', '$location'];
+    WowProgressApiSvc.$inject = ['$http', 'UtilsSvc'];
 
-    function WowProgressApiSvc($http, $location) {
-
-        var prefix = 'http://';
-        var url = prefix + $location.host() + ":" + $location.port();
+    function WowProgressApiSvc($http, UtilsSvc) {
 
         var service = {
             getTest: getTest
@@ -18,7 +15,7 @@
         return service;
 
         function getTest(){
-            var promise = $http.get(url + "/api/wowprogress/").then(function(response){
+            var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/wowprogress/").then(function(response){
                 return response.data;
             });
             return promise;

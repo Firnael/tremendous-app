@@ -5,12 +5,9 @@
         .module('app')
         .factory('CharacterSvc', CharacterSvc);
 
-    CharacterSvc.$inject = ['$http', '$location'];
+    CharacterSvc.$inject = ['$http', 'UtilsSvc'];
 
-    function CharacterSvc($http, $location) {
-
-        var prefix = 'http://';
-        var url = prefix + $location.host() + ":" + $location.port();
+    function CharacterSvc($http, UtilsSvc) {
 
         var service = {
             getCharacter: getCharacter,
@@ -19,14 +16,14 @@
         return service;
 
         function getCharacter(characterName){
-            var promise = $http.get(url + "/api/character/info/" + characterName).then(function(response) {
+            var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/info/" + characterName).then(function(response) {
                 return response.data;
             });
             return promise;
         }
 
         function updateCollection(){
-            var promise = $http.post(url + "/api/character/update-collection").then(function(response) {
+            var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/update-collection").then(function(response) {
                 return response.data;
             });
             return promise;

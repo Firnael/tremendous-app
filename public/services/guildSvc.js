@@ -5,12 +5,9 @@
         .module('app')
         .factory('GuildSvc', GuildSvc);
 
-    GuildSvc.$inject = ['$http', '$location'];
+    GuildSvc.$inject = ['$http', 'UtilsSvc'];
 
-    function GuildSvc($http, $location) {
-
-        var prefix = 'http://';
-        var url = prefix + $location.host() + ":" + $location.port();
+    function GuildSvc($http, UtilsSvc) {
 
         var service = {
             update: update
@@ -18,7 +15,7 @@
         return service;
 
         function update(){
-            var promise = $http.post(url + "/api/guild/update").then(function(response) {
+            var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/guild/update").then(function(response) {
                 return response.data;
             });
             return promise;
