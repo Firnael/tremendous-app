@@ -9,31 +9,27 @@
         <div class="character-unit-header">PERSONNAGE</div>
         <div class="character-unit-body">
             <img class="img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath('inset') }}"/>
-            <h3>{{ vm.character.name }}</h3>
+            <h1>{{ vm.character.name }}</h1>
         </div>
     </div>
     <!-- Class + Level + Guild rank -->
     <div class="col-md-4 fill character-unit">
       <div class="character-unit-header">CLASS + LEVEL + RANK</div>
-      <span>
-        Class :
-        <trmds-class char-class="{{ vm.character.class }}"></trmds-class>
-      </span>
-      <br/>
-      <span>Level : {{ vm.character.level }}</span>
-      <br/>
-      <span>
-        Guild rank :
-        <trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank>
-      </span>
+      <div class="character-unit-body">
+        <h2><trmds-class char-class="{{ vm.character.class }}"></trmds-class></h2>
+        <h3>Lvl {{ vm.character.level }}</h3>
+        <hr/>
+        <h2><trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank></h2>
+      </div>
     </div>
     <!-- iLvl -->
     <div class="col-md-4 fill character-unit-container">
       <div class="character-unit half-character-unit">
         <div class="character-unit-header">ILVL</div>
-        <span>iLvl : {{ vm.character.averageItemLevel }}</span>
-        <br/>
-        <span>iLvl (equipped) : {{ vm.character.averageItemLevelEquipped }}</span>
+        <div class="character-unit-body">
+          <h1>{{ vm.character.averageItemLevel }}</h1>
+          <h4 class="text-muted">{{ vm.character.averageItemLevelEquipped }} equipe</h4>
+        </div>
       </div>
       <div class="character-unit half-character-unit">
         <div class="character-unit-header">???</div>
@@ -46,17 +42,25 @@
     <!-- Achievement points -->
     <div class="col-md-2 fill character-unit">
       <div class="character-unit-header">HAUT-FAITS</div>
-      <span>HF points : {{ vm.character.achievementPoints }}</span>
+      <div class="character-unit-body">
+        <h1>{{ vm.character.achievementPoints }}</h1>
+        <img src="../assets/img/achievements.png" class="img-rounded"/>
+      </div>
     </div>
     <!-- Proving Grounds -->
     <div class="col-md-2 fill character-unit">
       <div class="character-unit-header">ORDALIE</div>
-      <span>DPS: {{ vm.character.provingGroundsDps }}</span>
-      <br/>
-      <span>TANK: {{ vm.character.provingGroundsTank }}</span>
-      <br/>
-      <span>HEAL: {{ vm.character.provingGroundsHeal }}</span>
-      <br/>
+      <div class="character-unit-body">
+        <span>DPS</span><br/>
+        <trmds-proving-grounds value="{{ vm.character.provingGroundsDps }}"></trmds-proving-grounds>
+        <br/><br/>
+        <span>TANK</span><br/>
+        <trmds-proving-grounds value="{{ vm.character.provingGroundsTank }}"></trmds-proving-grounds>
+        <br/><br/>
+        <span>HEAL</span><br/>
+        <trmds-proving-grounds value="{{ vm.character.provingGroundsHeal }}"></trmds-proving-grounds>
+        <br/>
+      </div>
     </div>
     <!-- Arena -->
     <div class="col-md-4 fill character-unit">
