@@ -6,8 +6,10 @@
 - professions.primary[1].name -- Joaillerie
 - professions.primary[1].rank -- 700
 - professions.primary[1].max -- 700
-(// � ajouter)
+(// A ajouter)
 - arrivalDate
+(HF Ordalie)
+- 
 
 //=================================
 Members since:

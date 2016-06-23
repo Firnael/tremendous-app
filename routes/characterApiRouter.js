@@ -146,7 +146,7 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
         // Getting character from bnet API
         bnet.wow.character.aggregate({
           origin: 'eu', realm: 'ysondre', name: req.params.characterName,
-          fields: ['items', 'pvp']
+          fields: ['items', 'pvp', 'achievements']
         },
         function(errbnet, body, bnetres) {
             if(errbnet) { res.send(errbnet); }
@@ -175,6 +175,10 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
               character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
               character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
               character.arena5v5Rating = body.pvp.brackets.ARENA_BRACKET_5v5.rating;
+              // Achievements - Proving Grounds
+              character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
+              character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
+              character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
 
               character.save(function(errsave) {
                   if (errsave) { return res.send(errsave); }
@@ -187,6 +191,41 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
             }
         });
     });
+
+    // dps - tank - heal
+    function getProvingGroundsAchievements(type, achievementsCompleted) {
+        switch(type) {
+          case 'dps':
+            if(achievementsCompleted.indexOf(9574) < 0) { // or
+                if(achievementsCompleted.indexOf(9573) < 0) { // argent
+                    if(achievementsCompleted.indexOf(9572) < 0) { // bronze
+                        return 0;
+                    } else { return 1; }
+                } else { return 2; }
+            } else { return 3; }
+          break;
+
+          case 'tank':
+            if(achievementsCompleted.indexOf(9580) < 0) { // or
+                if(achievementsCompleted.indexOf(9579) < 0) { // argent
+                    if(achievementsCompleted.indexOf(9578) < 0) { // bronze
+                        return 0;
+                    } else { return 1; }
+                } else { return 2; }
+            } else { return 3; }
+          break;
+
+          case 'heal':
+            if(achievementsCompleted.indexOf(9586) < 0) { // or
+                if(achievementsCompleted.indexOf(9585) < 0) { // argent
+                    if(achievementsCompleted.indexOf(9584) < 0) { // bronze
+                        return 0;
+                    } else { return 1; }
+                } else { return 2; }
+            } else { return 3; }
+          break;
+        }
+    }
 });
 
 /**

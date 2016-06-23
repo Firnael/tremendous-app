@@ -33,14 +33,15 @@
          * Accepte 'avatar', 'inset' ou 'profile-main', du plus petit au plus grand
          */
         function getThumbnailPath(type) {
-            console.log('getThumbnailPath, type=' + type);
             if(type !== 'avatar' && type !== 'inset' && type !== 'profile-main') {
                 console.log('getThumbnailPath : bad param');
                 return;
             }
-            var path = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
-            var result = vm.character.thumbnail.replace('avatar', type);
-            return path + result;
+            if(vm.character.thumbnail) {
+                var path = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
+                var result = vm.character.thumbnail.replace('avatar', type);
+                return path + result;
+            }
         }
     }
 })();

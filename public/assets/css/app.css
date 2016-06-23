@@ -27,20 +27,37 @@ html, body {
 
 /* Character */
 .character-row {
-    height: 45%;
+    height: 49%;
 }
+
+.character-unit-container {
+    padding: 0 0 0 0;
+}
+
 .character-unit {
-    width: 31%;
-    margin: 10px 10px 10px 10px;
     background-color: #3c3c3c;
+    background-image: url('../img/background.png');
+    border: 1px solid #222;
 }
 .character-unit:hover {
     background-color: #494949;
+    box-shadow: 3px 3px 2px 0 #151515;
 }
+
+.half-character-unit {
+    min-height: 50%;
+    padding: 0 15px 0 15px;
+}
+
 .character-unit-header {
     font-size: 11px;
     height: 24px;
     padding-top: 4px;
     margin-bottom: 4px;
     border-bottom: 1px dashed #222;
+}
+
+.character-unit-body {
+    padding-top: 10px;
+    text-align: center;
 }
