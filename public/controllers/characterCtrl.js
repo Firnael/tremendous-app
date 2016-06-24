@@ -11,7 +11,7 @@
         var vm = this;
         vm.character = {};
 
-        // Chart test
+        // Chart Professions
         vm.labels = ['', ''];
         vm.colours = ['#71c326','#555555'];
 
@@ -32,6 +32,8 @@
                 vm.character = result;
                 vm.professionData1 = vm.getProfessionData(0);
                 vm.professionData2 = vm.getProfessionData(1);
+                moment.locale('fr');
+                vm.lastModified = moment(vm.character.lastModified).calendar();
             });
         }
 

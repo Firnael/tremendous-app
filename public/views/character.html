@@ -4,12 +4,20 @@
 <!-- Character page -->
 <!-- Top row -->
 <div class="row character-row">
-    <!-- Name + Thumbnail -->
+    <!-- Name + Thumbnail + buttons -->
     <div class="col-md-4 fill character-unit">
         <div class="character-unit-header">PERSONNAGE</div>
         <div class="character-unit-body">
             <img class="img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath('inset') }}"/>
             <h1>{{ vm.character.name }}</h1>
+            <!-- Lien Battlenet -->
+            <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank">
+              <i class="fa fa-gamepad fa-2x" aria-hidden="true"></i>
+            </a>
+            <!-- Bouton Refresh -->
+            <a><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
+            <br/><br/>
+            <small class="text-muted">Derniere MAJ : {{ vm.lastModified }}</small>
         </div>
     </div>
     <!-- Class + Level + Guild rank -->
