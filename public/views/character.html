@@ -2,6 +2,12 @@
 <trmds-nav-bar></trmds-nav-bar>
 
 <!-- Character page -->
+<div ng-show="vm.updatingCharacter" style="text-align: center;">
+  <h1>Mise a jour</h1>
+  <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+</div>
+<span ng-show="!vm.updatingCharacter">
+
 <!-- Top row -->
 <div class="row character-row">
     <!-- Name + Thumbnail + buttons -->
@@ -15,7 +21,7 @@
               <i class="fa fa-gamepad fa-2x" aria-hidden="true"></i>
             </a>
             <!-- Bouton Refresh -->
-            <a><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
+            <a ng-click="vm.updateCharacter()" style="cursor: pointer;"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
             <br/><br/>
             <small class="text-muted">Derniere MAJ : {{ vm.lastModified }}</small>
         </div>
@@ -98,3 +104,4 @@
       </div>
     </div>
 </div>
+</span>

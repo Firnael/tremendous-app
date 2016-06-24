@@ -1,13 +1,7 @@
 // Character
-(professions)
-- professions.primary[0].name -- Alchimie
-- professions.primary[0].rank -- 715
-- professions.primary[0].max -- 700
-- professions.primary[1].name -- Joaillerie
-- professions.primary[1].rank -- 700
-- professions.primary[1].max -- 700
 (// A ajouter)
 - arrivalDate
+- spé
 
 //=================================
 Members since:

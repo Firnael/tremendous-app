@@ -9,6 +9,7 @@
 
     function CharacterCtrl($routeParams, CharacterSvc){
         var vm = this;
+        vm.updatingCharacter = true;
         vm.character = {};
 
         // Chart Professions
@@ -18,6 +19,7 @@
         vm.getCharacter = getCharacter;
         vm.getThumbnailPath = getThumbnailPath;
         vm.getProfessionData = getProfessionData;
+        vm.updateCharacter = updateCharacter;
         activate();
 
         //////////////
@@ -30,10 +32,14 @@
         function getCharacter() {
             CharacterSvc.getCharacter($routeParams.characterName).then(function (result) {
                 vm.character = result;
+                if(typeof vm.character.class == 'undefined') {
+                    return updateCharacter();
+                }
+
                 vm.professionData1 = vm.getProfessionData(0);
                 vm.professionData2 = vm.getProfessionData(1);
-                moment.locale('fr');
                 vm.lastModified = moment(vm.character.lastModified).calendar();
+                vm.updatingCharacter = false;
             });
         }
 
@@ -60,6 +66,13 @@
             var diff = max - rank;
             diff > 0 ? data.push(diff) : data.push(0);
             return data;
+        }
+
+        function updateCharacter() {
+            vm.updatingCharacter = true;
+            CharacterSvc.updateCharacter($routeParams.characterName).then(function (result) {
+                getCharacter();
+            });
         }
     }
 })();

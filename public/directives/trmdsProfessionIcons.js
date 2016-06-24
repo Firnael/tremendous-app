@@ -22,8 +22,8 @@
                         case 'Dépeçage': icon = 'inv_misc_pelt_wolf_01'; break;
                         case 'Enchantement': icon = 'trade_engraving'; break;
                         case 'Forge': icon = 'trade_blacksmithing'; break;
-                        case 'Herboriste': icon = 'trade_herbalism'; break;
-                        case 'Ingénieur': icon = 'trade_engineering'; break;
+                        case 'Herboristerie': icon = 'trade_herbalism'; break;
+                        case 'Ingénierie': icon = 'trade_engineering'; break;
                         case 'Joaillerie': icon = 'inv_misc_gem_01'; break;
                         case 'Mineur': icon = 'trade_mining'; break;
                         case 'Travail du cuir': icon = 'inv_misc_armorkit_17'; break;

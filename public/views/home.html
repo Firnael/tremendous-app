@@ -4,55 +4,32 @@
 <!-- Home page -->
 <div class = "row">
     <div class="col-md-12">
-        <h2>{{ vm.nice }}</h2>
+        <table class="table table-hover table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nom</th>
+              <th>Rang</th>
+              <th>Classe</th>
+              <th>Lvl</th>
+              <th>Avatar</th>
+              <th>HF</th>
+              <th>iLvl</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="character in vm.characters | orderBy:'+guildRank'">
+              <td>{{ $index+1 }}</td>
+              <td><a ng-href="#/character/{{ character.name }}">{{ character.name }}</a></td>
+              <td><trmds-guild-rank rank="{{ character.guildRank }}"></trmds-guild-rank></td>
+              <td><trmds-class char-class="{{ character.class }}"></trmds-class></td>
+              <td>{{ character.level }}</td>
+              <td>{{ character.thumbnail }}</td>
+              <td>{{ character.achievementPoints }}</td>
+              <td>{{ character.averageItemLevel }}</td>
+            </tr>
+          </tbody>
+        </table>
 
-        <a href="https://www.npmjs.com/package/battlenet-api" target="_blank">
-          Battlenet Community API
-        </a>
-        <br/>
-        <a href="https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4" target="_blank">
-          Build a RESTful API with Node.js and Express.js
-        </a>
-        <br/>
-        <a href="http://jtblin.github.io/angular-chart.js/" target="_blank">
-          Angular Charts 1
-        </a>
-        <a href="http://chinmaymk.github.io/angular-charts/" target="_blank">
-          Angular Charts 2
-        </a>
-        <br/>
-        <a href="http://www.bootstrapzero.com/blocks/" target="_blank">
-          Dashboard example
-        </a>
-
-        <hr/>
-        <a href="http://www.wowprogress.com/post/37_Data_Export" target="_blank">
-          WoWProgress API
-        </a>
-        <a href="https://www.warcraftlogs.com/v1/docs" target="_blank">
-          Warcraft Logs API
-        </a>
-        <br/>
-        <a href="#/character/Sheepeo" class="btn btn-primary">Sheepeo</a>
-
-        <hr/>
-
-        Guild members:<br/>
-        <div class="media" ng-repeat="member in vm.guildMembers.members">
-          <div class="media-left">
-            <a href="#">
-              <img class="media-object" src="{{ vm.thumbnailPath + member.character.thumbnail }}" alt="thumbnail">
-            </a>
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">
-              {{ member.character.name }} - Lvl {{ member.character.level }} -
-              {{ member.character.achievementPoints }} - Rang {{ member.rank }}
-            </h4>
-            {{ vm.getClassLabel(member.character.class) }} {{ member.character.spec.name }}<br/>
-          </div>
-        </div>
-
-        <br/>
     </div>
 </div>

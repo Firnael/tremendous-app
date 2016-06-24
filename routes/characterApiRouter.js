@@ -125,7 +125,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
 /**
  * Update a specific character based on BNET character data
  */
-characterApiRouter.route('/update/:characterName').get(function(req, res) {
+characterApiRouter.route('/update/:characterName').post(function(req, res) {
     Character.findOne({ 'name': req.params.characterName }, function(errlocal, character) {
         if (errlocal) { res.send(errlocal); return; }
         if (character == null ) {
@@ -140,13 +140,13 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
           fields: ['items', 'pvp', 'achievements']
         },
         */
-        
+
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
         var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions';
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
-        request(url + character.name + fields + locale + apikey, function (err, response, body) {
+        request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
             if(err) { res.send(err); }
             body = JSON.parse(body);
 
