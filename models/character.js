@@ -20,7 +20,10 @@ var CharacterSchema = new Schema({
     arena5v5Rating: Number,
     provingGroundsDps: Number,
     provingGroundsTank: Number,
-    provingGroundsHeal: Number
+    provingGroundsHeal: Number,
+    professions : [
+      { name: String, rank: Number, max: Number }
+    ]
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);

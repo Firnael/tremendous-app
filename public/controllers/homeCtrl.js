@@ -15,7 +15,6 @@
 
         vm.getCharacterInfo = getCharacterInfo;
         vm.getGuildMembers = getGuildMembers;
-        vm.getTest = getTest;
 
         vm.getClassLabel = getClassLabel;
         activate();
@@ -24,13 +23,6 @@
 
         function activate() {
             console.log('HomeCtrl activate');
-            getTest();
-        }
-
-        function getTest() {
-          BnetApiSvc.getTest().then(function(data){
-              console.log('TEST');
-          });
         }
 
         function getCharacterInfo() {

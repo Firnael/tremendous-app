@@ -65,17 +65,28 @@
     <!-- Arena -->
     <div class="col-md-4 fill character-unit">
       <div class="character-unit-header">ARENA</div>
-      <span>2c2 : {{ vm.character.arena2v2Rating }}</span>
-      <br/>
-      <span>3c3 : {{ vm.character.arena3v3Rating }}</span>
-      <br/>
-      <span>5c5 : {{ vm.character.arena5v5Rating }}</span>
+      <div class="character-unit-body">
+        <p>2c2<br/>{{ vm.character.arena2v2Rating }}</p>
+        <p>3c3<br/>{{ vm.character.arena3v3Rating }}</p>
+        <p>5c5<br/>{{ vm.character.arena5v5Rating }}</p>
+      </div>
     </div>
     <!-- Professions -->
     <div class="col-md-4 fill character-unit">
       <div class="character-unit-header">METIERS</div>
-      <span>1 : Soon</span>
-      <br/>
-      <span>2 : Soon</span>
+      <div class="character-unit-body character-unit-professions">
+        <div class="row">
+          <div class="col-md-6">
+            <trmds-profession-icons profession="{{ vm.character.professions[0].name }}"></trmds-profession-icons>
+            <br/><br/>
+            <canvas class="chart chart-doughnut" chart-data="vm.professionData1" chart-labels="vm.labels" chart-colours="vm.colours"></canvas>
+          </div>
+          <div class="col-md-6">
+            <trmds-profession-icons profession="{{ vm.character.professions[1].name }}"></trmds-profession-icons>
+            <br/><br/>
+            <canvas class="chart chart-doughnut" chart-data="vm.professionData2" chart-labels="vm.labels" chart-colours="vm.colours"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
 </div>

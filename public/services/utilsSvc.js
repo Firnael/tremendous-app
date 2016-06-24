@@ -17,7 +17,6 @@
         function getUrlPrefix(){
             var prefix = '';
             $location.host().includes('localhost') ? prefix = 'http' : prefix = 'https';
-            console.log('getUrlPrefix: ' + prefix + '://' + $location.host() + ":" + $location.port());
             return prefix + '://' + $location.host() + ":" + $location.port();
         }
 

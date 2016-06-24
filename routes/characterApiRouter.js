@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require('request');
 var async = require('async');
 var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
 var characterApiRouter = express.Router();
@@ -8,16 +9,6 @@ var Guild = require('../models/guild');
 // Data
 var guildName = 'Tremendous';
 
-
-// TODO REMOVE
-characterApiRouter.route('/createcroc').get(function(req, res) {
-    var character = new Character();
-    character.name = 'Croclardon';
-    character.save(function(err) {
-        if (err) { res.send(err); }
-        res.json({ message: 'Character ' + character.name + ' created !' });
-    });
-})
 
 // TODO REMOVE
 characterApiRouter.route('/createhyrm').get(function(req, res) {
@@ -143,13 +134,21 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
         }
         console.log('Updating character ' + character.name + '...');
 
-        // Getting character from bnet API
+        /*
         bnet.wow.character.aggregate({
           origin: 'eu', realm: 'ysondre', name: req.params.characterName,
           fields: ['items', 'pvp', 'achievements']
         },
-        function(errbnet, body, bnetres) {
-            if(errbnet) { res.send(errbnet); }
+        */
+        
+        // Getting character from bnet API
+        var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
+        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions';
+        var locale = '&locale=fr_FR';
+        var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
+        request(url + character.name + fields + locale + apikey, function (err, response, body) {
+            if(err) { res.send(err); }
+            body = JSON.parse(body);
 
             // Don't update if nothing change since the last time
             if(character.lastModified == body.lastModified) {
@@ -160,34 +159,45 @@ characterApiRouter.route('/update/:characterName').get(function(req, res) {
               });
             }
             else {
-              // Root
-              character.lastModified = body.lastModified;
-              character.class = body.class;
-              character.race = body.race;
-              character.gender = body.gender;
-              character.level = body.level;
-              character.achievementPoints = body.achievementPoints;
-              character.thumbnail = body.thumbnail;
-              // Items
-              character.averageItemLevel = body.items.averageItemLevel;
-              character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
-              // PvP
-              character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
-              character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
-              character.arena5v5Rating = body.pvp.brackets.ARENA_BRACKET_5v5.rating;
-              // Achievements - Proving Grounds
-              character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
-              character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
-              character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
+                // Root
+                character.lastModified = body.lastModified;
+                character.class = body.class;
+                character.race = body.race;
+                character.gender = body.gender;
+                character.level = body.level;
+                character.achievementPoints = body.achievementPoints;
+                character.thumbnail = body.thumbnail;
+                // Items
+                character.averageItemLevel = body.items.averageItemLevel;
+                character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
+                // PvP
+                character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
+                character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
+                character.arena5v5Rating = body.pvp.brackets.ARENA_BRACKET_5v5.rating;
+                // Achievements - Proving Grounds
+                character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
+                character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
+                character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
+                // Professions
+                var profession1 = {};
+                profession1.name = body.professions.primary[0].name;
+                profession1.rank = body.professions.primary[0].rank;
+                profession1.max = body.professions.primary[0].max;
+                var profession2 = {};
+                profession2.name = body.professions.primary[1].name;
+                profession2.rank = body.professions.primary[1].rank;
+                profession2.max = body.professions.primary[1].max;
+                character.professions.push(profession1);
+                character.professions.push(profession2);
 
-              character.save(function(errsave) {
-                  if (errsave) { return res.send(errsave); }
-                  console.log('Character ' + character.name + ' updated !');
-                  return res.json({
-                    message: 'Character ' + character.name + ' updated !',
-                    lastModified: character.lastModified
-                  });
-              });
+                character.save(function(errsave) {
+                    if (errsave) { return res.send(errsave); }
+                    console.log('Character ' + character.name + ' updated !');
+                    return res.json({
+                      message: 'Character ' + character.name + ' updated !',
+                      lastModified: character.lastModified
+                    });
+                });
             }
         });
     });
