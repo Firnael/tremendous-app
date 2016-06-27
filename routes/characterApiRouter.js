@@ -78,7 +78,11 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                       overrideCallback(true, member.name, asyncAddCallback);
                   });
               } else {
-                overrideCallback(null, null, asyncAddCallback);
+                character.guildRank = member.rank;
+                character.save(function(errcreate) {
+                    if (errcreate) { res.send(errcreate); }
+                    overrideCallback(null, null, asyncAddCallback);
+                });
               }
           });
       },
@@ -143,7 +147,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
-        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions';
+        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents';
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
@@ -189,6 +193,15 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 profession2.max = body.professions.primary[1].max;
                 character.professions.push(profession1);
                 character.professions.push(profession2);
+                // Specs
+                var spec1 = {};
+                spec1.name = body.talents[0].spec.name;
+                spec1.selected = body.talents[0].selected;
+                var spec2 = {};
+                spec2.name = body.talents[1].spec.name;
+                spec2.selected = body.talents[1].selected;
+                character.specs.push(spec1);
+                character.specs.push(spec2);
 
                 character.save(function(errsave) {
                     if (errsave) { return res.send(errsave); }
@@ -236,6 +249,19 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
           break;
         }
     }
+});
+
+/**
+ * Drop one
+ */
+characterApiRouter.route('/drop/:characterName').get(function(req, res) {
+  var characterToDrop = req.params.characterName;
+  console.log('Dropping character ' + characterToDrop + '...');
+  Character.remove({ 'name': characterToDrop }, function(err) {
+      if (err) { return res.send(err); }
+      console.log( 'Character ' + characterToDrop + ' dropped.');
+      return res.send({ message: 'Character ' + characterToDrop + ' dropped.' });
+  });
 });
 
 /**

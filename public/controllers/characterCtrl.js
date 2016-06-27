@@ -19,6 +19,7 @@
         vm.getCharacter = getCharacter;
         vm.getThumbnailPath = getThumbnailPath;
         vm.getProfessionData = getProfessionData;
+        vm.getSelectedSpec = getSelectedSpec;
         vm.updateCharacter = updateCharacter;
         activate();
 
@@ -58,6 +59,9 @@
             }
         }
 
+        /**
+         * Récupère les données nécessaires à l'affichage des donuts des métiers
+         */
         function getProfessionData(index) {
             var data = [];
             var rank = vm.character.professions[index].rank;
@@ -68,6 +72,22 @@
             return data;
         }
 
+        /**
+         * Détermine la spec à afficher
+         */
+        function getSelectedSpec() {
+            if(vm.character.specs) {
+                if(vm.character.specs[0].selected) {
+                    return vm.character.specs[0].name;
+                } else {
+                    return vm.character.specs[1].name;
+                }
+            }
+        }
+
+        /**
+         * Lance le job de mise à jour du personnage
+         */
         function updateCharacter() {
             vm.updatingCharacter = true;
             CharacterSvc.updateCharacter($routeParams.characterName).then(function (result) {

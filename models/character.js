@@ -23,6 +23,9 @@ var CharacterSchema = new Schema({
     provingGroundsHeal: Number,
     professions : [
       { name: String, rank: Number, max: Number }
+    ],
+    specs : [
+      { name: String, selected: Boolean }
     ]
 });
 

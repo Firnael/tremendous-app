@@ -1,7 +1,11 @@
 // Character
 (// A ajouter)
 - arrivalDate
-- spé
+(Talent)
+- talents[0].selected (spé 1)
+- talents[0].spec.name
+- talents[1].selected (spé 2)
+- talents[1].spec.name
 
 //=================================
 Members since:
@@ -20,7 +24,7 @@ Trishyam
 Sheepeo
 
 21/06/2016 (6(16))
-----------
+------------------
 Shamux
 Kyoryokux
 Trewdux
@@ -29,11 +33,17 @@ Bandidux
 Khat
 
 22/06/2016 (3(19))
-----------
+------------------
 Nyrmidia
 Nyrm
 Croclardon
 
 23/06/2016 (1(20))
-----------
+------------------
 Dejanire
+
+25/06/2016 (3(23))
+------------------
+Khât
+Faitesmoimal
+Lacougar

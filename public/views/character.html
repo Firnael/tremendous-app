@@ -30,7 +30,10 @@
     <div class="col-md-4 fill character-unit">
       <div class="character-unit-header">CLASS + LEVEL + RANK</div>
       <div class="character-unit-body">
-        <h2><trmds-class char-class="{{ vm.character.class }}"></trmds-class></h2>
+        <h2>
+          <trmds-class char-class="{{ vm.character.class }}"></trmds-class>
+          <small>{{ vm.getSelectedSpec() }}</small>
+        </h2>
         <h3>Lvl {{ vm.character.level }}</h3>
         <hr/>
         <h2><trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank></h2>
