@@ -33,7 +33,7 @@
 
         return {
             restrict: "E",
-            templateUrl: 'views/directives/proving-grounds.html',
+            template: '<img ng-src="{{ result }}" width="60" height="60" class="img-circle img-thumbnail"/>',
             link: link,
             scope: {
               value: '@'

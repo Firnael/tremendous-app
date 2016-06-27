@@ -5,8 +5,9 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#/home">Home</a></li>
-        <li><a href="#/admin">Admin</a></li>
+        <li ng-class="page === 'home' ? 'active' : ''"><a href="#/home">Home</a></li>
+        <li ng-class="page === 'progress' ? 'active' : ''"><a href="#/progress">Progress</a></li>
+        <li ng-class="page === 'admin' ? 'active' : ''"><a href="#/admin">Admin</a></li>
       </ul>
     </div>
   </div>

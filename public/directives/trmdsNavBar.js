@@ -9,8 +9,10 @@
     function trmdsNavBarDirective() {
         return {
             restrict: 'E',
-            scope: {},
-            templateUrl: 'views/directives/navbar.html'
+            templateUrl: 'views/directives/navbar.html',
+            scope: {
+              page: '@'
+            }
         };
     }
 })();

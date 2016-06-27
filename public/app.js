@@ -16,6 +16,11 @@ angular.module("app", ['ngRoute', 'timer', 'chart.js'])
                 controller: "adminCtrl",
                 controllerAs: "vm"
             })
+            .when("/progress", {
+                templateUrl: "views/progress.html",
+                controller: "progressCtrl",
+                controllerAs: "vm"
+            })
             .when('/character/:characterName', {
                 templateUrl: 'views/character.html',
                 controller: 'characterCtrl',
