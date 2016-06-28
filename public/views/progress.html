@@ -2,7 +2,11 @@
 <trmds-nav-bar page="progress"></trmds-nav-bar>
 
 <!-- Progress page -->
-<h2>Progress</h2>
+<div class="row">
+  <div class="col-md-12">
+    <h2>Progress</h2>
+  </div>
+</div>
 
 <!-- Links -->
 <div class="row">
@@ -18,9 +22,9 @@
 </div>
 
 <!-- Ranking -->
-<div class="row">
+<div class="row" style="height: 70%;">
   <div class="col-md-12">
     <h3>Ranking</h3>
-    <canvas class="chart chart-bar" chart-data="vm.data" chart-labels="vm.labels"></canvas>
+    <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels"></canvas>
   </div>
 </div>

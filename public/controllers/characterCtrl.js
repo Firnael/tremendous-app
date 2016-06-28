@@ -13,8 +13,8 @@
         vm.character = {};
 
         // Chart Professions
-        vm.labels = ['', ''];
-        vm.colours = ['#71c326','#555555'];
+        vm.labels = ['Accompli', 'Reste'];
+        vm.colors = ['#71c326','#555555'];
 
         vm.getCharacter = getCharacter;
         vm.getThumbnailPath = getThumbnailPath;
