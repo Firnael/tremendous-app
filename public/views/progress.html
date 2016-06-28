@@ -8,9 +8,13 @@
   </div>
 </div>
 
-<!-- Links -->
 <div class="row">
-  <div class="col-md-12">
+  <!-- Ranking -->
+  <div class="col-md-9">
+    <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"  chart-options="vm.options"></canvas>
+  </div>
+  <!-- Links -->
+  <div class="col-md-3">
     <a href="http://www.wowprogress.com/pve/eu/ysondre" target="_blank">
       Ysondre sur WoWProgress
     </a>
@@ -18,13 +22,5 @@
     <a href="http://www.wowprogress.com/guild/eu/ysondre/Tremendous" target="_blank">
       Tremendous sur WoWProgress
     </a>
-  </div>
-</div>
-
-<!-- Ranking -->
-<div class="row" style="height: 70%;">
-  <div class="col-md-12">
-    <h3>Ranking</h3>
-    <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels"></canvas>
   </div>
 </div>

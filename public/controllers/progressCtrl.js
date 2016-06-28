@@ -5,12 +5,52 @@
         .module('app')
         .controller('progressCtrl', ProgressCtrl);
 
-    ProgressCtrl.$inject = ['$scope'];
+    ProgressCtrl.$inject = [];
 
-    function ProgressCtrl($scope){
+    function ProgressCtrl(){
         var vm = this;
-        vm.data = [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]];
-        vm.labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
+
+        vm.options = {
+          scales : {
+            xAxes : [{
+                ticks: {
+                  beginAtZero: true,
+                  min: 0,
+                  max: 13,
+                  stepSize: 1
+                }
+            }]
+          }
+				};
+
+        vm.series = ['Progress'];
+
+        vm.data = [
+          [13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 12, 12, 11, 11, 11, 11, 11, 11, 11]
+        ];
+
+        vm.labels = [
+          'The Fallen',
+          'Millenium',
+          'Slow Motion',
+          'Danse Avec Les Løøts',
+          'Timeless',
+          'Løst Heaven',
+          'Shin',
+          'Loreless',
+          'Packet Loss',
+          'adveRsity',
+          'Sentence',
+          'Aeris',
+          'AquaPoney',
+          'Misery',
+          'Rhadamantis',
+          'Zero Respect',
+          'Enslave',
+          'Rainbow Magic Pony',
+          'Epic',
+          'Shoot Again'
+        ];
 
         activate();
 
