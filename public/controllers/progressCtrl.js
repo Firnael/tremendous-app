@@ -5,9 +5,9 @@
         .module('app')
         .controller('progressCtrl', ProgressCtrl);
 
-    ProgressCtrl.$inject = [];
+    ProgressCtrl.$inject = ['WowProgressApiSvc'];
 
-    function ProgressCtrl(){
+    function ProgressCtrl(WowProgressApiSvc){
         var vm = this;
 
         vm.options = {
@@ -52,12 +52,21 @@
           'Shoot Again'
         ];
 
+        vm.guildRank = undefined;
+        vm.getGuildRank = getGuildRank;
         activate();
 
         //////////////
 
         function activate() {
             console.log('ProgressCtrl activate');
+            vm.getGuildRank();
+        }
+
+        function getGuildRank() {
+            WowProgressApiSvc.getGuildRank().then(function (data) {
+                vm.guildRank = data;
+            });
         }
     }
 })();

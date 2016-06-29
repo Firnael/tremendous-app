@@ -6,7 +6,7 @@ var url = "http://www.wowprogress.com/guild/eu/ysondre/Millenium/json_rank";
 
 
 /**
- * Test route
+ * Get guild ranking
  */
 wowProgressApiRouter.get('/', function(req, res) {
     request(url, function (err, response, body) {

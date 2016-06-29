@@ -10,11 +10,11 @@
     function WowProgressApiSvc($http, UtilsSvc) {
 
         var service = {
-            getTest: getTest
+            getGuildRank: getGuildRank
         };
         return service;
 
-        function getTest(){
+        function getGuildRank(){
             var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/wowprogress/").then(function(response){
                 return response.data;
             });
