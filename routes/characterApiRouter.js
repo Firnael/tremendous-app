@@ -10,16 +10,6 @@ var Guild = require('../models/guild');
 var guildName = 'Tremendous';
 
 
-// TODO REMOVE
-characterApiRouter.route('/createhyrm').get(function(req, res) {
-    var character = new Character();
-    character.name = 'Hyrm';
-    character.save(function(err) {
-        if (err) { res.send(err); }
-        res.json({ message: 'Character ' + character.name + ' created !' });
-    });
-})
-
 /**
  * Get all
  */
@@ -73,11 +63,13 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   newCharacter.lastModified = 0;
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
+                  var accountId = member.rank in [0, 1, 2, 3, 4, 5] ? Math.floor(Math.random() * 10000000000) : 0;
+                  newCharacter.accountIdentifier = accountId;
                   newCharacter.save(function(errcreate) {
                       if (errcreate) { res.send(errcreate); }
                       overrideCallback(true, member.name, asyncAddCallback);
                   });
-              } else {
+              } else { // esle, update rank
                 character.guildRank = member.rank;
                 character.save(function(errcreate) {
                     if (errcreate) { res.send(errcreate); }
@@ -127,6 +119,51 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
 });
 
 /**
+ * Get mains
+ */
+characterApiRouter.route('/mains').get(function(req, res) {
+  Character.where('guildRank').in([0, 1, 2, 3, 4, 5])
+            .select('name guildRank accountIdentifier')
+            .exec(function (err, characters) {
+              if (err) { res.send(err); return; }
+              res.send(characters);
+  });
+});
+
+/**
+ * Get rerolls with no mains
+ */
+characterApiRouter.route('/rerolls').get(function(req, res) {
+  Character.where('guildRank', 6)
+            .where('accountIdentifier', 0)
+            .select('name guildRank accountIdentifier')
+            .exec(function (err, characters) {
+              if (err) { res.send(err); return; }
+              res.send(characters);
+  });
+});
+
+/**
+ * Link reroll to main
+ */
+characterApiRouter.route('/link').post(function (req, res) {
+  var reroll = req.body.reroll;
+  var main = req.body.main;
+
+  Character.findOne({ 'name': reroll.name }, function(err, character) {
+    if (err) { res.send(err); return; }
+
+    character.accountIdentifier = main.accountIdentifier;
+    character.save(function(errsave) {
+        if (errsave) { return res.send(errsave); }
+        var result = 'Reroll: ' + reroll.name + ' linked to Main: ' + main.name;
+        console.log(result);
+        return res.send({ message: result });
+    });
+  });
+});
+
+/**
  * Update a specific character based on BNET character data
  */
 characterApiRouter.route('/update/:characterName').post(function(req, res) {
@@ -151,7 +188,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
-            if(err) { res.send(err); }
+            if(err) { return res.send(err); }
             body = JSON.parse(body);
 
             // Don't update if nothing change since the last time
@@ -177,43 +214,53 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 // PvP
                 character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
                 character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
-                character.arena5v5Rating = body.pvp.brackets.ARENA_BRACKET_5v5.rating;
                 // Achievements - Proving Grounds
                 character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
                 character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
                 character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
                 // Professions
                 var profession1 = {};
-                profession1.name = body.professions.primary[0].name;
-                profession1.rank = body.professions.primary[0].rank;
-                profession1.max = body.professions.primary[0].max;
+                if(body.professions.primary[0]) {
+                  profession1.name = body.professions.primary[0].name;
+                  profession1.rank = body.professions.primary[0].rank;
+                  profession1.max = body.professions.primary[0].max;
+                }
                 var profession2 = {};
-                profession2.name = body.professions.primary[1].name;
-                profession2.rank = body.professions.primary[1].rank;
-                profession2.max = body.professions.primary[1].max;
+                if(body.professions.primary[1]) {
+                  profession2.name = body.professions.primary[1].name;
+                  profession2.rank = body.professions.primary[1].rank;
+                  profession2.max = body.professions.primary[1].max;
+                }
                 character.professions.push(profession1);
                 character.professions.push(profession2);
                 // Specs
                 var spec1 = {};
-                spec1.name = body.talents[0].spec.name;
-                spec1.selected = body.talents[0].selected;
+                if(body.talents[0].spec) {
+                  spec1.name = body.talents[0].spec.name;
+                  spec1.selected = body.talents[0].selected;
+                }
                 var spec2 = {};
-                spec2.name = body.talents[1].spec.name;
-                spec2.selected = body.talents[1].selected;
+                if(body.talents[1].spec) {
+                  spec2.name = body.talents[1].spec.name;
+                  spec2.selected = body.talents[1].selected;
+                }
                 character.specs.push(spec1);
                 character.specs.push(spec2);
-
-                character.save(function(errsave) {
-                    if (errsave) { return res.send(errsave); }
-                    console.log('Character ' + character.name + ' updated !');
-                    return res.json({
-                      message: 'Character ' + character.name + ' updated !',
-                      lastModified: character.lastModified
-                    });
-                });
+                updateCharacterCallback(character);
             }
         });
     });
+
+    function updateCharacterCallback(character) {
+        character.save(function(errsave) {
+            if (errsave) { return res.send(errsave); }
+            console.log('Character ' + character.name + ' updated !');
+            return res.json({
+              message: 'Character ' + character.name + ' updated !',
+              lastModified: character.lastModified
+            });
+        });
+    }
 
     // dps - tank - heal
     function getProvingGroundsAchievements(type, achievementsCompleted) {

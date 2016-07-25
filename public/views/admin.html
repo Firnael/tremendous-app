@@ -57,6 +57,40 @@
   </div>
 </div>
 
+<hr/>
+
+<!-- Mains / Rerolls -->
+<div class="row" ng-show="!vm.rerolls">
+  <div class="col-md-12">
+    Nothing to link, all rerolls have mains.
+  </div>
+</div>
+<div class="row" ng-show="vm.rerolls">
+  <div class="col-md-4">
+    <h4>Rerolls without mains</h4>
+    <div ng-repeat="reroll in vm.rerolls" ng-click="vm.selectedReroll = reroll" class="link-main-reroll"
+         ng-class="reroll.name === vm.selectedReroll.name ? 'selected' : ''">
+      {{ reroll.name }} - {{ reroll.guildRank }} - {{ reroll.accountIdentifier }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <h4>Mains</h4>
+    <div ng-repeat="main in vm.mains" ng-click="vm.selectedMain = main" class="link-main-reroll"
+         ng-class="main.name === vm.selectedMain.name ? 'selected' : ''">
+      {{ main.name }} - {{ main.guildRank }} - {{ main.accountIdentifier }}
+    </div>
+  </div>
+  <div class="col-md-4">
+    Reroll : {{ vm.selectedReroll.name }}
+    <br/>
+    Main : {{ vm.selectedMain.name }}
+    <br/>
+    <a class="btn btn-default" ng-disabled="!vm.selectedMain || !vm.selectedReroll || vm.linkingRerollToMain" ng-click="vm.linkRerollToMain()">
+      <i class="fa fa-refresh fa-spin" ng-show="vm.linkingRerollToMain"></i>
+      Link
+    </a>
+  </div>
+</div>
 <!-- Misc -->
 <hr/>
 <div class="row">

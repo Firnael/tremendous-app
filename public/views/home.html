@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="character in vm.characters | orderBy:['+guildRank','-averageItemLevel']">
+            <tr ng-repeat="character in vm.characters | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
               <td>{{ $index+1 }}</td>
               <td><a ng-href="#/character/{{ character.name }}">{{ character.name }}</a></td>
               <td><trmds-guild-rank rank="{{ character.guildRank }}"></trmds-guild-rank></td>

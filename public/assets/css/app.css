@@ -4,6 +4,10 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.label {
+  font-size: 100%;
+}
+
 .fill {
     min-height: 100%;
     height: 100%;
@@ -66,4 +70,24 @@ html, body {
 
 .character-unit-professions {
   margin-top: 50px;
+}
+
+
+/* Progress */
+.table-progress {
+  text-align: center;
+}
+.table-progress img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Admin */
+.link-main-reroll {
+  cursor: pointer;
+}
+.link-main-reroll.selected {
+  color: #0ce3ac;
 }

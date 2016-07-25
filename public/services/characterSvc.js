@@ -12,8 +12,11 @@
         var service = {
             getCharacter: getCharacter,
             getCharacters: getCharacters,
+            getMains: getMains,
+            getRerollsWithoutMains: getRerollsWithoutMains,
             updateCharacter: updateCharacter,
-            updateCollection: updateCollection
+            updateCollection: updateCollection,
+            linkRerollToMain: linkRerollToMain
         };
         return service;
 
@@ -28,6 +31,34 @@
         // Get all
         function getCharacters(){
             var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/").then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+
+        // Get mains (guild rank 0, 1, 2 and 3)
+        function getMains(){
+            var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/mains/").then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+
+        // Get rerolls without mains (accountId == 0)
+        function getRerollsWithoutMains(){
+            var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/rerolls/").then(function(response) {
+                return response.data;
+            });
+            return promise;
+        }
+
+        // Set reroll accountId = main accountId
+        function linkRerollToMain(reroll, main) {
+            var data = {};
+            data.reroll = reroll;
+            data.main = main;
+
+            var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/link/", data).then(function(response) {
                 return response.data;
             });
             return promise;

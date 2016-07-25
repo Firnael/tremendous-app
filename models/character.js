@@ -17,7 +17,6 @@ var CharacterSchema = new Schema({
     averageItemLevelEquipped: Number,
     arena2v2Rating: Number,
     arena3v3Rating: Number,
-    arena5v5Rating: Number,
     provingGroundsDps: Number,
     provingGroundsTank: Number,
     provingGroundsHeal: Number,
@@ -26,7 +25,8 @@ var CharacterSchema = new Schema({
     ],
     specs : [
       { name: String, selected: Boolean }
-    ]
+    ],
+    accountIdentifier: Number
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);

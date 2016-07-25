@@ -17,7 +17,8 @@
                         case '2': scope.result = 'Raid Leader'; break;
                         case '3': scope.result = 'Machine (Raider)'; break;
                         case '4': scope.result = 'Noob (Recrue)'; break;
-                        case '5': scope.result = 'Reroll'; break;
+                        case '5': scope.result = 'VIP'; break;
+                        case '6': scope.result = 'Reroll'; break;
                         default: scope.result = '???'; break;
                     }
                 }

@@ -25,7 +25,7 @@
                         case 'Herboristerie': icon = 'trade_herbalism'; break;
                         case 'Ingénierie': icon = 'trade_engineering'; break;
                         case 'Joaillerie': icon = 'inv_misc_gem_01'; break;
-                        case 'Mineur': icon = 'trade_mining'; break;
+                        case 'Minage': icon = 'trade_mining'; break;
                         case 'Travail du cuir': icon = 'inv_misc_armorkit_17'; break;
                         // Secondaires
                         case 'Archéologie' : icon = 'trade_archaeology'; break;

@@ -10,6 +10,12 @@
     function ProgressCtrl(WowProgressApiSvc){
         var vm = this;
 
+        /*
+        <!-- Ranking -->
+        <div class="col-md-9">
+          <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"  chart-options="vm.options"></canvas>
+        </div>
+        
         vm.options = {
           scales : {
             xAxes : [{
@@ -51,6 +57,7 @@
           'Epic',
           'Shoot Again'
         ];
+        */
 
         vm.guildRank = undefined;
         vm.getGuildRank = getGuildRank;
