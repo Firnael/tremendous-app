@@ -5,9 +5,20 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li ng-class="page === 'home' ? 'active' : ''"><a href="#/home">Home</a></li>
-        <li ng-class="page === 'progress' ? 'active' : ''"><a href="#/progress">Progress</a></li>
-        <li ng-class="page === 'admin' ? 'active' : ''"><a href="#/admin">Admin</a></li>
+        <li ng-class="page === 'home' ? 'active' : ''">
+          <a href="#/home"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+        </li>
+        <li ng-class="page === 'roster' ? 'active' : ''">
+          <a href="#/roster"><i class="fa fa-users" aria-hidden="true"></i> Roster</a>
+        </li>
+        <li ng-class="page === 'progress' ? 'active' : ''"><a href="#/progress">
+          <i class="fa fa-line-chart" aria-hidden="true"></i> Progress</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-class="page === 'admin' ? 'active' : ''"><a href="#/admin">
+          <i class="fa fa-cog" aria-hidden="true"></i> Admin</a>
+        </li>
       </ul>
     </div>
   </div>

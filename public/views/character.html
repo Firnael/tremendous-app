@@ -1,5 +1,6 @@
+<!-- Character info page -->
 <!-- Navbar -->
-<trmds-nav-bar page="home"></trmds-nav-bar>
+<trmds-nav-bar page="roster"></trmds-nav-bar>
 
 <!-- Character page -->
 <div ng-show="vm.updatingCharacter" style="text-align: center;">
@@ -81,13 +82,17 @@
     </div>
     <!-- Arena -->
     <div class="col-md-4 fill character-unit">
-      <div class="character-unit-header">ARENA</div>
+      <div class="character-unit-header">PVP</div>
       <div class="character-unit-body">
-        <h4>2c2</h4>
-        <h3>{{ vm.character.arena2v2Rating }}</h3>
-        <br/>
-        <h4>3c3</h4>
-        <h3>{{ vm.character.arena3v3Rating }}</h3>
+        <h5>2c2</h5>
+        <h4>{{ vm.character.arena2v2Rating }}</h4>
+        <span class="text-muted">{{ vm.character.arena2v2SeasonWon }}W {{ vm.character.arena2v2SeasonLost }}L</span>
+        <h5>3c3</h5>
+        <h4>{{ vm.character.arena3v3Rating }}</h4>
+        <span class="text-muted">{{ vm.character.arena3v3SeasonWon }}W {{ vm.character.arena3v3SeasonLost }}L</span>
+        <h5>RBG</h5>
+        <h4>{{ vm.character.rbgRating }}</h4>
+        <span class="text-muted">{{ vm.character.rbgSeasonWon }}W {{ vm.character.rbgSeasonLost }}L</span>
       </div>
     </div>
     <!-- Professions -->

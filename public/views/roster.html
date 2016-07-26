@@ -1,0 +1,23 @@
+<!-- Roster page -->
+<!-- Navbar -->
+<trmds-nav-bar page="roster"></trmds-nav-bar>
+
+<div class="row">
+  <div class="col-md-12">
+    <h2>Roster</h2>
+
+    <ul class="list-group">
+      <li class="list-group-item"
+          ng-repeat="main in vm.mains | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
+          {{ $index+1 }}
+          <a ng-href="#/character/{{ main.name }}">{{ main.name }}</a>
+          <trmds-guild-rank rank="{{ main.guildRank }}"></trmds-guild-rank>
+          <trmds-class char-class="{{ main.class }}"></trmds-class>
+          {{ main.level }}
+          {{ main.thumbnail }}
+          {{ main.achievementPoints }}
+          {{ main.averageItemLevel }}
+      </li>
+    </ul>
+  </div>
+</div>

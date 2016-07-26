@@ -22,7 +22,7 @@
 
                     var url = 'https://wow.zamimg.com/images/wow/icons/large/achievement_challengemode_';
                     if(tmp === '') {
-                      url = 'https://hydra-media.cursecdn.com/wow.gamepedia.com/9/97/Inv_misc_questionmark.png';
+                      url = 'assets/img/placeholder.png';
                     } else {
                       url += tmp + '.jpg';
                     }

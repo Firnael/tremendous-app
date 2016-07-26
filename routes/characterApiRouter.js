@@ -63,7 +63,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   newCharacter.lastModified = 0;
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
-                  var accountId = member.rank in [0, 1, 2, 3, 4, 5] ? Math.floor(Math.random() * 10000000000) : 0;
+                  var accountId = member.rank in [0, 1, 2, 3, 4, 6] ? Math.floor(Math.random() * 10000000000) : 0;
                   newCharacter.accountIdentifier = accountId;
                   newCharacter.save(function(errcreate) {
                       if (errcreate) { res.send(errcreate); }
@@ -122,7 +122,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
  * Get mains
  */
 characterApiRouter.route('/mains').get(function(req, res) {
-  Character.where('guildRank').in([0, 1, 2, 3, 4, 5])
+  Character.where('guildRank').in([0, 1, 2, 3, 4, 6])
             .select('name guildRank accountIdentifier')
             .exec(function (err, characters) {
               if (err) { res.send(err); return; }
@@ -134,7 +134,7 @@ characterApiRouter.route('/mains').get(function(req, res) {
  * Get rerolls with no mains
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {
-  Character.where('guildRank', 6)
+  Character.where('guildRank', 5)
             .where('accountIdentifier', 0)
             .select('name guildRank accountIdentifier')
             .exec(function (err, characters) {
@@ -213,7 +213,14 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
                 // PvP
                 character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
+                character.arena2v2SeasonWon = body.pvp.brackets.ARENA_BRACKET_2v2.seasonWon;
+                character.arena2v2SeasonLost = body.pvp.brackets.ARENA_BRACKET_2v2.seasonLost;
                 character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
+                character.arena3v3SeasonWon = body.pvp.brackets.ARENA_BRACKET_3v3.seasonWon;
+                character.arena3v3SeasonLost = body.pvp.brackets.ARENA_BRACKET_3v3.seasonLost;
+                character.rbgRating = body.pvp.brackets.ARENA_BRACKET_RBG.rating;
+                character.rbgSeasonWon = body.pvp.brackets.ARENA_BRACKET_RBG.seasonWon;
+                character.rbgSeasonLost = body.pvp.brackets.ARENA_BRACKET_RBG.seasonLost;
                 // Achievements - Proving Grounds
                 character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
                 character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);

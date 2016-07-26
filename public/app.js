@@ -11,6 +11,11 @@ angular.module("app", ['ngRoute', 'timer', 'chart.js'])
                 controller: "homeCtrl",
                 controllerAs: "vm"
             })
+            .when("/roster", {
+                templateUrl: "views/roster.html",
+                controller: "rosterCtrl",
+                controllerAs: "vm"
+            })
             .when("/admin", {
                 templateUrl: "views/admin.html",
                 controller: "adminCtrl",
