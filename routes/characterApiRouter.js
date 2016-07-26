@@ -123,7 +123,6 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
  */
 characterApiRouter.route('/mains').get(function(req, res) {
   Character.where('guildRank').in([0, 1, 2, 3, 4, 6])
-            .select('name guildRank accountIdentifier')
             .exec(function (err, characters) {
               if (err) { res.send(err); return; }
               res.send(characters);
@@ -136,7 +135,18 @@ characterApiRouter.route('/mains').get(function(req, res) {
 characterApiRouter.route('/rerolls').get(function(req, res) {
   Character.where('guildRank', 5)
             .where('accountIdentifier', 0)
-            .select('name guildRank accountIdentifier')
+            .exec(function (err, characters) {
+              if (err) { res.send(err); return; }
+              res.send(characters);
+  });
+});
+
+/**
+ * Get character collection by account identifier
+ */
+characterApiRouter.route('/account-id/:accountId').get(function(req, res) {
+  var accountId = req.params.accountId;
+  Character.where('accountIdentifier', accountId)
             .exec(function (err, characters) {
               if (err) { res.send(err); return; }
               res.send(characters);

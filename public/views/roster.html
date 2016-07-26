@@ -5,19 +5,47 @@
 <div class="row">
   <div class="col-md-12">
     <h2>Roster</h2>
-
-    <ul class="list-group">
-      <li class="list-group-item"
-          ng-repeat="main in vm.mains | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
-          {{ $index+1 }}
-          <a ng-href="#/character/{{ main.name }}">{{ main.name }}</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+      <div ng-repeat="main in vm.mains | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']"
+          ng-click="vm.selectMain(main)" class="btn btn-default roster-item">
+          <span class="roster-item-index">{{ $index+1 }}.</span>
+          <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
           <trmds-guild-rank rank="{{ main.guildRank }}"></trmds-guild-rank>
-          <trmds-class char-class="{{ main.class }}"></trmds-class>
-          {{ main.level }}
-          {{ main.thumbnail }}
-          {{ main.achievementPoints }}
-          {{ main.averageItemLevel }}
-      </li>
-    </ul>
+          <span>{{ main.averageItemLevel }}</span>
+      </div>
+  </div>
+  <div class="col-md-4" ng-show="vm.selectedMain">
+    <!-- Selected main -->
+    <div class="media">
+      <div class="media-left">
+        <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(vm.selectedMain) }}"></a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading" ng-class="vm.getClassColor(vm.selectedMain.class)">{{ vm.selectedMain.name }}</h4>
+        <a ng-href="#/character/{{ vm.selectedMain.name }}" class="btn btn-default">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <hr/>
+    <!-- Rerolls -->
+    <div class="media"
+         ng-repeat="reroll in vm.selectedRerolls | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
+      <div class="media-left">
+        <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(reroll) }}" width="60" height="60"></a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading" ng-class="vm.getClassColor(reroll.class)">{{ reroll.name }}</h4>
+        <a ng-href="#/character/{{ reroll.name }}" class="btn btn-sm btn-default">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+
+    <h3 class="text-muted" ng-show="vm.selectedRerolls.length === 0">Aucun rerolls</h3>
   </div>
 </div>

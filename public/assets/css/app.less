@@ -1,3 +1,54 @@
+/* Classes colors */
+@warrior-color: #C79C6E;
+@death-knight-color: #C41F3B;
+@demon-hunter-color: #A330C9;
+@druid-color: #FF7D0A;
+@hunter-color: #ABD473;
+@mage-color: #69CCF0;
+@monk-color: #00FF96;
+@paladin-color: #F58CBA;
+@priest-color: #FFFFFF;
+@rogue-color: #FFF569;
+@shaman-color: #0070DE;
+@warlock-color: #9482C9;
+
+.warrior {
+  color: @warrior-color;
+}
+.death-knight {
+  color: @death-knight-color;
+}
+.demon-hunter {
+  color: @demon-hunter-color;
+}
+.druid {
+  color: @druid-color;
+}
+.hunter {
+  color: @hunter-color;
+}
+.mage {
+  color: @mage-color;
+}
+.monk {
+  color: @monk-color;
+}
+.paladin {
+  color: @paladin-color;
+}
+.priest {
+  color: @priest-color;
+}
+.rogue {
+  color: @rogue-color;
+}
+.shaman {
+  color: @shaman-color;
+}
+.warlock {
+  color: @warlock-color;
+}
+
 /* Global */
 html, body {
     height: 100%;
@@ -90,4 +141,26 @@ html, body {
 }
 .link-main-reroll.selected {
   color: #0ce3ac;
+}
+
+
+/* Roster */
+.roster-item {
+  cursor: pointer;
+  &:hover {
+      .roster-item-hover();
+  }
+}
+.roster-item-hover() {
+    background-color: #2b2b2b;
+}
+
+.roster-item-index {
+  font-size: 12px;
+  color: #555;
+}
+
+.roster-item-name {
+  font-weight: bold;
+  font-size: 20px;
 }

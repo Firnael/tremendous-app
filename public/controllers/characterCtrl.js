@@ -5,9 +5,9 @@
         .module('app')
         .controller('characterCtrl', CharacterCtrl);
 
-    CharacterCtrl.$inject = ['$routeParams', 'CharacterSvc'];
+    CharacterCtrl.$inject = ['$routeParams', 'CharacterSvc', 'UtilsSvc'];
 
-    function CharacterCtrl($routeParams, CharacterSvc){
+    function CharacterCtrl($routeParams, CharacterSvc, UtilsSvc){
         var vm = this;
         vm.updatingCharacter = true;
         vm.character = {};
@@ -44,19 +44,10 @@
             });
         }
 
-        /**
-         * Accepte 'avatar', 'inset' ou 'profile-main', du plus petit au plus grand
-         */
-        function getThumbnailPath(type) {
-            if(type !== 'avatar' && type !== 'inset' && type !== 'profile-main') {
-                console.log('getThumbnailPath : bad param');
-                return;
-            }
-            if(vm.character.thumbnail) {
-                var path = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
-                var result = vm.character.thumbnail.replace('avatar', type);
-                return path + result;
-            }
+        function getThumbnailPath() {
+          if(vm.character.thumbnail) {
+            return UtilsSvc.getThumbnailPath('inset', vm.character.thumbnail);
+          }
         }
 
         /**

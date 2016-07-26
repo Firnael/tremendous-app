@@ -14,6 +14,7 @@
             getCharacters: getCharacters,
             getMains: getMains,
             getRerollsWithoutMains: getRerollsWithoutMains,
+            getByAccountId: getByAccountId,
             updateCharacter: updateCharacter,
             updateCollection: updateCollection,
             linkRerollToMain: linkRerollToMain
@@ -50,6 +51,13 @@
                 return response.data;
             });
             return promise;
+        }
+
+        function getByAccountId(accountId) {
+          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/account-id/" + accountId).then(function(response) {
+              return response.data;
+          });
+          return promise;
         }
 
         // Set reroll accountId = main accountId
