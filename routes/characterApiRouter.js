@@ -64,12 +64,13 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
                   var accountId = member.rank in [0, 1, 2, 3, 4, 6] ? Math.floor(Math.random() * 10000000000) : 0;
+                  newCharacter.role = 0;
                   newCharacter.accountIdentifier = accountId;
                   newCharacter.save(function(errcreate) {
                       if (errcreate) { res.send(errcreate); }
                       overrideCallback(true, member.name, asyncAddCallback);
                   });
-              } else { // esle, update rank
+              } else { // else, update rank
                 character.guildRank = member.rank;
                 character.save(function(errcreate) {
                     if (errcreate) { res.send(errcreate); }
@@ -169,6 +170,22 @@ characterApiRouter.route('/link').post(function (req, res) {
         var result = 'Reroll: ' + reroll.name + ' linked to Main: ' + main.name;
         console.log(result);
         return res.send({ message: result });
+    });
+  });
+});
+
+/**
+ * Set role
+ */
+characterApiRouter.route('/role').post(function (req, res) {
+  Character.findOne({ 'name': req.body.characterName }, function (err, character) {
+    if (err) { res.send(err); return; }
+
+    character.role = req.body.role;
+    character.save(function(errsave) {
+        if (errsave) { return res.send(errsave); }
+        console.log('Role: ' + character.role + ' set to character: ' + character.name);
+        return res.send(character);
     });
   });
 });

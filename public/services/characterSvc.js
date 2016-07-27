@@ -17,7 +17,8 @@
             getByAccountId: getByAccountId,
             updateCharacter: updateCharacter,
             updateCollection: updateCollection,
-            linkRerollToMain: linkRerollToMain
+            linkRerollToMain: linkRerollToMain,
+            setRole: setRole
         };
         return service;
 
@@ -70,6 +71,18 @@
                 return response.data;
             });
             return promise;
+        }
+
+        // Set role to character among 0:Tank, 1:Heal, 2:DPS
+        function setRole(characterName, role) {
+          var data = {};
+          data.characterName = characterName;
+          data.role = role;
+          
+          var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/role/", data).then(function(response) {
+              return response.data;
+          });
+          return promise;
         }
 
         // Update one

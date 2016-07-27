@@ -27,12 +27,13 @@ var CharacterSchema = new Schema({
     provingGroundsDps: Number,
     provingGroundsTank: Number,
     provingGroundsHeal: Number,
-    professions : [
+    professions: [
       { name: String, rank: Number, max: Number }
     ],
-    specs : [
+    specs: [
       { name: String, selected: Boolean }
     ],
+    role: Number,
     accountIdentifier: Number
 });
 

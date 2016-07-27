@@ -24,10 +24,11 @@
         vm.updateGuild = updateGuild;
         vm.updateCharacterCollection = updateCharacterCollection;
 
-        // Gestion des mains/rerolls
+        // Gestion des mains/rerolls et des roles
         vm.getMains = getMains;
         vm.getRerollsWithoutMains = getRerollsWithoutMains;
         vm.linkRerollToMain = linkRerollToMain;
+        vm.setRole = setRole;
 
         activate();
 
@@ -79,6 +80,18 @@
               vm.getRerollsWithoutMains();
               vm.selectedReroll = undefined;
               vm.linkingRerollToMain = false;
+          });
+        }
+
+        // Update the character role and reload it
+        function setRole(characterName, role) {
+          CharacterSvc.setRole(characterName, role).then(function (updatedCharacter) {
+            for(var i=0; i<vm.mains.length; i++) {
+              if(vm.mains[i].name === updatedCharacter.name) {
+                vm.mains[i] = updatedCharacter;
+                break;
+              }
+            }
           });
         }
     }

@@ -7,18 +7,26 @@
     <h2>Roster</h2>
   </div>
 </div>
+
 <div class="row">
+
+  <!-- Roster -->
   <div class="col-md-8">
-      <div ng-repeat="main in vm.mains | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']"
-          ng-click="vm.selectMain(main)" class="btn btn-default roster-item">
+      <div ng-repeat="main in vm.mains | orderBy:['+role', '+class', '-averageItemLevel']">
+        <a ng-click="vm.selectMain(main)" class="btn btn-default btn-sm roster-item">
           <span class="roster-item-index">{{ $index+1 }}.</span>
+          <trmds-role-icons role="{{ main.role }}" size="32"></trmds-role-icons>
           <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
           <trmds-guild-rank rank="{{ main.guildRank }}"></trmds-guild-rank>
           <span>{{ main.averageItemLevel }}</span>
+        </a>
+        <br/>
       </div>
   </div>
+
+  <!-- Selected character -->
   <div class="col-md-4" ng-show="vm.selectedMain">
-    <!-- Selected main -->
+    <!-- Main -->
     <div class="media">
       <div class="media-left">
         <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(vm.selectedMain) }}"></a>
