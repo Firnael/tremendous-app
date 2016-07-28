@@ -131,6 +131,17 @@ characterApiRouter.route('/mains').get(function(req, res) {
 });
 
 /**
+ * Get roster
+ */
+characterApiRouter.route('/roster').get(function (req, res) {
+  Character.where('guildRank').in([0, 1, 2, 3])
+            .exec(function (err, characters) {
+              if (err) { res.send(err); return; }
+              res.send(characters);
+  });
+});
+
+/**
  * Get rerolls with no mains
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {

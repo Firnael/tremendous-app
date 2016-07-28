@@ -9,11 +9,12 @@
 
     function RosterCtrl(CharacterSvc, UtilsSvc){
         var vm = this;
-        vm.mains = undefined;
+        vm.mains = [];
         vm.selectedMain = undefined;
         vm.selectedRerolls = undefined;
 
-        vm.getMains = getMains;
+        vm.getRoster = getRoster;
+        vm.getByRole = getByRole;
         vm.getClassColor = getClassColor;
         vm.selectMain = selectMain;
         vm.getThumbnailPath = getThumbnailPath;
@@ -23,13 +24,24 @@
 
         function activate() {
             console.log('RosterCtrl activate');
-            vm.mains = getMains();
+            getRoster();
         }
 
-        function getMains() {
-            CharacterSvc.getMains().then(function(data){
+        function getRoster() {
+            CharacterSvc.getRoster().then(function(data){
                 vm.mains = data;
             });
+        }
+
+        function getByRole(role) {
+          var charWithRole = [];
+          for(var i=0; i<vm.mains.length; i++) {
+            var char = vm.mains[i];
+            if(char.role === role) {
+              charWithRole.push(char);
+            }
+          }
+          return charWithRole;
         }
 
         function getClassColor(value) {

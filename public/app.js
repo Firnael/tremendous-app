@@ -1,4 +1,4 @@
-angular.module("app", ['ngRoute', 'timer', 'chart.js'])
+angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
     .config(function($routeProvider) {
         $routeProvider
             .when("/", {

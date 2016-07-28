@@ -4,51 +4,72 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h2>Roster</h2>
+    <h2>Roster <small>{{ vm.mains.length }} cassos</small></h2>
   </div>
 </div>
 
 <div class="row">
 
   <!-- Roster -->
-  <div class="col-md-8">
-      <div ng-repeat="main in vm.mains | orderBy:['+role', '+class', '-averageItemLevel']">
-        <a ng-click="vm.selectMain(main)" class="btn btn-default btn-sm roster-item">
-          <span class="roster-item-index">{{ $index+1 }}.</span>
-          <trmds-role-icons role="{{ main.role }}" size="32"></trmds-role-icons>
-          <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-          <trmds-guild-rank rank="{{ main.guildRank }}"></trmds-guild-rank>
-          <span>{{ main.averageItemLevel }}</span>
-        </a>
-        <br/>
+  <div class="col-md-3">
+    <!-- Tanks -->
+      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
+           ng-if="main.role === 0" ng-click="vm.selectMain(main)">
+        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
+        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
+        <span>{{ main.averageItemLevel }}</span>
+      </div>
+      <hr/>
+      <!-- Heals -->
+      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
+           ng-if="main.role === 1" ng-click="vm.selectMain(main)">
+        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
+        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
+        <span>{{ main.averageItemLevel }}</span>
+      </div>
+  </div>
+  <!-- Dps -->
+  <div class="col-md-3">
+      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
+           ng-if="main.role === 2" ng-click="vm.selectMain(main)">
+        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
+        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
+        <span>{{ main.averageItemLevel }}</span>
       </div>
   </div>
 
   <!-- Selected character -->
   <div class="col-md-4" ng-show="vm.selectedMain">
+
     <!-- Main -->
     <div class="media">
       <div class="media-left">
         <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(vm.selectedMain) }}"></a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading" ng-class="vm.getClassColor(vm.selectedMain.class)">{{ vm.selectedMain.name }}</h4>
-        <a ng-href="#/character/{{ vm.selectedMain.name }}" class="btn btn-default">
+        <h4 class="media-heading" ng-class="vm.getClassColor(vm.selectedMain.class)">
+          {{ vm.selectedMain.name }}
+          <small><trmds-guild-rank rank="{{ vm.selectedMain.guildRank }}"></trmds-guild-rank></small>
+        </h4>
+        <a ng-href="#/character/{{ vm.selectedMain.name }}" class="btn btn-sm btn-default">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
       </div>
     </div>
 
-    <hr/>
     <!-- Rerolls -->
+    <hr/>
     <div class="media"
          ng-repeat="reroll in vm.selectedRerolls | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
       <div class="media-left">
         <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(reroll) }}" width="60" height="60"></a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading" ng-class="vm.getClassColor(reroll.class)">{{ reroll.name }}</h4>
-        <a ng-href="#/character/{{ reroll.name }}" class="btn btn-sm btn-default">
+        <h4 class="media-heading" ng-class="vm.getClassColor(reroll.class)">
+          {{ reroll.name }}
+          <small><trmds-guild-rank rank="{{ reroll.guildRank }}"></trmds-guild-rank></small>
+        </h4>
+        <a ng-href="#/character/{{ reroll.name }}" class="btn btn-xs btn-default">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
       </div>

@@ -15,10 +15,10 @@
                         case '0': scope.result = 'GM'; break;
                         case '1': scope.result = 'CO-GM'; break;
                         case '2': scope.result = 'Raid Leader'; break;
-                        case '3': scope.result = 'Machine (Raider)'; break;
+                        case '3': scope.result = 'Raider'; break;
                         case '4': scope.result = 'VIP'; break;
                         case '5': scope.result = 'Reroll'; break;
-                        case '6': scope.result = 'Noob (Recrue)'; break;
+                        case '6': scope.result = 'Recrue'; break;
                         default: scope.result = '???'; break;
                     }
                 }

@@ -15,7 +15,7 @@
         <div class="col-md-9">
           <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"  chart-options="vm.options"></canvas>
         </div>
-        
+
         vm.options = {
           scales : {
             xAxes : [{
@@ -30,32 +30,9 @@
 				};
 
         vm.series = ['Progress'];
-
+        vm.labels = [ 'x'... autant d'occurences que de data ];
         vm.data = [
-          [13, 13, 13, 13, 13, 13, 13, 13, 12, 12, 12, 12, 12, 11, 11, 11, 11, 11, 11, 11]
-        ];
-
-        vm.labels = [
-          'The Fallen',
-          'Millenium',
-          'Slow Motion',
-          'Danse Avec Les Løøts',
-          'Timeless',
-          'Løst Heaven',
-          'Shin',
-          'Loreless',
-          'Packet Loss',
-          'adveRsity',
-          'Sentence',
-          'Aeris',
-          'AquaPoney',
-          'Misery',
-          'Rhadamantis',
-          'Zero Respect',
-          'Enslave',
-          'Rainbow Magic Pony',
-          'Epic',
-          'Shoot Again'
+          [x occurences]
         ];
         */
 

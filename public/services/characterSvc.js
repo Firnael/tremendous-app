@@ -12,6 +12,7 @@
         var service = {
             getCharacter: getCharacter,
             getCharacters: getCharacters,
+            getRoster: getRoster,
             getMains: getMains,
             getRerollsWithoutMains: getRerollsWithoutMains,
             getByAccountId: getByAccountId,
@@ -36,6 +37,14 @@
                 return response.data;
             });
             return promise;
+        }
+
+        // Get roster (guild rank 0, 1, 2 and 3)
+        function getRoster() {
+          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/roster/").then(function(response) {
+              return response.data;
+          });
+          return promise;
         }
 
         // Get mains (guild rank 0, 1, 2 and 3)
@@ -78,7 +87,7 @@
           var data = {};
           data.characterName = characterName;
           data.role = role;
-          
+
           var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/role/", data).then(function(response) {
               return response.data;
           });
