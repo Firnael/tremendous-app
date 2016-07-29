@@ -12,12 +12,13 @@
         vm.mains = [];
         vm.selectedMain = undefined;
         vm.selectedRerolls = undefined;
+        vm.displayMain = false;
 
         vm.getRoster = getRoster;
-        vm.getByRole = getByRole;
         vm.getClassColor = getClassColor;
         vm.selectMain = selectMain;
         vm.getThumbnailPath = getThumbnailPath;
+        vm.getAverageIlvl = getAverageIlvl;
         activate();
 
         //////////////
@@ -33,24 +34,15 @@
             });
         }
 
-        function getByRole(role) {
-          var charWithRole = [];
-          for(var i=0; i<vm.mains.length; i++) {
-            var char = vm.mains[i];
-            if(char.role === role) {
-              charWithRole.push(char);
-            }
-          }
-          return charWithRole;
-        }
-
         function getClassColor(value) {
           return UtilsSvc.getCssClassByCharacterClass(value);
         }
 
         function selectMain(main) {
+          vm.displayMain = false;
           vm.selectedMain = main;
           vm.selectedRerolls = [];
+
           CharacterSvc.getByAccountId(main.accountIdentifier).then(function(data) {
             for(var i=0; i<data.length; i++) {
               var character = data[i];
@@ -58,6 +50,7 @@
                 vm.selectedRerolls.push(character);
               }
             }
+            vm.displayMain = true;
           });
         }
 
@@ -66,6 +59,14 @@
             return UtilsSvc.getThumbnailPath('avatar', character.thumbnail);
           }
           return 'assets/img/placeholder.png';
+        }
+
+        function getAverageIlvl() {
+          var total = 0;
+          for(var i=0; i<vm.mains.length; i++) {
+            total += vm.mains[i].averageItemLevel;
+          }
+          return (total / vm.mains.length).toFixed(1);
         }
     }
 })();

@@ -4,42 +4,49 @@
 
 <div class="row">
   <div class="col-md-12">
-    <h2>Roster <small>{{ vm.mains.length }} cassos</small></h2>
+    <h2>Roster <small class="fade" ng-show="vm.mains.length">
+      {{ vm.mains.length }} blaireaux - ilvl moyen: {{ vm.getAverageIlvl() }}
+    </small></h2>
+    <br/>
   </div>
 </div>
 
 <div class="row">
 
   <!-- Roster -->
-  <div class="col-md-3">
-    <!-- Tanks -->
-      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
+  <span class="fade" ng-show="vm.mains.length">
+    <div class="col-md-3">
+      <!-- Tanks -->
+      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
            ng-if="main.role === 0" ng-click="vm.selectMain(main)">
+        <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
         <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
         <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-        <span>{{ main.averageItemLevel }}</span>
       </div>
-      <hr/>
+      <trmds-role-icons role="0" size="30"></trmds-role-icons>
+      <span class="text-muted">Ok les tanks faut venir</span>
+      <br/><br/>
       <!-- Heals -->
-      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
+      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
            ng-if="main.role === 1" ng-click="vm.selectMain(main)">
+        <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
         <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
         <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-        <span>{{ main.averageItemLevel }}</span>
       </div>
-  </div>
-  <!-- Dps -->
-  <div class="col-md-3">
-      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="fade roster-item"
-           ng-if="main.role === 2" ng-click="vm.selectMain(main)">
-        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
-        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-        <span>{{ main.averageItemLevel }}</span>
-      </div>
-  </div>
+    </div>
+    <!-- Dps -->
+    <div class="col-md-3">
+        <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
+             ng-if="main.role === 2" ng-click="vm.selectMain(main)">
+          <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
+          <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
+          <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
+        </div>
+    </div>
+  </span>
 
   <!-- Selected character -->
-  <div class="col-md-4" ng-show="vm.selectedMain">
+  <div class="col-md-4 fade" ng-show="vm.displayMain">
 
     <!-- Main -->
     <div class="media">
@@ -74,7 +81,7 @@
         </a>
       </div>
     </div>
-
-    <h3 class="text-muted" ng-show="vm.selectedRerolls.length === 0">Aucun rerolls</h3>
+    <!-- No rerolls -->
+    <h3 class="text-muted" ng-show="vm.displayMain && vm.selectedRerolls.length === 0">Aucun rerolls</h3>
   </div>
 </div>
