@@ -1,0 +1,30 @@
+<div class="sidenav" ng-class="open" ng-mouseover="open='open'" ng-mouseleave="open=''">
+  <!-- Home -->
+  <div class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
+    <a class="sidenav-element-content" href="#/home">
+      <i class="fa fa-home" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Home</span>
+    </a>
+  </div>
+  <!-- Roster -->
+  <div class="sidenav-element" ng-class="page === 'roster' ? 'active' : ''">
+    <a class="sidenav-element-content" href="#/roster">
+      <i class="fa fa-users" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Roster</span>
+    </a>
+  </div>
+  <!-- Progress -->
+  <div class="sidenav-element" ng-class="page === 'progress' ? 'active' : ''">
+    <a class="sidenav-element-content" href="#/progress">
+      <i class="fa fa-line-chart" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Progress</span>
+    </a>
+  </div>
+  <!-- Admin -->
+  <div class="sidenav-element" ng-class="page === 'admin' ? 'active' : ''">
+    <a class="sidenav-element-content" href="#/admin">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Admin</span>
+    </a>
+  </div>
+</div>

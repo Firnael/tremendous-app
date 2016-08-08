@@ -1,6 +1,10 @@
 <!-- Roster page -->
 <!-- Navbar -->
-<trmds-nav-bar page="roster"></trmds-nav-bar>
+<!-- <trmds-nav-bar page="roster"></trmds-nav-bar> -->
+<!-- Sidebar -->
+<trmds-side-bar page="roster" open="open"></trmds-side-bar>
+
+<div class="rows-wrapper" ng-class="open">
 
 <div class="row">
   <div class="col-md-12">
@@ -84,4 +88,5 @@
     <!-- No rerolls -->
     <h3 class="text-muted" ng-show="vm.displayMain && vm.selectedRerolls.length === 0">Aucun rerolls</h3>
   </div>
+</div>
 </div>

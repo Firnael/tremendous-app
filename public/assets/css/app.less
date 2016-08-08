@@ -51,12 +51,8 @@
 
 /* Global */
 html, body {
-    height: 100%;
-    font-family: 'Open Sans', sans-serif;
-}
-
-body {
-  padding-top: 70px;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .label {
@@ -69,7 +65,7 @@ body {
 }
 
 
-/* Side nav test */
+/* Sidenav */
 .sidenav {
   height: 100%;
   width: 70px;
@@ -80,16 +76,42 @@ body {
   background-color: #111;
   overflow-x: hidden;
   transition: 0.5s;
+  &.open {
+    width: 250px;
+  }
+  .sidenav-element {
+    cursor: pointer;
+    height: 100px;
+    &.active {
+      background-color: #444;
+    }
+    &:hover {
+        background-color: #333;
+    }
+    .sidenav-element-content {
+      text-decoration: none;
+      color: #FFFFFF;
+      position: absolute;
+      font-size: 40px;
+      white-space: nowrap;
+      margin-top: 20px;
+      margin-left: 16px;
+      i {
+        min-width: 70px;
+      }
+      span {
+        font-size: 30px;
+      }
+    }
+  }
 }
-.sidenav.open {
-  width: 250px;
-}
-.row-special {
+
+.rows-wrapper {
   transition: margin-left .5s;
   margin-left: 70px;
-}
-.row-special.open {
-  margin-left: 250px;
+  &.open {
+    margin-left: 250px;
+  }
 }
 
 
