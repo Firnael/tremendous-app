@@ -9,7 +9,6 @@
 
     function AdminCtrl(BnetApiSvc, GuildSvc, CharacterSvc){
         var vm = this;
-        vm.title = 'Admin Page';
 
         // Guild
         vm.guildUpdateMessage;

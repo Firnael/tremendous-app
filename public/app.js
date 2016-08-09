@@ -26,6 +26,11 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
                 controller: "progressCtrl",
                 controllerAs: "vm"
             })
+            .when("/ranking", {
+                templateUrl: "views/ranking.html",
+                controller: "rankingCtrl",
+                controllerAs: "vm"
+            })
             .when('/character/:characterName', {
                 templateUrl: 'views/character.html',
                 controller: 'characterCtrl',

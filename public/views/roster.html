@@ -1,19 +1,18 @@
 <!-- Roster page -->
-<!-- Navbar -->
-<!-- <trmds-nav-bar page="roster"></trmds-nav-bar> -->
 <!-- Sidebar -->
 <trmds-side-bar page="roster" open="open"></trmds-side-bar>
 
 <div class="rows-wrapper" ng-class="open">
 
-<div class="row">
+<div class="row title-bar">
   <div class="col-md-12">
     <h2>Roster <small class="fade" ng-show="vm.mains.length">
       {{ vm.mains.length }} blaireaux - ilvl moyen: {{ vm.getAverageIlvl() }}
-    </small></h2>
-    <br/>
+      </small>
+    </h2>
   </div>
 </div>
+<br/>
 
 <div class="row">
 

@@ -1,0 +1,41 @@
+<!-- Roster page -->
+<!-- Sidebar -->
+<trmds-side-bar page="ranking" open="open"></trmds-side-bar>
+
+<div class="rows-wrapper" ng-class="open">
+
+  <div class="row title-bar">
+    <div class="col-md-12">
+      <h2>Ranking <small>Serveur, Region, Monde</small></h2>
+    </div>
+  </div>
+
+  <!-- Ranking -->
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <span class="label label-success">Server Rank</span>&nbsp;
+        <span class="badge">{{ vm.guildRank.realm_rank }}</span>
+        -
+        <span class="label label-success">EU Rank</span>&nbsp;
+        <span class="badge">{{ vm.guildRank.area_rank }}</span>
+        -
+        <span class="label label-success">World Rank</span>&nbsp;
+        <span class="badge">{{ vm.guildRank.world_rank }}</span>
+      </p>
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
+    </div>
+    <div class="col-md-4">
+      <h3>WowProgress</h3>
+      <a class="btn btn-default btn-sm" href="http://www.wowprogress.com/pve/eu/ysondre" target="_blank">
+        Ysondre
+      </a>
+      <a class="btn btn-default btn-sm" href="http://www.wowprogress.com/guild/eu/ysondre/Tremendous" target="_blank">
+        Tremendous
+      </a>
+    </div>
+  </div>
+
+</div>

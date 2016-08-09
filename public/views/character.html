@@ -1,6 +1,4 @@
 <!-- Character info page -->
-<!-- Navbar -->
-<!-- <trmds-nav-bar page="roster"></trmds-nav-bar> -->
 <!-- Sidebar -->
 <trmds-side-bar page="roster" open="open"></trmds-side-bar>
 
@@ -20,7 +18,7 @@
     <div class="col-md-4 fill character-unit">
         <div class="character-unit-header">PERSONNAGE</div>
         <div class="character-unit-body">
-            <img class="img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath() }}"/>
+            <img class="character-unit-thumbnail img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath() }}"/>
             <h1>{{ vm.character.name }}</h1>
             <!-- Lien Battlenet -->
             <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank">

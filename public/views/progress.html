@@ -1,113 +1,141 @@
 <!-- Progress page -->
-<!-- Navbar -->
-<!-- <trmds-nav-bar page="progress"></trmds-nav-bar> -->
 <!-- Sidebar -->
 <trmds-side-bar page="progress" open="open"></trmds-side-bar>
 
 <div class="rows-wrapper" ng-class="open">
 
-<!-- Emerald Nightmare -->
-<div class="row">
-  <div class="col-md-12">
-    <a href="http://www.wowhead.com/zone=8026/the-emerald-nightmare" target="_blank">
-      <h2>The Emerald Nightmare</h2>
-    </a>
-    <table class="table table-progress">
-      <thead>
-        <tr>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-ursoc.png"/></th>
-          <th>Nythendra</th>
-          <th>Elerethe Renferal</th>
-          <th>Il'gynoth</th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-dragons-of-nightmare.png"/></th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-cenarius.png"/></th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-xavius.png"/></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="label label-primary">Normal</span></td>
-          <td><span class="label label-warning">Heroic</span></td>
-          <td><span class="label label-danger">Mythic</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="row title-bar">
+    <div class="col-md-12">
+      <h2>Progress <small>Avancee des downs par difficulte</small></h2>
+    </div>
 </div>
 
-<hr/>
+<div class="progress-wrapper">
+
+<!-- Emerald Nightmare -->
+<div class="progress-row" style="background-image: url(http://2.bp.blogspot.com/-p5fFpOAHgFA/Vek7T-kyqKI/AAAAAAAAC_s/u52b_te4oeA/s1600/nightmare.JPG);
+background-size: cover;">
+  <div class="row progress-title-row">
+    <div class="col-md-12">
+      <h3>Cauchemard d'Emeraude
+        <a href="http://fr.wowhead.com/zone=8026/le-cauchemar-d-emeraude" target="_blank">
+          <img src="http://static.zealous-studios.co.uk/projects/wowwiki/images/Icon-wowhead-48x48.png"
+               title="Voir sur WoWHead" width="20" height="20"/>
+        </a>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row progress-content-row">
+    <trmds-progress-boss-unit
+      name="Ursoc"
+      difficulty="Normal"
+      size="col-md-3">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Nythendra"
+      difficulty="Heroic"
+      size="col-md-3">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Elerethe Renferal"
+      difficulty="Mythic"
+      size="col-md-3">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Il'gynoth"
+      difficulty="TODO"
+      size="col-md-3">
+    </trmds-progress-boss-unit>
+  </div>
+  <div class="row progress-content-row">
+    <trmds-progress-boss-unit
+      name="Dragons du cauchemard"
+      difficulty="TODO"
+      size="col-md-4">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Cenarius"
+      difficulty="TODO"
+      size="col-md-4">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Xavius"
+      difficulty="TODO"
+      size="col-md-4">
+    </trmds-progress-boss-unit>
+  </div>
+</div>
 
 <!-- Nighthold -->
-<div class="row">
-  <div class="col-md-12">
-    <a href="http://www.wowhead.com/zone=8025/the-nighthold" target="_blank">
-      <h2>The Nighthold</h2>
-    </a>
-    <table class="table table-progress">
-      <thead>
-        <tr>
-          <th>Skorpyron</th>
-          <th>Krosus</th>
-          <th>Chronomatic Anomaly</th>
-          <th>Trilliax</th>
-          <th>Star Augur Etraeus</th>
-          <th>Grand Magistrix Elisande</th>
-          <th>High Botanist Tel'arn</th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-spellblade-aluriel.png" title="Spellblade Aluriel"/></th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-tichondrius.png" title="Tichondrius"/></th>
-          <th><img src="http://wow.zamimg.com/images/wow/journal/ui-ej-boss-guldan.png" title="Gul'dan"/></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-          <td><span class="label label-default">TODO</span></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="progress-row" style="background-image: url(http://wow.zamimg.com/uploads/screenshots/resized/516576.jpg); background-size: cover;">
+  <div class="row progress-title-row">
+    <div class="col-md-12">
+      <h3>Palais Sacrenuit
+        <a href="http://fr.wowhead.com/zone=8025/palais-sacrenuit" target="_blank">
+          <img src="http://static.zealous-studios.co.uk/projects/wowwiki/images/Icon-wowhead-48x48.png"
+               title="Voir sur WoWHead" width="20" height="20"/>
+        </a>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row progress-content-row">
+    <trmds-progress-boss-unit
+      name="Skorpyron"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Krosus"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Anomalie chromatique"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Trilliax"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Star Augur Etraeus"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+  </div>
+  <div class="row progress-content-row">
+    <trmds-progress-boss-unit
+      name="Grand Magistrix Elisande"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="High Botanist Tel'arn"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+
+    <trmds-progress-boss-unit
+      name="Spellblade Aluriel"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Tichondrius"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
+    <trmds-progress-boss-unit
+      name="Gul'dan"
+      difficulty="TODO"
+      size="col-md-1 col-md-5th">
+    </trmds-progress-boss-unit>
   </div>
 </div>
 
-<hr/>
-
-<!-- Ranking -->
-<div class="row">
-  <div class="col-md-4">
-    <h3>WowProgress</h3>
-    <a class="btn btn-default btn-sm" href="http://www.wowprogress.com/pve/eu/ysondre" target="_blank">
-      Ysondre
-    </a>
-    <a class="btn btn-default btn-sm" href="http://www.wowprogress.com/guild/eu/ysondre/Tremendous" target="_blank">
-      Tremendous
-    </a>
-  </div>
-  <div class="col-md-6">
-    <h3>Ranking</h3>
-    <p>
-      <span class="label label-success">Server Rank</span>&nbsp;
-      <span class="badge">{{ vm.guildRank.realm_rank }}</span>
-      -
-      <span class="label label-success">EU Rank</span>&nbsp;
-      <span class="badge">{{ vm.guildRank.area_rank }}</span>
-      -
-      <span class="label label-success">World Rank</span>&nbsp;
-      <span class="badge">{{ vm.guildRank.world_rank }}</span>
-    </p>
-  </div>
-  <div class="col-md-2">
-    <a class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
-  </div>
 </div>
 </div>

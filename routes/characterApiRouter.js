@@ -265,6 +265,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
                 character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
                 // Professions
+                character.professions = [];
                 var profession1 = {};
                 if(body.professions.primary[0]) {
                   profession1.name = body.professions.primary[0].name;

@@ -59,29 +59,44 @@ html, body {
   font-size: 100%;
 }
 
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .fill {
-    min-height: 100%;
-    height: 100%;
+  min-height: 100%;
+  height: 100%;
+}
+
+.col-md-5th {
+  width: 20%;
 }
 
 
 /* Sidenav */
+@sidenav-color: #111;
 .sidenav {
   height: 100%;
-  width: 70px;
+  width: 80px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  background-color: @sidenav-color;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.3s;
   &.open {
     width: 250px;
   }
   .sidenav-element {
     cursor: pointer;
-    height: 100px;
+    height: 80px;
     &.active {
       background-color: #444;
     }
@@ -94,47 +109,59 @@ html, body {
       position: absolute;
       font-size: 40px;
       white-space: nowrap;
-      margin-top: 20px;
+      margin-top: 16px;
       margin-left: 16px;
       i {
         min-width: 70px;
       }
       span {
-        font-size: 30px;
+        color: #666;
+        font-size: 22px;
+        font-weight: bold;
       }
     }
   }
 }
 
 .rows-wrapper {
-  transition: margin-left .5s;
+  transition: margin-left 0.3s;
   margin-left: 70px;
   &.open {
     margin-left: 250px;
   }
+  height: 100%;
+}
+
+.title-bar {
+  background-color: @sidenav-color;
+  padding-top: 7px;
+  height: 80px;
 }
 
 
 /* Cover */
 .cover {
+    margin-top: 100px;
     text-align: center;
     color: #121212;
-}
-.cover h1 {
-    font-size: 90px;
-    text-shadow: 0px 2px 3px #333;
     font-family: 'Oswald', sans-serif;
-}
-.cover h2 {
-    font-size: 50px;
-    text-shadow: 0px 2px 3px #333;
-    font-family: 'Oswald', sans-serif;
+    text-shadow: 0px 2px 3px #353535;
+
+    .cover-title {
+      font-size: 90px;
+    }
+    .cover-server {
+      font-size: 50px;
+    }
+    .cover-timer {
+      font-size: 50px;
+    }
 }
 
 
 /* Character */
 .character-row {
-    height: 49%;
+    height: 49.999%;
 }
 
 .character-unit-container {
@@ -167,6 +194,11 @@ html, body {
 .character-unit-body {
     padding-top: 10px;
     text-align: center;
+
+    .character-unit-thumbnail {
+      min-width: 236px;
+      min-height: 122px;
+    }
 }
 
 .character-unit-professions {
@@ -175,13 +207,35 @@ html, body {
 
 
 /* Progress */
-.table-progress {
-  text-align: center;
+.progress-wrapper {
+  height: calc(~"100% - 80px");
 }
-.table-progress img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+.progress-row {
+  height: 50%;
+}
+
+.progress-title-row {
+  height: 60px;
+}
+
+.progress-content-row {
+  height: calc(~"50% - 30px");
+}
+
+.progress-boss-unit {
+  height: 100%;
+  text-align: center;
+  &:hover {
+    background-color: rgba(255,255,255,0.1);
+  }
+  .progress-boss-unit-name {
+    font-size: 20px;
+    text-color: #eee;
+  }
+  .progress-boss-unit-difficulty {
+    margin-top: 5px;
+  }
 }
 
 

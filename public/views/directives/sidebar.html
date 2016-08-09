@@ -1,4 +1,11 @@
 <div class="sidenav" ng-class="open" ng-mouseover="open='open'" ng-mouseleave="open=''">
+  <!-- Logo -->
+  <div class="sidenav-element">
+    <a class="sidenav-element-content" href="#/cover">
+      <i class="fa fa-trademark" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Tremendous</span>
+    </a>
+  </div>
   <!-- Home -->
   <div class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
     <a class="sidenav-element-content" href="#/home">
@@ -18,6 +25,13 @@
     <a class="sidenav-element-content" href="#/progress">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
       <span class="fade" ng-show="open === 'open'">Progress</span>
+    </a>
+  </div>
+  <!-- Ranking -->
+  <div class="sidenav-element" ng-class="page === 'ranking' ? 'active' : ''">
+    <a class="sidenav-element-content" href="#/ranking">
+      <i class="fa fa-university" aria-hidden="true"></i>
+      <span class="fade" ng-show="open === 'open'">Ranking</span>
     </a>
   </div>
   <!-- Admin -->

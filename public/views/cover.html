@@ -1,18 +1,14 @@
 <!-- Cover page -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="cover">
-            <h1>- Tremendous -</h1>
-            <h2>EU-Ysondre</h2>
-            <br/>
-            <a href="#/home">
-                <img src="../assets/img/cover.png" width="200" height="300">
-            </a>
-            <br/>
-            <h2>
-              <timer interval="1000" countdown="vm.countdown">{{days}}D:{{hours}}H:{{minutes}}M:{{seconds}}S</timer>
-            </h2>
-            <br/>
-        </div>
-    </div>
+<div class="cover">
+  <span class="cover-title">- Tremendous -</span>
+  <br/>
+  <span class="cover-server">EU-Ysondre</span>
+  <br/>
+  <a href="#/home">
+    <img src="../assets/img/cover.png" width="200" height="300">
+  </a>
+  <br/>
+  <span class="cover-timer">
+    <timer interval="1000" countdown="vm.countdown">{{days}}D:{{hours}}H:{{minutes}}M:{{seconds}}S</timer>
+  </span>
 </div>
