@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 // Routers
 var characterApiRouter = require('./routes/characterApiRouter');
 var guildApiRouter = require('./routes/guildApiRouter');
+var progressApiRouter = require('./routes/progressApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
@@ -36,6 +37,7 @@ router.use(function(req, res, next) {
 app.use('/api', router)
 app.use('/api/character', characterApiRouter);
 app.use('/api/guild', guildApiRouter);
+app.use('/api/progress', progressApiRouter);
 
 // External APIs
 app.use('/api/bnet', bnetApiRouter);

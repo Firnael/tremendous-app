@@ -6,6 +6,7 @@ var characterApiRouter = express.Router();
 // Models
 var Character = require('../models/character');
 var Guild = require('../models/guild');
+var Progress = require('../models/progress');
 // Data
 var guildName = 'Tremendous';
 
