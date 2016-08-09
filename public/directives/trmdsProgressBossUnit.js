@@ -1,17 +1,19 @@
-/* Directive trmdsNavBar.js */
+/* Directive trmdsProgressBossUnit.js */
 (function() {
     'use strict';
 
     angular
         .module('app')
-        .directive('trmdsNavBar', trmdsNavBarDirective);
+        .directive('trmdsProgressBossUnit', trmdsProgressBossUnitDirective);
 
-    function trmdsNavBarDirective() {
+    function trmdsProgressBossUnitDirective() {
         return {
             restrict: 'E',
-            templateUrl: 'views/directives/navbar.html',
+            templateUrl: 'views/directives/progress-boss-unit.html',
             scope: {
-              page: '@'
+              name: "@",
+              difficulty: "@",
+              size: "@"
             }
         };
     }
