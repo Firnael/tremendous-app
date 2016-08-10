@@ -222,33 +222,26 @@ html, body {
 
 /* Progress */
 .progress-wrapper {
-  height: calc(~"100% - 80px");
-}
-
-.progress-row {
-  height: 50%;
-}
-
-.progress-title-row {
-  height: 60px;
-}
-
-.progress-content-row {
-  height: calc(~"50% - 30px");
-}
-
-.progress-boss-unit {
-  height: 100%;
-  text-align: center;
-  &:hover {
-    background-color: rgba(255,255,255,0.1);
+  height: calc(~"100% - 70px");
+  .progress-title {
+    height: 60px;
   }
-  .progress-boss-unit-name {
-    font-size: 20px;
-    text-color: #eee;
-  }
-  .progress-boss-unit-difficulty {
-    margin-top: 5px;
+  .progress-content {
+    height: calc(~"100% - 81px");
+    .progress-boss-unit {
+      height: 9.5%;
+      text-align: center;
+      &:hover {
+        background-color: rgba(255,255,255,0.1);
+      }
+      .progress-boss-unit-name {
+        font-size: 20px;
+        text-color: #eee;
+      }
+      .progress-boss-unit-difficulty {
+        margin-top: 5px;
+      }
+    }
   }
 }
 
@@ -256,9 +249,9 @@ html, body {
 /* Admin */
 .link-main-reroll {
   cursor: pointer;
-}
-.link-main-reroll.selected {
-  color: #0ce3ac;
+  &.selected {
+    color: #0ce3ac;
+  }
 }
 
 

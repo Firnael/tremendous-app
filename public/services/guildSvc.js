@@ -3,30 +3,22 @@
 
     angular
         .module('app')
-        .factory('ProgressSvc', ProgressSvc);
+        .factory('GuildSvc', GuildSvc);
 
-    ProgressSvc.$inject = ['$http', 'UtilsSvc'];
+    GuildSvc.$inject = ['$http', 'UtilsSvc'];
 
-    function ProgressSvc($http, UtilsSvc) {
+    function GuildSvc($http, UtilsSvc) {
 
         var service = {
-            get: get,
             update: update
         };
         return service;
 
-        function get() {
-          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/progress").then(function(response) {
-              return response.data;
-          });
-          return promise;
-        }
-
         function update(){
-          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/progress/update").then(function(response) {
-              return response.data;
-          });
-          return promise;
+            var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/guild/update").then(function(response) {
+                return response.data;
+            });
+            return promise;
         }
 
     }

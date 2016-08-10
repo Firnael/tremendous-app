@@ -12,8 +12,7 @@
             templateUrl: 'views/directives/progress-boss-unit.html',
             scope: {
               name: "@",
-              difficulty: "@",
-              size: "@"
+              difficulty: "@"
             }
         };
     }
