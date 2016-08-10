@@ -1,10 +1,8 @@
 <div class="sidenav" ng-class="open" ng-mouseover="open='open'" ng-mouseleave="open=''">
   <!-- Logo -->
-  <div class="sidenav-element">
-    <a class="sidenav-element-content" href="#/cover">
-      <i class="fa fa-trademark" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Tremendous</span>
-    </a>
+  <div class="sidenav-logo">
+    <img src="assets/img/logo.png" width="54" height="54"/>
+    <span class="sidenav-logo-brand fade" ng-show="open === 'open'">Tremendous</span>
   </div>
   <!-- Home -->
   <div class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
