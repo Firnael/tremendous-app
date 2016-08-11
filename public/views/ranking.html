@@ -10,10 +10,32 @@
     </div>
   </div>
 
-  <!-- Ranking -->
   <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-6 text-center">
+
+    <!-- Server ranking -->
+    <div ng-show="vm.serverRanking" class="col-md-5 fade">
+      <table class="table table-condensed table-hover">
+        <tbody>
+          <tr ng-repeat="item in vm.serverRanking">
+            <td class="guild-name">
+              <a ng-href="{{ item.guild[0].href }}" target="_blank">
+                {{ item.guild[0].text }}
+                <img ng-show="item.guild[0].text === 'Millenium'" src="https://wiki.mylzh.net/sites/world-of-warcraft/images/1/17/Shattered_Sun_64.png" width="16" height="16"/>
+              </a>
+            </td>
+            <td>{{ item.rank[0].text }}</td>
+            <td>({{ item.world_rank[0].text }})</td>
+            <td>{{ item.progress[0].text }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5 text-center" style="margin-top: 250px;" ng-show="!vm.serverRanking">
+      <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
+    </div>
+
+    <!-- Guild rank -->
+    <div class="col-md-4 text-center">
       <h2 class="text-muted"><b>Server</b> Rank</h2>
       <h1>{{ vm.guildRank.realm_rank }}</h1>
       <hr/>
@@ -25,7 +47,6 @@
       <br/>
       <a class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
     </div>
-    <div class="col-md-1"></div>
     <div class="col-md-2 text-center">
       <h3>WowProgress</h3>
       <a class="btn btn-default btn-sm" href="http://www.wowprogress.com/pve/eu/ysondre" target="_blank">
@@ -35,7 +56,6 @@
         Tremendous
       </a>
     </div>
-    <div class="col-md-1"></div>
   </div>
 
 </div>

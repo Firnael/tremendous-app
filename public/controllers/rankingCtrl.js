@@ -10,7 +10,10 @@
     function RankingCtrl(WowProgressApiSvc){
         var vm = this;
         vm.guildRank = undefined;
+        vm.serverRanking = undefined;
+
         vm.getGuildRank = getGuildRank;
+        vm.getServerRanking = getServerRanking;
 
         /*
         <!-- Ranking -->
@@ -43,14 +46,21 @@
         //////////////
 
         function activate() {
-            console.log('RankingCtrl activate');
-            vm.getGuildRank();
+          console.log('RankingCtrl activate');
+          vm.getGuildRank();
+          vm.getServerRanking();
         }
 
         function getGuildRank() {
-            WowProgressApiSvc.getGuildRank().then(function (data) {
-                vm.guildRank = data;
-            });
+          WowProgressApiSvc.getGuildRank().then(function (data) {
+            vm.guildRank = data;
+          });
+        }
+
+        function getServerRanking() {
+          WowProgressApiSvc.getServerRanking().then(function (data) {
+            vm.serverRanking = data;
+          });
         }
     }
 })();
