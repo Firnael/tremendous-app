@@ -25,7 +25,7 @@
 
         function activate() {
             console.log('RosterCtrl activate');
-            getRoster();
+            vm.getRoster();
         }
 
         function getRoster() {

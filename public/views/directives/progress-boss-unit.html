@@ -1,5 +1,7 @@
-<div class="progress-boss-unit">
-  <span class="progress-boss-unit-name">{{ name }}</span>
-  <br/>
-  <span class="label label-primary progress-boss-unit-difficulty">{{ difficulty }}</span>
+<div class="progress-boss-unit" ng-mouseenter="showDetails = true" ng-mouseleave="showDetails = false">
+  <div class="progress-boss-unit-name">{{ name }}</div>
+  <span ng-hide="showDetails" class="label label-transparent">{{ getHighestProgress() }}</span>
+  <span ng-show="showDetails" ng-repeat="down in downs">
+    <span class="label">{{ getDifficulty(down.difficulty) }}</span> : {{ getHumanTimestamp(down.timestamp) }}
+  </span>
 </div>

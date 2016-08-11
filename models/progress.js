@@ -4,11 +4,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProgressSchema = new Schema({
+    lastUpdate: Number,
     emeraldNightmare : [
-      { name: String, difficulty: Number }
+      {
+        bossName: String,
+        downs: [
+          {
+            difficulty: Number,
+            timestamp: Number
+          }
+        ]
+      }
     ],
     nighthold : [
-      { name: String, difficulty: Number }
+      {
+        bossName: String,
+        downs: [
+          {
+            difficulty: Number,
+            timestamp: Number
+          }
+        ]
+      }
     ]
 });
 

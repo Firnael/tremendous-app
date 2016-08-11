@@ -6,7 +6,7 @@
 
 <div class="row title-bar">
     <div class="col-md-12">
-      <h2>Progress <small>Avancee des downs par difficulte</small></h2>
+      <h2>Progress <small class="fade" ng-show="vm.progress">Derniere MaJ : {{ vm.getProgressLastUpdate() }}</small></h2>
     </div>
 </div>
 
@@ -23,15 +23,11 @@ background-size: cover;">
         </a>
       </h3>
   </div>
-
   <div class="progress-content">
-    <trmds-progress-boss-unit name="Ursoc" difficulty="Normal"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Nythendra" difficulty="Heroic"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Elerethe Renferal" difficulty="Mythic"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Il'gynoth" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Dragons du cauchemard" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Cenarius" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Xavius" difficulty="TODO"></trmds-progress-boss-unit>
+    <trmds-progress-boss-unit ng-repeat="boss in vm.progress.emeraldNightmare"
+      name="boss.bossName"
+      downs="boss.downs">
+    </trmds-progress-boss-unit>
   </div>
 </div>
 
@@ -45,18 +41,11 @@ background-size: cover;">
         </a>
       </h3>
   </div>
-
   <div class="progress-content">
-    <trmds-progress-boss-unit name="Skorpyron" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Krosus" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Anomalie chromatique" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Trilliax" difficulty="TODO"> </trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Star Augur Etraeus" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Grand Magistrix Elisande" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="High Botanist Tel'arn" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Spellblade Aluriel" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Tichondrius" difficulty="TODO"></trmds-progress-boss-unit>
-    <trmds-progress-boss-unit name="Gul'dan" difficulty="TODO"></trmds-progress-boss-unit>
+    <trmds-progress-boss-unit ng-repeat="boss in vm.progress.nighthold"
+      name="boss.bossName"
+      downs="boss.downs">
+    </trmds-progress-boss-unit>
   </div>
 </div>
 
