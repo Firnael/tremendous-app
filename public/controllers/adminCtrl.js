@@ -14,6 +14,7 @@
         vm.guildUpdateMessage;
         vm.guildMemberCount;
         vm.guildLastModified;
+        vm.roster;
         vm.mains;
         vm.rerolls;
         vm.selectedMain;
@@ -24,9 +25,11 @@
         vm.updateCharacterCollection = updateCharacterCollection;
 
         // Gestion des mains/rerolls et des roles
+        vm.getRoster = getRoster;
         vm.getMains = getMains;
-        vm.getRerollsWithoutMains = getRerollsWithoutMains;
+        vm.getRerolls = getRerolls;
         vm.linkRerollToMain = linkRerollToMain;
+        vm.checkRerollAccountId = checkRerollAccountId;
         vm.setRole = setRole;
 
         activate();
@@ -35,8 +38,9 @@
 
         function activate() {
             console.log('AdminCtrl activate');
+            vm.getRoster();
             vm.getMains();
-            vm.getRerollsWithoutMains();
+            vm.getRerolls();
         }
 
         function updateGuild() {
@@ -61,14 +65,21 @@
           });
         }
 
+        function getRoster() {
+          CharacterSvc.getRoster().then(function (result) {
+              vm.roster = result;
+              console.log(vm.roster);
+          });
+        }
+
         function getMains() {
           CharacterSvc.getMains().then(function (result) {
               vm.mains = result;
           });
         }
 
-        function getRerollsWithoutMains() {
-          CharacterSvc.getRerollsWithoutMains().then(function (result) {
+        function getRerolls() {
+          CharacterSvc.getRerolls().then(function (result) {
               vm.rerolls = result;
           });
         }
@@ -76,18 +87,28 @@
         function linkRerollToMain() {
           vm.linkingRerollToMain = true;
           CharacterSvc.linkRerollToMain(vm.selectedReroll, vm.selectedMain).then(function (result) {
-              vm.getRerollsWithoutMains();
+              vm.getRerolls();
               vm.selectedReroll = undefined;
               vm.linkingRerollToMain = false;
           });
         }
 
+        function checkRerollAccountId(accountId) {
+          for(var i=0; i<vm.mains.length; i++) {
+            var main = vm.mains[i];
+            if(main.accountIdentifier === accountId) {
+              return true;
+            }
+          }
+          return false;
+        }
+
         // Update the character role and reload it
         function setRole(characterName, role) {
           CharacterSvc.setRole(characterName, role).then(function (updatedCharacter) {
-            for(var i=0; i<vm.mains.length; i++) {
-              if(vm.mains[i].name === updatedCharacter.name) {
-                vm.mains[i] = updatedCharacter;
+            for(var i=0; i<vm.roster.length; i++) {
+              if(vm.roster[i].name === updatedCharacter.name) {
+                vm.roster[i] = updatedCharacter;
                 break;
               }
             }

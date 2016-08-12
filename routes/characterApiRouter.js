@@ -144,11 +144,10 @@ characterApiRouter.route('/roster').get(function (req, res) {
 });
 
 /**
- * Get rerolls with no mains
+ * Get rerolls
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {
   Character.where('guildRank', 5)
-            .where('accountIdentifier', 0)
             .exec(function (err, characters) {
               if (err) { res.send(err); return; }
               res.send(characters);

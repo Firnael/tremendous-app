@@ -69,17 +69,17 @@
   <div class="col-md-4">
     <h4>Set roles</h4>
     <div class="row">
-      <div ng-repeat="main in vm.mains | orderBy:['+role']">
-        <div class="col-md-4">{{ main.name }}</div>
-        <div class="col-md-3"><trmds-role-icons role="{{ main.role }}" size="20"></trmds-role-icons></div>
+      <div ng-repeat="raider in vm.roster | orderBy:['+role']">
+        <div class="col-md-4">{{ raider.name }}</div>
+        <div class="col-md-3"><trmds-role-icons role="{{ raider.role }}" size="20"></trmds-role-icons></div>
         <div class="col-md-5">
-          <a class="btn btn-default btn-xs" ng-click="vm.setRole(main.name, 0)" ng-disabled="main.role === 0">
+          <a class="btn btn-default btn-xs" ng-click="vm.setRole(raider.name, 0)" ng-disabled="raider.role === 0">
             <trmds-role-icons role="0" size="20"></trmds-role-icons>
           </a>
-          <a class="btn btn-default btn-xs" ng-click="vm.setRole(main.name, 1)" ng-disabled="main.role === 1">
+          <a class="btn btn-default btn-xs" ng-click="vm.setRole(raider.name, 1)" ng-disabled="raider.role === 1">
             <trmds-role-icons role="1" size="20"></trmds-role-icons>
           </a>
-          <a class="btn btn-default btn-xs" ng-click="vm.setRole(main.name, 2)" ng-disabled="main.role === 2">
+          <a class="btn btn-default btn-xs" ng-click="vm.setRole(raider.name, 2)" ng-disabled="raider.role === 2">
             <trmds-role-icons role="2" size="20"></trmds-role-icons>
           </a>
         </div>
@@ -88,31 +88,36 @@
   </div>
 
   <!-- Mains / Rerolls -->
-  <div class="col-md-8" ng-show="!vm.rerolls">
-    Nothing to link, all rerolls have mains.
-  </div>
-  <span ng-show="vm.rerolls">
-    <div class="col-md-3">
-      <h4>Rerolls without mains</h4>
-      <div ng-repeat="reroll in vm.rerolls" ng-click="vm.selectedReroll = reroll" class="link-main-reroll"
+  <div class="col-md-3">
+    <h4>Rerolls</h4>
+    <div class="row">
+      <div ng-repeat="reroll in vm.rerolls | orderBy:['+accountIdentifier']" ng-click="vm.selectedReroll = reroll" class="link-main-reroll"
            ng-class="reroll.name === vm.selectedReroll.name ? 'selected' : ''">
-        {{ reroll.name }} - {{ reroll.guildRank }} - {{ reroll.accountIdentifier }}
+        <div class="col-md-5">{{ reroll.name }}</div>
+        <div class="col-md-2">{{ reroll.guildRank }}</div>
+        <div class="col-md-5" ng-class="vm.checkRerollAccountId(reroll.accountIdentifier) ? '' : 'reroll-alone'">
+          {{ reroll.accountIdentifier }}
+        </div>
       </div>
     </div>
-    <div class="col-md-3">
-      <h4>Mains</h4>
-      <div ng-repeat="main in vm.mains" ng-click="vm.selectedMain = main" class="link-main-reroll"
+  </div>
+  <div class="col-md-3">
+    <h4>Mains</h4>
+    <div class="row">
+      <div ng-repeat="main in vm.mains | orderBy:['+guildRank']" ng-click="vm.selectedMain = main" class="link-main-reroll"
            ng-class="main.name === vm.selectedMain.name ? 'selected' : ''">
-        {{ main.name }} - {{ main.guildRank }} - {{ main.accountIdentifier }}
+        <div class="col-md-5">{{ main.name }}</div>
+        <div class="col-md-2">{{ main.guildRank }}</div>
+        <div class="col-md-5">{{ main.accountIdentifier }}</div>
       </div>
     </div>
-    <div class="col-md-2">
-      <a class="btn btn-default" ng-disabled="!vm.selectedMain || !vm.selectedReroll || vm.linkingRerollToMain" ng-click="vm.linkRerollToMain()">
-        <i class="fa fa-refresh fa-spin" ng-show="vm.linkingRerollToMain"></i>
-        Link
-      </a>
-    </div>
-  </span>
+  </div>
+  <div class="col-md-2">
+    <a class="btn btn-default" ng-disabled="!vm.selectedMain || !vm.selectedReroll || vm.linkingRerollToMain" ng-click="vm.linkRerollToMain()">
+      <i class="fa fa-refresh fa-spin" ng-show="vm.linkingRerollToMain"></i>
+      Link
+    </a>
+  </div>
 
 </div>
 

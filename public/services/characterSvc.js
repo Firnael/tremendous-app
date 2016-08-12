@@ -14,7 +14,7 @@
             getCharacters: getCharacters,
             getRoster: getRoster,
             getMains: getMains,
-            getRerollsWithoutMains: getRerollsWithoutMains,
+            getRerolls: getRerolls,
             getByAccountId: getByAccountId,
             updateCharacter: updateCharacter,
             updateCollection: updateCollection,
@@ -55,8 +55,8 @@
             return promise;
         }
 
-        // Get rerolls without mains (accountId == 0)
-        function getRerollsWithoutMains(){
+        // Get rerolls
+        function getRerolls(){
             var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/rerolls/").then(function(response) {
                 return response.data;
             });
