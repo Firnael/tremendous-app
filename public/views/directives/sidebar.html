@@ -1,42 +1,47 @@
-<div class="sidenav" ng-class="open" ng-mouseover="open='open'" ng-mouseleave="open=''">
+<div class="sidenav" ng-class="$root.open" ng-mouseover="$root.open='open'" ng-mouseleave="$root.open=''">
   <!-- Logo -->
   <div class="sidenav-logo">
     <img src="assets/img/logo.png" width="54" height="54"/>
-    <span class="sidenav-logo-brand fade" ng-show="open === 'open'">Tremendous</span>
+    <span class="sidenav-logo-brand fade" ng-show="$root.open === 'open'">Tremendous</span>
   </div>
   <!-- Home -->
-  <div class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
-    <a class="sidenav-element-content" href="#/home">
+  <a href="#/home" class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
+    <span class="sidenav-element-content">
       <i class="fa fa-home" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Home</span>
-    </a>
-  </div>
+      <span class="fade" ng-show="$root.open === 'open'">Home</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
   <!-- Roster -->
-  <div class="sidenav-element" ng-class="page === 'roster' ? 'active' : ''">
-    <a class="sidenav-element-content" href="#/roster">
+  <a href="#/roster" class="sidenav-element" ng-class="page === 'roster' ? 'active' : ''">
+    <span class="sidenav-element-content">
       <i class="fa fa-users" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Roster</span>
-    </a>
-  </div>
+      <span class="fade" ng-show="$root.open === 'open'">Roster</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
   <!-- Progress -->
-  <div class="sidenav-element" ng-class="page === 'progress' ? 'active' : ''">
-    <a class="sidenav-element-content" href="#/progress">
+  <a href="#/progress" class="sidenav-element" ng-class="page === 'progress' ? 'active' : ''">
+    <span class="sidenav-element-content">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Progress</span>
-    </a>
-  </div>
+      <span class="fade" ng-show="$root.open === 'open'">Progress</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
   <!-- Ranking -->
-  <div class="sidenav-element" ng-class="page === 'ranking' ? 'active' : ''">
-    <a class="sidenav-element-content" href="#/ranking">
+  <a href="#/ranking" class="sidenav-element" ng-class="page === 'ranking' ? 'active' : ''">
+    <span class="sidenav-element-content">
       <i class="fa fa-university" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Ranking</span>
-    </a>
-  </div>
+      <span class="fade" ng-show="$root.open === 'open'">Ranking</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
   <!-- Admin -->
-  <div class="sidenav-element" ng-class="page === 'admin' ? 'active' : ''">
-    <a class="sidenav-element-content" href="#/admin">
+  <a href="#/admin" class="sidenav-element" ng-class="page === 'admin' ? 'active' : ''">
+    <span class="sidenav-element-content" >
       <i class="fa fa-cog" aria-hidden="true"></i>
-      <span class="fade" ng-show="open === 'open'">Admin</span>
-    </a>
-  </div>
+      <span class="fade" ng-show="$root.open === 'open'">Admin</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
 </div>

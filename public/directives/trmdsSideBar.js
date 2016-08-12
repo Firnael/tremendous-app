@@ -11,8 +11,7 @@
             restrict: 'E',
             templateUrl: 'views/directives/sidebar.html',
             scope: {
-              page: '@',
-              open: '='
+              page: '@'
             }
         };
     }

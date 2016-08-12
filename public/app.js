@@ -39,4 +39,8 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
             .otherwise({
                 redirectTo: "/"
             });
+    })
+    .run(function ($rootScope) {
+      // Open or close sidenav
+      $rootScope.open = '';
     });
