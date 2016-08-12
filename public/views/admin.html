@@ -89,7 +89,7 @@
 
   <!-- Mains / Rerolls -->
   <div class="col-md-3">
-    <h4>Rerolls</h4>
+    <h4>Rerolls <small>{{ vm.rerolls.length }}</small></h4>
     <div class="row">
       <div ng-repeat="reroll in vm.rerolls | orderBy:['+accountIdentifier']" ng-click="vm.selectedReroll = reroll" class="link-main-reroll"
            ng-class="reroll.name === vm.selectedReroll.name ? 'selected' : ''">
@@ -102,7 +102,7 @@
     </div>
   </div>
   <div class="col-md-3">
-    <h4>Mains</h4>
+    <h4>Mains <small>{{ vm.mains.length }}</small></h4>
     <div class="row">
       <div ng-repeat="main in vm.mains | orderBy:['+guildRank']" ng-click="vm.selectedMain = main" class="link-main-reroll"
            ng-class="main.name === vm.selectedMain.name ? 'selected' : ''">
