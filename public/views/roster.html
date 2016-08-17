@@ -22,7 +22,7 @@
       <!-- Tanks -->
       <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
            ng-if="main.role === 0" ng-click="vm.selectMain(main)">
-        <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
+        <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
         <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
         <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
       </div>
@@ -32,7 +32,7 @@
       <!-- Heals -->
       <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
            ng-if="main.role === 1" ng-click="vm.selectMain(main)">
-        <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
+        <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
         <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
         <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
       </div>
@@ -41,7 +41,7 @@
     <div class="col-md-3">
         <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
              ng-if="main.role === 2" ng-click="vm.selectMain(main)">
-          <span class="roster-item-ilvl">{{ main.averageItemLevel }}</span>
+          <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
           <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
           <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
         </div>

@@ -37,8 +37,11 @@
                     return updateCharacter();
                 }
 
-                vm.professionData1 = vm.getProfessionData(0);
-                vm.professionData2 = vm.getProfessionData(1);
+                vm.professionData = [];
+                for(var i=0; i<6; i++) {
+                  vm.professionData[i] = vm.getProfessionData(i);
+                }
+
                 vm.lastModified = moment(vm.character.lastModified).calendar();
                 vm.updatingCharacter = false;
             });
@@ -54,13 +57,17 @@
          * Récupère les données nécessaires à l'affichage des donuts des métiers
          */
         function getProfessionData(index) {
-            var data = [];
-            var rank = vm.character.professions[index].rank;
-            var max = vm.character.professions[index].max;
-            data.push(rank);
-            var diff = max - rank;
-            diff > 0 ? data.push(diff) : data.push(0);
-            return data;
+          if(!vm.character.professions[index]) {
+            return [];
+          }
+          
+          var data = [];
+          var rank = vm.character.professions[index].rank;
+          var max = vm.character.professions[index].max;
+          data.push(rank);
+          var diff = max - rank;
+          diff > 0 ? data.push(diff) : data.push(0);
+          return data;
         }
 
         /**

@@ -12,7 +12,8 @@
         var service = {
             getUrlPrefix: getUrlPrefix,
             getThumbnailPath: getThumbnailPath,
-            getCssClassByCharacterClass: getCssClassByCharacterClass
+            getCssClassByCharacterClass: getCssClassByCharacterClass,
+            getCssClassByIlvl: getCssClassByIlvl
         };
         return service;
 
@@ -52,5 +53,25 @@
             default: break;
           }
         }
+
+        function getCssClassByIlvl(value) {
+          if(value >= 660) {
+            if(value >= 680) {
+              if(value >= 700) {
+                if(value >= 720) {
+                  if(value >= 735) {
+                    return 'legendary';
+                  }
+                  return 'epic';
+                }
+                return 'rare';
+              }
+              return 'uncommon';
+            }
+            return 'common';
+          }
+          return 'poor';
+        }
+
       }
 })();

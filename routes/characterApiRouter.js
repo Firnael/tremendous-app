@@ -265,21 +265,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
                 character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
                 // Professions
-                character.professions = [];
-                var profession1 = {};
-                if(body.professions.primary[0]) {
-                  profession1.name = body.professions.primary[0].name;
-                  profession1.rank = body.professions.primary[0].rank;
-                  profession1.max = body.professions.primary[0].max;
-                }
-                var profession2 = {};
-                if(body.professions.primary[1]) {
-                  profession2.name = body.professions.primary[1].name;
-                  profession2.rank = body.professions.primary[1].rank;
-                  profession2.max = body.professions.primary[1].max;
-                }
-                character.professions.push(profession1);
-                character.professions.push(profession2);
+                character.professions = getProfessionsData(body.professions);
                 // Specs
                 var spec1 = {};
                 if(body.talents[0].spec) {
@@ -342,6 +328,37 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
             } else { return 3; }
           break;
         }
+    }
+
+    function getProfessionsData(professions) {
+      var data = [];
+      // -- Primary
+      var primaryProfession1 = extractProfessionData(professions.primary[0], true);
+      var primaryProfession2 = extractProfessionData(professions.primary[1], true);
+      data.push(primaryProfession1);
+      data.push(primaryProfession2);
+
+      //-- Secondary
+      var secondaryProfession1 = extractProfessionData(professions.secondary[0], false);
+      var secondaryProfession2 = extractProfessionData(professions.secondary[1], false);
+      var secondaryProfession3 = extractProfessionData(professions.secondary[2], false);
+      var secondaryProfession4 = extractProfessionData(professions.secondary[3], false);
+      data.push(secondaryProfession1);
+      data.push(secondaryProfession2);
+      data.push(secondaryProfession3);
+      data.push(secondaryProfession4);
+      return data;
+    }
+
+    function extractProfessionData(profession, primary) {
+      var data = {};
+      if(profession) {
+        data.name = profession.name;
+        data.rank = profession.rank;
+        data.max = profession.max;
+        data.primary = primary;
+      }
+      return data;
     }
 });
 
