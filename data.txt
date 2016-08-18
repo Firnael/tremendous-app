@@ -1,49 +1,16 @@
-// Character
-(// A ajouter)
-- arrivalDate
-(Talent)
-- talents[0].selected (spé 1)
-- talents[0].spec.name
-- talents[1].selected (spé 2)
-- talents[1].spec.name
+-- Global
+- Classes manquantes
+- Armor Type (Cloth, Leather, Mail, Plate)
+- Armor Tokens (Vanquisher / Protector / Conqueror)
+- CaC vs Distant
+- Nombre de membres
+- Ilvl moyen (+ plus bas / plus haut)
 
-//=================================
-Members since:
-
-20/06/2016 (10(10))
-----------
-Fourbux
-Canope
-Petokask
-Furialis
-Legrorobert
-Furîalis
-Sinocx
-Kamuii
-Trishyam
-Sheepeo
-
-21/06/2016 (6(16))
-------------------
-Shamux
-Kyoryokux
-Trewdux
-Starbux
-Bandidux
-Khat
-
-22/06/2016 (3(19))
-------------------
-Nyrmidia
-Nyrm
-Croclardon
-
-23/06/2016 (1(20))
-------------------
-Dejanire
-
-25/06/2016 (3(23))
-------------------
-Khât
-Faitesmoimal
-Lacougar
+-- Members
+Nom (+ couleur de classe)
+Slots (Tête, Cou, Epaules, Dos, Torse, Poignets, Mains, Taille, Jambes, Pieds, Anneau 1&2, Bijou 1&2, Main droite, Main gauche)
+Gemmes x/x (si chasses)
+Enchants x/5 (Epaule + Gants pour métiers, 3 autres pour raid)
+Pièces de set (x/4)
+Ilvl
+Bonus
