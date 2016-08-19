@@ -17,75 +17,57 @@
 <div class="row">
 
   <!-- Roster -->
-  <span class="fade" ng-show="vm.mains.length">
-    <div class="col-md-3">
-      <!-- Tanks -->
-      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
-           ng-if="main.role === 0" ng-click="vm.selectMain(main)">
-        <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
-        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
-        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-      </div>
-      <trmds-role-icons role="0" size="30"></trmds-role-icons>
-      <span class="text-muted">Ok les tanks faut venir</span>
-      <br/><br/>
-      <!-- Heals -->
-      <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
-           ng-if="main.role === 1" ng-click="vm.selectMain(main)">
-        <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
-        <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
-        <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-      </div>
-    </div>
-    <!-- Dps -->
-    <div class="col-md-3">
-        <div ng-repeat="main in vm.mains | orderBy:['+class', '-averageItemLevel']" class="roster-item"
-             ng-if="main.role === 2" ng-click="vm.selectMain(main)">
-          <span class="roster-item-ilvl" ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</span>
-          <trmds-role-icons role="{{ main.role }}" size="30"></trmds-role-icons>
-          <span class="roster-item-name" ng-class="vm.getClassColor(main.class)">{{ main.name }}</span>
-        </div>
-    </div>
-  </span>
+  <table class="fade table table-condensed table-hover" ng-show="vm.mains.length">
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Name</th>
+        <th>ilvl</th>
+        <th><trmds-slot-icons slot="head" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="neck" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="shoulder" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="back" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="chest" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="wrist" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="hands" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="waist" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="legs" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="feet" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="finger1" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="finger2" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="trinket1" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="trinket2" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="mainHand" size="24"></trmds-slot-icons></th>
+        <th><trmds-slot-icons slot="offHand" size="24"></trmds-slot-icons></th>
+        <th>Gems</th>
+        <th>Enchants</th>
+        <th>T18</th>
+        <th>Bonuses</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="main in vm.mains | orderBy:['+role', '+class', '-averageItemLevel']">
+        <!-- Role -->
+        <td><trmds-role-icons role="{{ main.role }}" size="24"></trmds-role-icons></td>
+        <!-- Name + Class -->
+        <td><a ng-href="#/character/{{ main.name }}" class="roster-item-name" ng-class="vm.getClassColor(main.class)">
+          {{ main.name }}
+        </a></td>
+        <!-- ilvl -->
+        <td ng-class="vm.getIlvlColor(main.averageItemLevel)">{{ main.averageItemLevel }}</td>
+        <!-- Slots -->
+        <td ng-repeat="item in main.items" ng-class="vm.getQualityColor(item.quality)">{{ item.ilvl ? item.ilvl : ''}}</td>
+        <!-- Gems -->
+        <td>{{ main.audit.equipedGems }}/{{ main.audit.gemSlots }}</td>
+        <!-- Enchants -->
+        <td>{{ 6 - main.audit.missingEnchants }}/6</td>
+        <!-- T18 set pieces -->
+        <td>{{ main.audit.equipedSetPieces }}/4</td>
+        <!-- Bonuses -->
+        <td>?</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <!-- Selected character -->
-  <div class="col-md-4 fade" ng-show="vm.displayMain">
-
-    <!-- Main -->
-    <div class="media">
-      <div class="media-left">
-        <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(vm.selectedMain) }}"></a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading" ng-class="vm.getClassColor(vm.selectedMain.class)">
-          {{ vm.selectedMain.name }}
-          <small><trmds-guild-rank rank="{{ vm.selectedMain.guildRank }}"></trmds-guild-rank></small>
-        </h4>
-        <a ng-href="#/character/{{ vm.selectedMain.name }}" class="btn btn-sm btn-default">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Rerolls -->
-    <hr/>
-    <div class="media"
-         ng-repeat="reroll in vm.selectedRerolls | orderBy:['+guildRank','-achievementPoints','-averageItemLevel']">
-      <div class="media-left">
-        <a><img class="media-object img-thumbnail" ng-src="{{ vm.getThumbnailPath(reroll) }}" width="60" height="60"></a>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading" ng-class="vm.getClassColor(reroll.class)">
-          {{ reroll.name }}
-          <small><trmds-guild-rank rank="{{ reroll.level }}"></trmds-guild-rank></small>
-        </h4>
-        <a ng-href="#/character/{{ reroll.name }}" class="btn btn-xs btn-default">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </a>
-      </div>
-    </div>
-    <!-- No rerolls -->
-    <h3 class="text-muted" ng-show="vm.displayMain && vm.selectedRerolls.length === 0">Aucun rerolls</h3>
-  </div>
 </div>
 </div>

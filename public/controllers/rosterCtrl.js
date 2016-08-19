@@ -17,6 +17,7 @@
         vm.getRoster = getRoster;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
+        vm.getQualityColor = getQualityColor;
         vm.selectMain = selectMain;
         vm.getThumbnailPath = getThumbnailPath;
         vm.getAverageIlvl = getAverageIlvl;
@@ -41,6 +42,10 @@
 
         function getIlvlColor(value) {
           return UtilsSvc.getCssClassByIlvl(value);
+        }
+
+        function getQualityColor(value) {
+          return UtilsSvc.getCssClassByQuality(value);
         }
 
         function selectMain(main) {

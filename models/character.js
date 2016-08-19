@@ -15,6 +15,15 @@ var CharacterSchema = new Schema({
     thumbnail: String,
     averageItemLevel: Number,
     averageItemLevelEquipped: Number,
+    items: [
+      { slot: String, id: Number, quality: Number, ilvl: Number }
+    ],
+    audit: {
+      missingEnchants: Number,
+      gemSlots: Number,
+      equipedGems: Number,
+      equipedSetPieces: Number
+    },
     arena2v2Rating: Number,
     arena3v3Rating: Number,
     arena2v2SeasonWon: Number,

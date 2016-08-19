@@ -9,6 +9,7 @@ var Guild = require('../models/guild');
 var Progress = require('../models/progress');
 // Data
 var guildName = 'Tremendous';
+var forceUpdate = true;
 
 
 /**
@@ -125,34 +126,29 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
  * Get mains
  */
 characterApiRouter.route('/mains').get(function(req, res) {
-  Character.where('guildRank').in([0, 1, 2, 3, 4, 6])
-            .exec(function (err, characters) {
-              if (err) { res.send(err); return; }
-              res.send(characters);
-  });
+  getByGuildRank([0, 1, 2, 3, 4, 6], res);
 });
 
 /**
  * Get roster
  */
 characterApiRouter.route('/roster').get(function (req, res) {
-  Character.where('guildRank').in([0, 1, 2, 3])
-            .exec(function (err, characters) {
-              if (err) { res.send(err); return; }
-              res.send(characters);
-  });
+  getByGuildRank([0, 1, 2, 3], res);
 });
 
 /**
  * Get rerolls
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {
-  Character.where('guildRank', 5)
-            .exec(function (err, characters) {
-              if (err) { res.send(err); return; }
-              res.send(characters);
-  });
+  getByGuildRank([5], res);
 });
+
+function getByGuildRank(rankArray, res) {
+  Character.where('guildRank').in(rankArray).exec(function (err, characters) {
+    if (err) { res.send(err); return; }
+    res.send(characters);
+  });
+}
 
 /**
  * Get character collection by account identifier
@@ -203,6 +199,30 @@ characterApiRouter.route('/role').post(function (req, res) {
 });
 
 /**
+ * Update roster characters
+ */
+characterApiRouter.route('/update-roster').get(function(req, res) {
+  Character.where('guildRank').in([0, 1, 2, 3]).exec(function (err, characters) {
+    if (err) { res.send(err); return; }
+
+    async.each(characters, function (character, updateRosterAsyncCallback) {
+      updateCharacter(character.name, updateRosterAsyncCallback);
+    },
+    function (errUpdateRosterAsync) {
+        if(errUpdateRosterAsync) { res.send(errUpdateRosterAsync); }
+        console.log('Roster updated');
+        res.send({ message: 'Roster updated' });
+    });
+
+  });
+});
+
+function updateCharacter(characterName, callback) {
+  console.log('Updating ' + characterName);
+  callback();
+}
+
+/**
  * Update a specific character based on BNET character data
  */
 characterApiRouter.route('/update/:characterName').post(function(req, res) {
@@ -231,7 +251,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
             body = JSON.parse(body);
 
             // Don't update if nothing change since the last time
-            if(character.lastModified == body.lastModified) {
+            if(character.lastModified == body.lastModified && !forceUpdate) {
               console.log('Character ' + character.name + ' is already up to date');
               return res.json({
                 message: 'Character ' + character.name + ' is already up to date',
@@ -239,61 +259,63 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               });
             }
             else {
-                // Root
-                character.lastModified = body.lastModified;
-                character.class = body.class;
-                character.race = body.race;
-                character.gender = body.gender;
-                character.level = body.level;
-                character.achievementPoints = body.achievementPoints;
-                character.thumbnail = body.thumbnail;
-                // Items
-                character.averageItemLevel = body.items.averageItemLevel;
-                character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
-                // PvP
-                character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
-                character.arena2v2SeasonWon = body.pvp.brackets.ARENA_BRACKET_2v2.seasonWon;
-                character.arena2v2SeasonLost = body.pvp.brackets.ARENA_BRACKET_2v2.seasonLost;
-                character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
-                character.arena3v3SeasonWon = body.pvp.brackets.ARENA_BRACKET_3v3.seasonWon;
-                character.arena3v3SeasonLost = body.pvp.brackets.ARENA_BRACKET_3v3.seasonLost;
-                character.rbgRating = body.pvp.brackets.ARENA_BRACKET_RBG.rating;
-                character.rbgSeasonWon = body.pvp.brackets.ARENA_BRACKET_RBG.seasonWon;
-                character.rbgSeasonLost = body.pvp.brackets.ARENA_BRACKET_RBG.seasonLost;
-                // Achievements - Proving Grounds
-                character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
-                character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
-                character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
-                // Professions
-                character.professions = getProfessionsData(body.professions);
-                // Specs
-                var spec1 = {};
-                if(body.talents[0].spec) {
-                  spec1.name = body.talents[0].spec.name;
-                  spec1.selected = body.talents[0].selected;
-                }
-                var spec2 = {};
-                if(body.talents[1].spec) {
-                  spec2.name = body.talents[1].spec.name;
-                  spec2.selected = body.talents[1].selected;
-                }
-                character.specs.push(spec1);
-                character.specs.push(spec2);
-                updateCharacterCallback(character);
+              // Root
+              character.lastModified = body.lastModified;
+              character.class = body.class;
+              character.race = body.race;
+              character.gender = body.gender;
+              character.level = body.level;
+              character.achievementPoints = body.achievementPoints;
+              character.thumbnail = body.thumbnail;
+              // Items
+              character.averageItemLevel = body.items.averageItemLevel;
+              character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
+              character.items = getItemsData(body.items);
+              // Audit
+              character.audit = getAuditData(body.items);
+              // PvP
+              character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
+              character.arena2v2SeasonWon = body.pvp.brackets.ARENA_BRACKET_2v2.seasonWon;
+              character.arena2v2SeasonLost = body.pvp.brackets.ARENA_BRACKET_2v2.seasonLost;
+              character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
+              character.arena3v3SeasonWon = body.pvp.brackets.ARENA_BRACKET_3v3.seasonWon;
+              character.arena3v3SeasonLost = body.pvp.brackets.ARENA_BRACKET_3v3.seasonLost;
+              character.rbgRating = body.pvp.brackets.ARENA_BRACKET_RBG.rating;
+              character.rbgSeasonWon = body.pvp.brackets.ARENA_BRACKET_RBG.seasonWon;
+              character.rbgSeasonLost = body.pvp.brackets.ARENA_BRACKET_RBG.seasonLost;
+              // Achievements - Proving Grounds
+              character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
+              character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
+              character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
+              // Professions
+              character.professions = getProfessionsData(body.professions);
+              // Specs
+              character.specs = {};
+              var spec1 = {};
+              if(body.talents[0].spec) {
+                spec1.name = body.talents[0].spec.name;
+                spec1.selected = body.talents[0].selected;
+              }
+              var spec2 = {};
+              if(body.talents[1].spec) {
+                spec2.name = body.talents[1].spec.name;
+                spec2.selected = body.talents[1].selected;
+              }
+              character.specs.push(spec1);
+              character.specs.push(spec2);
+
+              // Save
+              character.save(function(errsave) {
+                if (errsave) { return res.send(errsave); }
+                console.log('Character ' + character.name + ' updated !');
+                return res.json({
+                  message: 'Character ' + character.name + ' updated !',
+                  lastModified: character.lastModified
+                });
+              });
             }
         });
     });
-
-    function updateCharacterCallback(character) {
-        character.save(function(errsave) {
-            if (errsave) { return res.send(errsave); }
-            console.log('Character ' + character.name + ' updated !');
-            return res.json({
-              message: 'Character ' + character.name + ' updated !',
-              lastModified: character.lastModified
-            });
-        });
-    }
 
     // dps - tank - heal
     function getProvingGroundsAchievements(type, achievementsCompleted) {
@@ -358,6 +380,84 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         data.max = profession.max;
         data.primary = primary;
       }
+      return data;
+    }
+
+    function getItemsData(items) {
+      var data = [];
+      data.push(extractItemData(items.head, 'head'));
+      data.push(extractItemData(items.neck, 'neck'));
+      data.push(extractItemData(items.shoulder, 'shoulder'));
+      data.push(extractItemData(items.back, 'back'));
+      data.push(extractItemData(items.chest, 'chest'));
+      data.push(extractItemData(items.wrist, 'wrist'));
+      data.push(extractItemData(items.hands, 'hands'));
+      data.push(extractItemData(items.waist, 'waist'));
+      data.push(extractItemData(items.legs, 'legs'));
+      data.push(extractItemData(items.feet, 'feet'));
+      data.push(extractItemData(items.finger1, 'finger1'));
+      data.push(extractItemData(items.finger2, 'finger2'));
+      data.push(extractItemData(items.trinket1, 'trinket1'));
+      data.push(extractItemData(items.trinket2, 'trinket2'));
+      data.push(extractItemData(items.mainHand, 'mainHand'));
+      data.push(extractItemData(items.offHand, 'offHand'));
+      return data;
+    }
+
+    function extractItemData(item, slot) {
+      var data = {};
+      if(item) {
+        data.slot = slot;
+        data.id = item.id;
+        data.quality = item.quality;
+        data.ilvl = item.itemLevel;
+      }
+      return data;
+    }
+
+    function getAuditData(items) {
+      var data = {};
+      var missingEnchants = 0;
+      var gemSlots = 0;
+      var equipedGems = 0;
+      var equipedSetPieces = 0;
+
+      for(var key in items) {
+        var item = {};
+        if(items.hasOwnProperty(key) && items[key].id) { // focus the slots
+          item = items[key];
+        } else {
+          continue;
+        }
+
+        // Check enchants
+        if(['hands', 'shoulder', 'neck', 'back', 'finger1', 'finger2'].indexOf(key) >= 0) {
+          if(!item.tooltipParams.enchant) {
+            missingEnchants++;
+          }
+        }
+
+        // Check gems
+        if(item.bonusLists) {
+          if(item.bonusLists.indexOf(564) >= 0 || item.bonusLists.indexOf(565) >= 0) {
+            gemSlots++;
+            // Item has gem socket
+            if(item.tooltipParams.gem0) {
+              equipedGems++;
+            }
+          }
+        }
+
+        // Check set pieces
+        if(item.tooltipParams.set) {
+          equipedSetPieces = item.tooltipParams.set.length;
+        }
+      }
+
+      data.missingEnchants = missingEnchants;
+      data.gemSlots = gemSlots;
+      data.equipedGems = equipedGems;
+      data.equipedSetPieces = equipedSetPieces;
       return data;
     }
 });

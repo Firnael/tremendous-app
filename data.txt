@@ -3,14 +3,43 @@
 - Armor Type (Cloth, Leather, Mail, Plate)
 - Armor Tokens (Vanquisher / Protector / Conqueror)
 - CaC vs Distant
-- Nombre de membres
 - Ilvl moyen (+ plus bas / plus haut)
 
--- Members
-Nom (+ couleur de classe)
-Slots (Tête, Cou, Epaules, Dos, Torse, Poignets, Mains, Taille, Jambes, Pieds, Anneau 1&2, Bijou 1&2, Main droite, Main gauche)
-Gemmes x/x (si chasses)
-Enchants x/5 (Epaule + Gants pour métiers, 3 autres pour raid)
-Pièces de set (x/4)
-Ilvl
-Bonus
+Bonus:
+------
+"bonusLists": [
+  564, 566
+]
+
+- 41 (leech)
+- 42 (speed)
+- 43 (indestructible)
+- 560 (raid-normal)
+- 561 (heroic-warforged)
+- 562 (mythic-warforged)
+- 564 (gem socket)
+- 565 (gem socket)
+- 566 (raid-heroic)
+- 567 (raid-mythic)
+- 642 (dungeon-mythic)
+- 757 (warforged +5)
+- 758 (warforged +10)
+- 759 (warforged +15)
+
+Enchant : x/5 (epaule + gants pour métiers, 3 autres pour opti)
+---------------------------------------------------------------
+"tooltipParams": {
+  "enchant": 5324
+}
+
+Gem: x/x (si chasses)
+---------------------
+"tooltipParams": {
+  "gem0": 127760
+}
+
+Set: (x/4)
+----------
+"tooltipParams": {
+  "set": [124155]
+}

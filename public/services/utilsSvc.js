@@ -13,7 +13,8 @@
             getUrlPrefix: getUrlPrefix,
             getThumbnailPath: getThumbnailPath,
             getCssClassByCharacterClass: getCssClassByCharacterClass,
-            getCssClassByIlvl: getCssClassByIlvl
+            getCssClassByIlvl: getCssClassByIlvl,
+            getCssClassByQuality: getCssClassByQuality
         };
         return service;
 
@@ -71,6 +72,19 @@
             return 'common';
           }
           return 'poor';
+        }
+
+        function getCssClassByQuality(value) {
+          switch(value) {
+            case 0: return 'poor';
+            case 1: return 'common';
+            case 2: return 'uncommon';
+            case 3: return 'rare';
+            case 4: return 'epic';
+            case 5: return 'legendary';
+            case 7: return 'mage';
+            default: return 'warrior';
+          }
         }
 
       }
