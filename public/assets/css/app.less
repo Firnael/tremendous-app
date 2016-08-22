@@ -221,7 +221,7 @@ html, body {
   cursor: pointer;
   border-radius: 10px;
   &:hover {
-      background-color: #2b2b2b;
+    background-color: #2b2b2b;
   }
 }
 
@@ -229,6 +229,11 @@ html, body {
   font-weight: bold;
   font-size: 16px;
   text-decoration: none !important;
+}
+
+.roster-item-ilvl {
+  font-weight: bold;
+  color: white;
 }
 
 
@@ -300,6 +305,7 @@ html, body {
 @rare-color: #0070ff;
 @epic-color: #a335ee;
 @legendary-color: #ff8000;
+@heirloom-color: @mage-color;
 
 .poor { color: @poor-color }
 .common { color: @common-color }
@@ -307,3 +313,12 @@ html, body {
 .rare { color: @rare-color }
 .epic { color: @epic-color }
 .legendary { color: @legendary-color }
+.heirloom { color: @heirloom-color }
+
+.poor-bg { background-color: fade(@poor-color, 50%) }
+.common-bg { background-color: fade(@common-color, 50%) }
+.uncommon-bg { background-color: fade(@uncommon-color, 50%) }
+.rare-bg { background-color: fade(@rare-color, 50%) }
+.epic-bg { background-color: fade(@epic-color, 50%) }
+.legendary-bg { background-color: fade(@legendary-color, 50%) }
+.heirloom-bg { background-color: fade(@heirloom-color, 50%) }

@@ -74,17 +74,18 @@
           return 'poor';
         }
 
-        function getCssClassByQuality(value) {
+        function getCssClassByQuality(value, background) {
+          var result = '';
           switch(value) {
-            case 0: return 'poor';
-            case 1: return 'common';
-            case 2: return 'uncommon';
-            case 3: return 'rare';
-            case 4: return 'epic';
-            case 5: return 'legendary';
-            case 7: return 'mage';
-            default: return 'warrior';
+            case 0: result = 'poor'; break;
+            case 1: result = 'common'; break;
+            case 2: result = 'uncommon'; break;
+            case 3: result = 'rare'; break;
+            case 4: result = 'epic'; break;
+            case 5: result = 'legendary'; break;
+            case 7: result = 'heirloom'; break;
           }
+          return background ? result + '-bg' : result;
         }
 
       }

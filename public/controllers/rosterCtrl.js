@@ -17,7 +17,7 @@
         vm.getRoster = getRoster;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
-        vm.getQualityColor = getQualityColor;
+        vm.getItemQualityColor = getItemQualityColor;
         vm.getAverageIlvl = getAverageIlvl;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
@@ -45,8 +45,8 @@
           return UtilsSvc.getCssClassByIlvl(value);
         }
 
-        function getQualityColor(value) {
-          return UtilsSvc.getCssClassByQuality(value);
+        function getItemQualityColor(value) {
+          return UtilsSvc.getCssClassByQuality(value, true);
         }
 
         function getAverageIlvl() {
