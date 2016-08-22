@@ -9,31 +9,32 @@
 
     function RosterCtrl(CharacterSvc, UtilsSvc){
         var vm = this;
-        vm.mains = [];
-        vm.selectedMain = undefined;
-        vm.selectedRerolls = undefined;
-        vm.displayMain = false;
+        vm.roster = [];
+        vm.updating = true;
+        vm.updateCount = 0;
+        vm.rosterSize = 0;
 
         vm.getRoster = getRoster;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getQualityColor = getQualityColor;
-        vm.selectMain = selectMain;
-        vm.getThumbnailPath = getThumbnailPath;
         vm.getAverageIlvl = getAverageIlvl;
+        vm.updateRoster = updateRoster;
+        vm.getUpdateProgress = getUpdateProgress;
         activate();
 
         //////////////
 
         function activate() {
-            console.log('RosterCtrl activate');
-            vm.getRoster();
+          console.log('RosterCtrl activate');
+          vm.getRoster();
         }
 
         function getRoster() {
-            CharacterSvc.getRoster().then(function(data){
-                vm.mains = data;
-            });
+          CharacterSvc.getRoster().then(function(data){
+            vm.roster = data;
+            vm.updating = false;
+          });
         }
 
         function getClassColor(value) {
@@ -48,35 +49,35 @@
           return UtilsSvc.getCssClassByQuality(value);
         }
 
-        function selectMain(main) {
-          vm.displayMain = false;
-          vm.selectedMain = main;
-          vm.selectedRerolls = [];
-
-          CharacterSvc.getByAccountId(main.accountIdentifier).then(function(data) {
-            for(var i=0; i<data.length; i++) {
-              var character = data[i];
-              if(character.guildRank === 5) {
-                vm.selectedRerolls.push(character);
-              }
-            }
-            vm.displayMain = true;
-          });
-        }
-
-        function getThumbnailPath(character) {
-          if(character && character.thumbnail) {
-            return UtilsSvc.getThumbnailPath('avatar', character.thumbnail);
-          }
-          return 'assets/img/placeholder.png';
-        }
-
         function getAverageIlvl() {
           var total = 0;
-          for(var i=0; i<vm.mains.length; i++) {
-            total += vm.mains[i].averageItemLevel;
+          for(var i=0; i<vm.roster.length; i++) {
+            total += vm.roster[i].averageItemLevel;
           }
-          return (total / vm.mains.length).toFixed(1);
+          return (total / vm.roster.length).toFixed(1);
+        }
+
+        function updateRoster() {
+          vm.updating = true;
+          vm.rosterSize = vm.roster.length;
+          vm.updateCount = 0;
+
+          for(var i=0; i<vm.roster.length; i++) {
+            var raider = vm.roster[i];
+            CharacterSvc.updateCharacter(raider.name).then(function(data){
+              vm.updateCount++;
+              console.log(vm.updateCount + '/' + vm.rosterSize + ' (' + raider.name + ')');
+
+              if(vm.updateCount === vm.rosterSize) {
+                console.log('Jobz done');
+                vm.getRoster();
+              }
+            });
+          }
+        }
+
+        function getUpdateProgress() {
+          return vm.updateCount > 0 ? (vm.updateCount / vm.rosterSize) * 100 : 0;
         }
     }
 })();
