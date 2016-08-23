@@ -431,7 +431,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         }
 
         // Check enchants
-        if(['hands', 'shoulder', 'neck', 'back', 'finger1', 'finger2'].indexOf(key) >= 0) {
+        if(['neck', 'back', 'finger1', 'finger2'].indexOf(key) >= 0) {
           if(!item.tooltipParams.enchant) {
             missingEnchants++;
           }

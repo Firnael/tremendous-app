@@ -29,7 +29,7 @@
 
 <!-- Roster -->
 <div class="row fade" ng-show="vm.updating === false">
-  <table class="table table-condensed table-hover">
+  <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
         <th>Role</th>
@@ -53,8 +53,6 @@
         <th><trmds-slot-icons slot="offHand" size="24"></trmds-slot-icons></th>
         <th><img src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_saberseye.jpg" width="24" height="24" title="Enchants" class="img-thumbnail"/></th>
         <th><img src="http://wow.zamimg.com/images/wow/icons/large/inv_enchanting_70_chaosshard.jpg" width="24" height="24" title="Gemmes" class="img-thumbnail"/></th>
-        <th>T18</th>
-        <th>Bonuses</th>
       </tr>
     </thead>
     <tbody>
@@ -72,13 +70,13 @@
           {{ item.ilvl ? item.ilvl : ''}}
         </td>
         <!-- Gems -->
-        <td>{{ raider.audit.equipedGems }}/{{ raider.audit.gemSlots }}</td>
+        <td ng-class="raider.audit.equipedGems === raider.audit.gemSlots ? '' : 'roster-warning'">
+          {{ raider.audit.equipedGems }}/{{ raider.audit.gemSlots }}
+        </td>
         <!-- Enchants -->
-        <td>{{ 6 - raider.audit.missingEnchants }}/6</td>
-        <!-- T18 set pieces -->
-        <td>{{ raider.audit.equipedSetPieces }}/4</td>
-        <!-- Bonuses -->
-        <td>?</td>
+        <td ng-class="raider.audit.missingEnchants > 0 ? 'roster-warning' : ''">
+          {{ 4 - raider.audit.missingEnchants }}/4
+        </td>
       </tr>
     </tbody>
   </table>
