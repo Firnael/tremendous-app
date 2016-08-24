@@ -24,7 +24,10 @@ guildApiRouter.route('/update').post(function(req, res) {
 
   // Retrieve Bnet Api guild data
   bnet.wow.guild.members({ origin: 'eu', realm: 'ysondre', name: guildName }, function(err, data){
-      if(err) { res.send(err); }
+      if(err) {
+        console.log(err);
+        return res.send(err);
+      }
 
       Guild.findOne({ 'name': guildName }, function(err, guild) {
           if (err) { res.send(err); }

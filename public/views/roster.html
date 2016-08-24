@@ -7,7 +7,6 @@
 <div class="row title-bar">
   <div class="col-md-12">
     <h2>Roster <small class="fade" ng-show="vm.roster.length">
-      {{ vm.roster.length }} blaireaux - ilvl moyen: {{ vm.getAverageIlvl() }}
       <a class="btn btn-default btn-xs" ng-click="vm.updateRoster()">Update</a>
       </small>
     </h2>
@@ -29,12 +28,12 @@
 
 <!-- Roster -->
 <div class="row fade" ng-show="vm.updating === false">
-  <table class="table table-condensed table-hover roster-table">
+  <div class="col-md-9">
+    <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
-        <th>Role</th>
-        <th>Name</th>
-        <th>ilvl</th>
+        <th></th>
+        <th></th>
         <th><trmds-slot-icons slot="head" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="neck" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="shoulder" size="24"></trmds-slot-icons></th>
@@ -58,11 +57,12 @@
     <tbody>
       <tr ng-repeat="raider in vm.roster | orderBy:['+role', '+class', '-averageItemLevel']">
         <!-- Role -->
-        <td><trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons></td>
-        <!-- Name + Class -->
-        <td><a ng-href="#/character/{{ raider.name }}" class="roster-item-name" ng-class="vm.getClassColor(raider.class)">
-          {{ raider.name }}
-        </a></td>
+        <td style="text-align: left;">
+          <trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons>
+          <a ng-href="#/character/{{ raider.name }}" class="roster-item-name" ng-class="vm.getClassColor(raider.class)">
+            {{ raider.name }}
+          </a>
+        </td>
         <!-- ilvl -->
         <td ng-class="vm.getIlvlColor(raider.averageItemLevel)">{{ raider.averageItemLevel }}</td>
         <!-- Slots -->
@@ -80,6 +80,35 @@
       </tr>
     </tbody>
   </table>
+  </div>
+  <!-- Roster info -->
+  <div class="col-md-3 fade" ng-show="vm.rosterInfos">
+    <p>lastUpdate: {{ vm.rosterInfos.lastUpdate }}</p>
+    <p>size: {{ vm.rosterInfos.size }}</p>
+    <p>averageItemLevel: {{ vm.rosterInfos.averageItemLevel }}</p>
+    <p>lowestItemLevel: {{ vm.rosterInfos.lowestItemLevel }}</p>
+    <p>highestItemLevel: {{ vm.rosterInfos.highestItemLevel }}</p>
+    <p>
+      armorTypes:
+      <br/>
+      - cloth: {{ vm.rosterInfos.armorTypes.cloth }}
+      <br/>
+      - leather: {{ vm.rosterInfos.armorTypes.leather }}
+      <br/>
+      - mail: {{ vm.rosterInfos.armorTypes.mail }}
+      <br/>
+      - plate: {{ vm.rosterInfos.armorTypes.plate }}
+    </p>
+    <p>
+      armorTokens:
+      <br/>
+      - vanquisher: {{ vm.rosterInfos.armorTokens.vanquisher }}
+      <br/>
+      - protector: {{ vm.rosterInfos.armorTokens.protector }}
+      <br/>
+      - conqueror: {{ vm.rosterInfos.armorTokens.conqueror }}
+    </p>
+  </div>
 
 </div>
 </div>

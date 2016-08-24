@@ -68,7 +68,6 @@
         function getRoster() {
           CharacterSvc.getRoster().then(function (result) {
               vm.roster = result;
-              console.log(vm.roster);
           });
         }
 
