@@ -17,6 +17,7 @@
 
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;
+        vm.getRosterLastUpdate = getRosterLastUpdate;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getItemQualityColor = getItemQualityColor;
@@ -29,21 +30,24 @@
         function activate() {
           console.log('RosterCtrl activate');
           vm.getRoster();
-          vm.getRosterInfos();
         }
 
         function getRoster() {
           CharacterSvc.getRoster().then(function(data){
             vm.roster = data;
-            vm.updating = false;
+            vm.getRosterInfos();
           });
         }
 
         function getRosterInfos() {
           RosterSvc.get().then(function (data) {
             vm.rosterInfos = data;
-            console.log(vm.rosterInfos);
+            vm.updating = false;
           });
+        }
+
+        function getRosterLastUpdate() {
+          return vm.rosterInfos ? moment(vm.rosterInfos.lastUpdate).calendar() : '';
         }
 
         function getClassColor(value) {
@@ -67,11 +71,10 @@
             var raider = vm.roster[i];
             CharacterSvc.updateCharacter(raider.name).then(function(data){
               vm.updateCount++;
-              console.log(vm.updateCount + '/' + vm.rosterSize + ' (' + raider.name + ')');
-
               if(vm.updateCount === vm.rosterSize) {
-                console.log('Jobz done');
-                vm.getRoster();
+                RosterSvc.update().then(function () {
+                  vm.getRoster();
+                });
               }
             });
           }

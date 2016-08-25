@@ -72,6 +72,9 @@ function getRosterData(characters) {
     }
   };
 
+  // To store classes counts temporary
+  var classesTmp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
   // Do work
   for(var i=0; i<characters.length; i++) {
     var character = characters[i];
@@ -97,9 +100,9 @@ function getRosterData(characters) {
 
     // Armor types
     switch(character.class) {
-      case 5: case 9: case 8:
+      case 5: case 8: case 9:
         data.armorTypes.cloth++; break;
-      case 10: case 12: case 4: case 11:
+      case 4: case 10: case 11: case 12:
         data.armorTypes.leather++; break;
       case 3: case 7:
         data.armorTypes.mail++; break;
@@ -117,28 +120,30 @@ function getRosterData(characters) {
         data.armorTokens.vanquisher++; break;
     }
 
-    /*
     // Classes
-    data.classes = [];
-
-    // Class types
+    // Melee vs Distant
     switch(character.class) {
-      case 1: data.meleeVsDistant.melee++; break; // war
-      case 2: data.meleeVsDistant.melee++; break; // pal
-      case 3: data.meleeVsDistant.distant++; break; // hunt
-      case 4: data.meleeVsDistant.melee++; break; // rogue
-      case 5: data.meleeVsDistant.distant++; break; // priest
-      case 6: data.meleeVsDistant.melee++; break; // dk
-      case 7: break; // cham
-      case 8: data.meleeVsDistant.distant++; break; // mage
-      case 9: data.meleeVsDistant.distant++; break; // demo
-      case 10: character.role === 1 ? data.meleeVsDistant.distant++ : data.meleeVsDistant.melee++; break; // monk
-      case 11: break; // drood
-      case 12: data.meleeVsDistant.melee++; break; // dh
+      case 1: classesTmp[1]++; data.meleeVsDistant.melee++; break; // war
+      case 2: classesTmp[2]++; data.meleeVsDistant.melee++; break; // pal
+      case 3: classesTmp[3]++; data.meleeVsDistant.distant++; break; // hunt
+      case 4: classesTmp[4]++; data.meleeVsDistant.melee++; break; // rogue
+      case 5: classesTmp[5]++; data.meleeVsDistant.distant++; break; // priest
+      case 6: classesTmp[6]++; data.meleeVsDistant.melee++; break; // dk
+      case 7: classesTmp[7]++; break; // cham
+      case 8: classesTmp[8]++; data.meleeVsDistant.distant++; break; // mage
+      case 9: classesTmp[9]++; data.meleeVsDistant.distant++; break; // warlock
+      case 10: classesTmp[10]++; break; // monk
+      case 11: classesTmp[11]++; break; // druid
+      case 12: classesTmp[12]++; data.meleeVsDistant.melee++; break; // dh
     }
-    */
   }
 
+  // Classes distribution
+  for(var i=1; i<classesTmp.length; i++) {
+    data.classes.push({ classId: i, count: classesTmp[i] });
+  }
+
+  // Average ilvl
   data.averageItemLevel = (totalItemLevel / characters.length).toFixed(1);
 
   return data;

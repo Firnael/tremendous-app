@@ -7,9 +7,8 @@
 <div class="row title-bar">
   <div class="col-md-12">
     <h2>Roster <small class="fade" ng-show="vm.roster.length">
-      <a class="btn btn-default btn-xs" ng-click="vm.updateRoster()">Update</a>
-      </small>
-    </h2>
+      Derniere MaJ: {{ vm.getRosterLastUpdate() }}
+    </small></h2>
   </div>
 </div>
 <br/>
@@ -28,7 +27,7 @@
 
 <!-- Roster -->
 <div class="row fade" ng-show="vm.updating === false">
-  <div class="col-md-9">
+  <div class="col-md-9" style="border-right: 1px dashed #555;">
     <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
@@ -81,33 +80,65 @@
     </tbody>
   </table>
   </div>
+
   <!-- Roster info -->
   <div class="col-md-3 fade" ng-show="vm.rosterInfos">
-    <p>lastUpdate: {{ vm.rosterInfos.lastUpdate }}</p>
-    <p>size: {{ vm.rosterInfos.size }}</p>
-    <p>averageItemLevel: {{ vm.rosterInfos.averageItemLevel }}</p>
-    <p>lowestItemLevel: {{ vm.rosterInfos.lowestItemLevel }}</p>
-    <p>highestItemLevel: {{ vm.rosterInfos.highestItemLevel }}</p>
-    <p>
-      armorTypes:
-      <br/>
-      - cloth: {{ vm.rosterInfos.armorTypes.cloth }}
-      <br/>
-      - leather: {{ vm.rosterInfos.armorTypes.leather }}
-      <br/>
-      - mail: {{ vm.rosterInfos.armorTypes.mail }}
-      <br/>
-      - plate: {{ vm.rosterInfos.armorTypes.plate }}
-    </p>
-    <p>
-      armorTokens:
-      <br/>
-      - vanquisher: {{ vm.rosterInfos.armorTokens.vanquisher }}
-      <br/>
-      - protector: {{ vm.rosterInfos.armorTokens.protector }}
-      <br/>
-      - conqueror: {{ vm.rosterInfos.armorTokens.conqueror }}
-    </p>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>{{ vm.rosterInfos.size }} raiders</h4>
+        <span class="roster-ilvl-lowest">{{ vm.rosterInfos.lowestItemLevel }}</span>
+        <span class="roster-ilvl-average">{{ vm.rosterInfos.averageItemLevel }}</span>
+        <span class="roster-ilvl-highest">{{ vm.rosterInfos.highestItemLevel }}</span>
+      </div>
+    </div>
+    <br/>
+
+    <!-- Armor types & Armor tokens -->
+    <div class="row">
+      <!-- Types -->
+      <div class="col-md-6">
+        <h4>Armor types</h4>
+        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_plate04.jpg" width="24" height="24"/>
+        {{ vm.rosterInfos.armorTypes.plate }}
+        <br/>
+        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_chain.jpg" width="24" height="24"/>
+        {{ vm.rosterInfos.armorTypes.mail }}
+        <br/>
+        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_leather_10.jpg" width="24" height="24"/>
+        {{ vm.rosterInfos.armorTypes.leather }}
+        <br/>
+        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_cloth_32.jpg" width="24" height="24"/>
+        {{ vm.rosterInfos.armorTypes.cloth }}
+        <br/>
+      </div>
+      <!-- Tokens -->
+      <div class="col-md-6">
+        <h4>Armor tokens</h4>
+        <p>Vanquisher: {{ vm.rosterInfos.armorTokens.vanquisher }}</p>
+        <p>Protector: {{ vm.rosterInfos.armorTokens.protector }}</p>
+        <p>Conqueror: {{ vm.rosterInfos.armorTokens.conqueror }}</p>
+      </div>
+    </div>
+    <br/>
+
+    <!-- Class Distribution -->
+    <div class="row">
+      <h4 class="col-md-12">Class distribution</h4>
+      <div class="col-md-6">
+        <div ng-repeat="entry in vm.rosterInfos.classes" ng-if="entry.classId <= 6">
+          <trmds-class-icons char-class="{{ entry.classId }}" size="24"></trmds-class-icons> {{ entry.count }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div ng-repeat="entry in vm.rosterInfos.classes" ng-if="entry.classId > 6">
+          <trmds-class-icons char-class="{{ entry.classId }}" size="24"></trmds-class-icons> {{ entry.count }}
+        </div>
+      </div>
+    </div>
+
+    <br/>
+    <a class="btn btn-default" ng-click="vm.updateRoster()">Update</a>
+
   </div>
 
 </div>
