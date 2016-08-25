@@ -54,6 +54,7 @@
         function getGuildRank() {
           WowProgressApiSvc.getGuildRank().then(function (data) {
             vm.guildRank = data;
+            console.log(data);
           });
         }
 

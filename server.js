@@ -9,6 +9,7 @@ var characterApiRouter = require('./routes/characterApiRouter');
 var guildApiRouter = require('./routes/guildApiRouter');
 var rosterApiRouter = require('./routes/rosterApiRouter');
 var progressApiRouter = require('./routes/progressApiRouter');
+var rankingApiRouter = require('./routes/rankingApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
@@ -40,6 +41,7 @@ app.use('/api/character', characterApiRouter);
 app.use('/api/guild', guildApiRouter);
 app.use('/api/roster', rosterApiRouter);
 app.use('/api/progress', progressApiRouter);
+app.use('/api/ranking', rankingApiRouter);
 
 // External APIs
 app.use('/api/bnet', bnetApiRouter);
