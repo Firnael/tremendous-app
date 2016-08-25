@@ -17,14 +17,14 @@
 
         function get() {
           var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/progress").then(function(response) {
-              return response.data;
+            return response.data;
           });
           return promise;
         };
 
         function update(){
           var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/progress/update").then(function(response) {
-              return response.data;
+            return response.data;
           });
           return promise;
         };

@@ -6,11 +6,22 @@
 
 <div class="row title-bar">
     <div class="col-md-12">
-      <h2>Progress <small class="fade" ng-show="vm.progress">Derniere MaJ : {{ vm.getProgressLastUpdate() }}</small></h2>
+      <h2>Progress <small class="fade" ng-show="vm.progress">
+        Derniere MaJ : {{ vm.getProgressLastUpdate() }}
+        <a class="btn btn-default btn-xs" ng-click="vm.updateProgress()">Update</a>
+      </small></h2>
     </div>
 </div>
 
-<div class="progress-wrapper">
+<!-- Update progress -->
+<div class="row text-center" ng-show="vm.updating === true">
+  <div class="col-md-offset-4 col-md-4 text-center">
+    <h2>Updating progress</h2>
+    <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+  </div>
+</div>
+
+<div class="progress-wrapper" ng-show="vm.updating === false">
 
 <!-- Emerald Nightmare -->
 <div class="col-md-6 fill" style="background-image: url(http://2.bp.blogspot.com/-p5fFpOAHgFA/Vek7T-kyqKI/AAAAAAAAC_s/u52b_te4oeA/s1600/nightmare.JPG);

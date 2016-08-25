@@ -10,9 +10,11 @@
     function ProgressCtrl(ProgressSvc){
         var vm = this;
         vm.progress = undefined;
+        vm.updating = false;
 
         vm.getProgress = getProgress;
         vm.getProgressLastUpdate = getProgressLastUpdate;
+        vm.updateProgress = updateProgress;
         activate();
 
         //////////////
@@ -30,6 +32,14 @@
 
         function getProgressLastUpdate() {
           return vm.progress ? moment(vm.progress.lastUpdate).calendar() : '';
+        }
+
+        function updateProgress() {
+          vm.updating = true;
+          ProgressSvc.update().then(function(data){
+            vm.progress = data;
+            vm.updating = false;
+          });
         }
     }
 })();
