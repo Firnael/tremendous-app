@@ -89,62 +89,57 @@
 
   <!-- Roster info -->
   <div class="col-md-3 fade" ng-show="vm.rosterInfos">
-    <div class="row">
+    <div class="row text-center">
       <div class="col-md-12">
-        <h4>{{ vm.rosterInfos.size }} raiders</h4>
+        <h2>{{ vm.rosterInfos.size }} <small>Raiders</small></h2>
+
+        <!-- Class Distribution -->
+        <canvas class="chart chart-doughnut"
+                chart-data="vm.classDistribution.data"
+                chart-labels="vm.classDistribution.labels"
+                chart-colors="vm.classDistribution.colors">
+        </canvas>
+
+        <!-- Ilvl - | ~ | + -->
+        <h3 class="text-muted">ilvl</h3>
         <span class="roster-ilvl-lowest">{{ vm.rosterInfos.lowestItemLevel }}</span>
         <span class="roster-ilvl-average">{{ vm.rosterInfos.averageItemLevel }}</span>
         <span class="roster-ilvl-highest">{{ vm.rosterInfos.highestItemLevel }}</span>
       </div>
-    </div>
-    <br/>
+      <br/>
 
-    <!-- Armor types & Armor tokens -->
-    <div class="row">
-      <!-- Types -->
+      <!-- Armor Types -->
       <div class="col-md-6">
         <h4>Armor types</h4>
+        <canvas class="chart chart-pie"
+                chart-data="vm.armorTypes.data"
+                chart-labels="vm.armorTypes.labels"
+                chart-colors="vm.armorTypes.colors">
+        </canvas>
+        <!--
         <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_plate04.jpg" width="24" height="24"/>
-        {{ vm.rosterInfos.armorTypes.plate }}
-        <br/>
         <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_chain.jpg" width="24" height="24"/>
-        {{ vm.rosterInfos.armorTypes.mail }}
-        <br/>
         <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_leather_10.jpg" width="24" height="24"/>
-        {{ vm.rosterInfos.armorTypes.leather }}
-        <br/>
         <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_cloth_32.jpg" width="24" height="24"/>
-        {{ vm.rosterInfos.armorTypes.cloth }}
-        <br/>
+        -->
       </div>
-      <!-- Tokens -->
+
+      <!-- Armor Tokens -->
       <div class="col-md-6">
         <h4>Armor tokens</h4>
-        <p>Vanquisher: {{ vm.rosterInfos.armorTokens.vanquisher }}</p>
-        <p>Protector: {{ vm.rosterInfos.armorTokens.protector }}</p>
-        <p>Conqueror: {{ vm.rosterInfos.armorTokens.conqueror }}</p>
+        <canvas class="chart chart-pie"
+                chart-data="vm.armorTokens.data"
+                chart-labels="vm.armorTokens.labels"
+                chart-colors="vm.armorTokens.colors">
+        </canvas>
       </div>
+
+      <!-- Update button -->
+      <div class="col-md-12">
+        <a class="btn btn-default" ng-click="vm.updateRoster()">Update</a>
+      </div>
+
     </div>
-    <br/>
-
-    <!-- Class Distribution -->
-    <div class="row">
-      <h4 class="col-md-12">Class distribution</h4>
-      <div class="col-md-6">
-        <div ng-repeat="entry in vm.rosterInfos.classes" ng-if="entry.classId <= 6">
-          <trmds-class-icons char-class="{{ entry.classId }}" size="24"></trmds-class-icons> {{ entry.count }}
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div ng-repeat="entry in vm.rosterInfos.classes" ng-if="entry.classId > 6">
-          <trmds-class-icons char-class="{{ entry.classId }}" size="24"></trmds-class-icons> {{ entry.count }}
-        </div>
-      </div>
-    </div>
-
-    <br/>
-    <a class="btn btn-default" ng-click="vm.updateRoster()">Update</a>
-
   </div>
 
 </div>

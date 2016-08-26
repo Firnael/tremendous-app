@@ -33,12 +33,6 @@
             }]
           }
 				};
-
-        vm.series = ['Progress'];
-        vm.labels = [ 'x'... autant d'occurences que de data ];
-        vm.data = [
-          [x occurences]
-        ];
         */
 
         activate();

@@ -15,6 +15,30 @@
         vm.updateCount = 0;
         vm.rosterSize = 0;
 
+        // Class distribution
+        vm.classDistribution = {};
+        vm.classDistribution.data = [0,0,0,0,0,0,0,0,0,0,0,0];
+        vm.classDistribution.labels = [
+          'War', 'Pal', 'Hunt', 'Rogue', 'Priest', 'DK',
+          'Cham', 'Mage', 'Demo', 'Monk', 'Drood', 'DH'
+        ];
+        vm.classDistribution.colors = [
+          '#C79C6E', '#F58CBA', '#ABD473', '#FFF569', '#FFFFFF', '#C41F3B',
+          '#0070DE', '#69CCF0', '#9482C9', '#00FF96', '#FF7D0A', '#A330C9'
+        ];
+
+        // Armor types
+        vm.armorTypes = {};
+        vm.armorTypes.data = [0, 0, 0, 0];
+        vm.armorTypes.labels = ['Plaque', 'Maille', 'Cuir', 'Tissu'];
+        vm.armorTypes.colors = ['#FFFFFF', '#AAAAAA', '#777777', '#222222'];
+
+        // Armor tokens
+        vm.armorTokens = {};
+        vm.armorTokens.data = [0, 0, 0];
+        vm.armorTokens.labels = ['Vanquisher', 'Protector', 'Conqueror'];
+        vm.armorTokens.colors = ['#FFFFFF', '#AAAAAA', '#777777'];
+
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;
         vm.getRosterLastUpdate = getRosterLastUpdate;
@@ -24,6 +48,7 @@
         vm.getGemAuditColor = getGemAuditColor;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
+        vm.updateRosterData = updateRosterData;
         activate();
 
         //////////////
@@ -43,6 +68,7 @@
         function getRosterInfos() {
           RosterSvc.get().then(function (data) {
             vm.rosterInfos = data;
+            vm.updateRosterData();
             vm.updating = false;
           });
         }
@@ -96,5 +122,25 @@
         function getUpdateProgress() {
           return vm.updateCount > 0 ? (vm.updateCount / vm.rosterSize) * 100 : 0;
         }
+
+        function updateRosterData() {
+          // Class distribution
+          for(var i=0; i<vm.rosterInfos.classes.length; i++) {
+            var entry = vm.rosterInfos.classes[i];
+            vm.classDistribution.data[i] = entry.count;
+          }
+
+          // Armor types
+          vm.armorTypes.data[0] = vm.rosterInfos.armorTypes.plate;
+          vm.armorTypes.data[1] = vm.rosterInfos.armorTypes.mail;
+          vm.armorTypes.data[2] = vm.rosterInfos.armorTypes.leather;
+          vm.armorTypes.data[3] = vm.rosterInfos.armorTypes.cloth;
+
+          // Armor tokens
+          vm.armorTokens.data[0] = vm.rosterInfos.armorTokens.vanquisher;
+          vm.armorTokens.data[1] = vm.rosterInfos.armorTokens.protector;
+          vm.armorTokens.data[2] = vm.rosterInfos.armorTokens.conqueror;
+        }
+
     }
 })();

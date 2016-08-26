@@ -44,6 +44,7 @@
             for(var i=0; i<6; i++) {
               vm.professionData[i] = vm.getProfessionData(i);
             }
+            console.log(vm.professionData[0]);
 
             vm.lastModified = moment(vm.character.lastModified).calendar();
             vm.updatingCharacter = false;
