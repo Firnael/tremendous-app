@@ -55,23 +55,22 @@
           }
         }
 
-        function getCssClassByIlvl(value) {
-          if(value >= 660) {
-            if(value >= 680) {
-              if(value >= 700) {
-                if(value >= 720) {
-                  if(value >= 735) {
-                    return 'legendary';
-                  }
-                  return 'epic';
-                }
-                return 'rare';
-              }
-              return 'uncommon';
-            }
-            return 'common';
+        function getCssClassByIlvl(value, background) {
+          var result = '';
+          if(value >= 735) { // 840
+            result = 'legendary';
+          } else if(value >= 720) { // 830
+            result = 'epic';
+          } else if(value >= 700) { // 820
+            result = 'rare';
+          } else if(value >= 680) { // 810
+            result = 'uncommon';
+          } else if(value >= 660) { // 800
+            result = 'common';
+          } else {
+            result = 'poor';
           }
-          return 'poor';
+          return background ? result + '-bg' : result;
         }
 
         function getCssClassByQuality(value, background) {

@@ -33,6 +33,7 @@
       <tr>
         <th></th>
         <th></th>
+        <th></th>
         <th><trmds-slot-icons slot="head" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="neck" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="shoulder" size="24"></trmds-slot-icons></th>
@@ -49,6 +50,7 @@
         <th><trmds-slot-icons slot="trinket2" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="mainHand" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="offHand" size="24"></trmds-slot-icons></th>
+        <th></th>
         <th><img src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_saberseye.jpg" width="24" height="24" title="Enchants" class="img-rounded"/></th>
         <th><img src="http://wow.zamimg.com/images/wow/icons/large/inv_enchanting_70_chaosshard.jpg" width="24" height="24" title="Gemmes" class="img-rounded"/></th>
       </tr>
@@ -64,16 +66,20 @@
         </td>
         <!-- ilvl -->
         <td ng-class="vm.getIlvlColor(raider.averageItemLevel)">{{ raider.averageItemLevel }}</td>
+        <!-- Separator -->
+        <td></td>
         <!-- Slots -->
         <td ng-repeat="item in raider.items" class="roster-item-ilvl" ng-class="vm.getItemQualityColor(item.quality)">
           {{ item.ilvl ? item.ilvl : ''}}
         </td>
+        <!-- Separator -->
+        <td></td>
         <!-- Gems -->
-        <td ng-class="raider.audit.equipedGems === raider.audit.gemSlots ? '' : 'roster-warning'">
+        <td ng-class="vm.getGemAuditColor(raider)">
           {{ raider.audit.equipedGems }}/{{ raider.audit.gemSlots }}
         </td>
         <!-- Enchants -->
-        <td ng-class="raider.audit.missingEnchants > 0 ? 'roster-warning' : ''">
+        <td ng-class="raider.audit.missingEnchants > 0 ? 'roster-audit-bad' : 'roster-audit-good'">
           {{ 4 - raider.audit.missingEnchants }}/4
         </td>
       </tr>

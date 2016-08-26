@@ -21,6 +21,7 @@
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getItemQualityColor = getItemQualityColor;
+        vm.getGemAuditColor = getGemAuditColor;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
         activate();
@@ -55,11 +56,23 @@
         }
 
         function getIlvlColor(value) {
-          return UtilsSvc.getCssClassByIlvl(value);
+          return UtilsSvc.getCssClassByIlvl(value, true);
         }
 
         function getItemQualityColor(value) {
+          if(!value) {
+            return 'roster-audit-neutral';
+          }
           return UtilsSvc.getCssClassByQuality(value, true);
+        }
+
+        function getGemAuditColor(raider) {
+          if(raider.audit.gemSlots === 0) {
+            return 'roster-audit-neutral';
+          } else if(raider.audit.equipedGems === raider.audit.gemSlots) {
+            return 'roster-audit-good';
+          }
+          return 'roster-audit-bad';
         }
 
         function updateRoster() {
