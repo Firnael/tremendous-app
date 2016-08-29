@@ -6,7 +6,9 @@
 
   <div class="row title-bar">
     <div class="col-md-12">
-      <h2>Ranking <small>Serveur, Region, Monde</small></h2>
+      <h2>Ranking <small class="fade" ng-hide="vm.updating">
+        Derniere MaJ : {{ vm.getRankingLastUpdate() }}
+      </small></h2>
     </div>
   </div>
 

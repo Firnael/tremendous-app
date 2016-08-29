@@ -16,6 +16,7 @@
         vm.setRanking = setRanking;
         vm.getRanking = getRanking;
         vm.getGuildRanking = getGuildRanking;
+        vm.getRankingLastUpdate = getRankingLastUpdate;
         vm.updateRanking = updateRanking;
 
         activate();
@@ -46,6 +47,10 @@
               return guild;
             }
           }
+        }
+
+        function getRankingLastUpdate() {
+          return vm.ranking ? moment(vm.ranking.lastUpdate).calendar() : '';
         }
 
         function updateRanking() {
