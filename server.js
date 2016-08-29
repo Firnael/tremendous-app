@@ -11,7 +11,6 @@ var rosterApiRouter = require('./routes/rosterApiRouter');
 var progressApiRouter = require('./routes/progressApiRouter');
 var rankingApiRouter = require('./routes/rankingApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
-var wowProgressApiRouter = require('./routes/wowProgressApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
 
 // Connecting to MongoLab
@@ -45,7 +44,6 @@ app.use('/api/ranking', rankingApiRouter);
 
 // External APIs
 app.use('/api/bnet', bnetApiRouter);
-app.use('/api/wowprogress', wowProgressApiRouter);
 app.use('/api/warcraftlogs', warcraftLogsApiRouter);
 
 // Initialize the app.

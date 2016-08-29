@@ -10,6 +10,16 @@ var guildListUrl = "https://extraction.import.io/query/extractor/5482b056-6980-4
 /**
  * Get server guilds ranking (Server, Region and World)
  */
+rankingApiRouter.get('/', function(req, res) {
+  Ranking.findOne({}, function (err, ranking) {
+    if (err) { res.send(err); return; }
+    return res.send(ranking);
+  });
+});
+
+/**
+ * Update and return ranking
+ */
 rankingApiRouter.get('/update', function(req, res) {
   request(guildListUrl, function (err, response, body) {
     if (err || response.statusCode !== 200) { return console.log(err); }

@@ -5,35 +5,18 @@
         .module('app')
         .controller('rankingCtrl', RankingCtrl);
 
-    RankingCtrl.$inject = ['WowProgressApiSvc'];
+    RankingCtrl.$inject = ['RankingSvc'];
 
-    function RankingCtrl(WowProgressApiSvc){
+    function RankingCtrl(RankingSvc){
         var vm = this;
-        vm.guildRank = undefined;
-        vm.serverRanking = undefined;
+        vm.ranking = undefined;
+        vm.guild = undefined;
+        vm.updating = true;
 
-        vm.getGuildRank = getGuildRank;
-        vm.getServerRanking = getServerRanking;
-
-        /*
-        <!-- Ranking -->
-        <div class="col-md-9">
-          <canvas class="chart chart-horizontal-bar" chart-data="vm.data" chart-labels="vm.labels" chart-series="vm.series"  chart-options="vm.options"></canvas>
-        </div>
-
-        vm.options = {
-          scales : {
-            xAxes : [{
-                ticks: {
-                  beginAtZero: true,
-                  min: 0,
-                  max: 13,
-                  stepSize: 1
-                }
-            }]
-          }
-				};
-        */
+        vm.setRanking = setRanking;
+        vm.getRanking = getRanking;
+        vm.getGuildRanking = getGuildRanking;
+        vm.updateRanking = updateRanking;
 
         activate();
 
@@ -41,20 +24,34 @@
 
         function activate() {
           console.log('RankingCtrl activate');
-          vm.getGuildRank();
-          vm.getServerRanking();
+          vm.getRanking();
         }
 
-        function getGuildRank() {
-          WowProgressApiSvc.getGuildRank().then(function (data) {
-            vm.guildRank = data;
-            console.log(data);
+        function setRanking(data) {
+          vm.ranking = data;
+          vm.guild = getGuildRanking();
+          vm.updating = false;
+        }
+
+        function getRanking() {
+          RankingSvc.get().then(function (data) {
+            vm.setRanking(data);
           });
         }
 
-        function getServerRanking() {
-          WowProgressApiSvc.getServerRanking().then(function (data) {
-            vm.serverRanking = data;
+        function getGuildRanking() {
+          for(var i=0; i<vm.ranking.guilds.length; i++) {
+            var guild = vm.ranking.guilds[i];
+            if(guild.name === 'Millenium') {
+              return guild;
+            }
+          }
+        }
+
+        function updateRanking() {
+          vm.updating = true;
+          RankingSvc.update().then(function (data) {
+            vm.setRanking(data);
           });
         }
     }

@@ -13,39 +13,47 @@
   <div class="row">
 
     <!-- Server ranking -->
-    <div ng-show="vm.serverRanking" class="col-md-5 fade">
+    <div ng-hide="vm.updating" class="col-md-5">
       <table class="table table-condensed table-hover">
         <tbody>
-          <tr ng-repeat="item in vm.serverRanking">
+          <tr ng-repeat="guild in vm.ranking.guilds">
             <td class="guild-name">
-              <a ng-href="{{ item.guild[0].href }}" target="_blank">
-                {{ item.guild[0].text }}
-                <img ng-show="item.guild[0].text === 'Millenium'" src="https://wiki.mylzh.net/sites/world-of-warcraft/images/1/17/Shattered_Sun_64.png" width="16" height="16"/>
+              <a ng-href="{{ guild.url }}" target="_blank">
+                {{ guild.name }}
+                <img ng-show="guild.name === 'Millenium'" src="https://wiki.mylzh.net/sites/world-of-warcraft/images/1/17/Shattered_Sun_64.png" width="16" height="16"/>
               </a>
             </td>
-            <td>{{ item.rank[0].text }}</td>
-            <td>({{ item.world_rank[0].text }})</td>
-            <td>{{ item.progress[0].text }}</td>
+            <td>{{ guild.realmRank }}</td>
+            <td>{{ guild.regionRank }}</td>
+            <td>{{ guild.worldRank }}</td>
+            <td>{{ guild.tierProgress }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-md-5 text-center" style="margin-top: 250px;" ng-show="!vm.serverRanking">
+    <div ng-show="vm.updating" class="col-md-5 text-center" style="margin-top: 250px;">
       <i class="fa fa-refresh fa-spin fa-4x fa-fw"></i>
     </div>
 
     <!-- Guild rank -->
     <div class="col-md-4 text-center">
       <h2 class="text-muted"><b>Server</b> Rank</h2>
-      <h1>{{ vm.guildRank.realm_rank }}</h1>
+      <h1 ng-hide="vm.updating">{{ vm.guild.realmRank }}</h1>
+      <h1 ng-show="vm.updating">-</h1>
       <hr/>
       <h2 class="text-muted"><b>EU</b> Rank</h2>
-      <h1>{{ vm.guildRank.area_rank }}</h1>
+      <h1 ng-hide="vm.updating">{{ vm.guild.regionRank }}</h1>
+      <h1 ng-show="vm.updating">-</h1>
       <hr/>
       <h2 class="text-muted"><b>World</b> Rank</h2>
-      <h1>{{ vm.guildRank.world_rank }}</h1>
+      <h1 ng-hide="vm.updating">{{ vm.guild.worldRank }}</h1>
+      <h1 ng-show="vm.updating">-</h1>
       <br/>
-      <a class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Refresh</a>
+      <a ng-click="vm.updateRanking()" ng-disabled="vm.updating" class="btn btn-primary">
+        <i ng-class="vm.updating ? 'fa-spin' : ''" class="fa fa-refresh" aria-hidden="true"></i>
+        <span ng-hide="vm.updating">Refresh</span>
+        <span ng-show="vm.updating">Refreshing</span>
+      </a>
     </div>
     <div class="col-md-2 text-center">
       <h3>WowProgress</h3>
