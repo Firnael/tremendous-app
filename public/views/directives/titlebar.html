@@ -1,8 +1,11 @@
 <div class="row title-bar">
   <div class="col-md-12">
-    <h2>Ranking <small class="fade" ng-hide="updating">
-      Derniere MaJ : {{ lastUpdate }}
-      <a class="btn btn-default btn-xs" ng-click="update()">Update</a>
-    </small></h2>
+    <h2>Ranking</h2>
+    <div class="title-bar-update">
+      <span class="fade title-bar-update-timestamp" ng-hide="updating">{{ lastUpdate }}</span>
+      <a class="btn btn-default btn-sm" ng-click="update()" ng-disabled="updating">
+        <i ng-class="updating ? 'fa-spin' : ''" class="fa fa-refresh" aria-hidden="true"></i>
+      </a>
+    </div>
   </div>
 </div>
