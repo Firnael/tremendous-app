@@ -10,8 +10,9 @@
     function ProgressCtrl(ProgressSvc){
         var vm = this;
         vm.progress = undefined;
-        vm.updating = false;
+        vm.updating = true;
 
+        vm.setProgress = setProgress;
         vm.getProgress = getProgress;
         vm.getProgressLastUpdate = getProgressLastUpdate;
         vm.updateProgress = updateProgress;
@@ -24,9 +25,14 @@
           vm.getProgress();
         }
 
+        function setProgress(data) {
+          vm.progress = data;
+          vm.updating = false;
+        }
+
         function getProgress() {
           ProgressSvc.get().then(function(data){
-            vm.progress = data;
+            vm.setProgress(data);
           });
         }
 
@@ -37,8 +43,7 @@
         function updateProgress() {
           vm.updating = true;
           ProgressSvc.update().then(function(data){
-            vm.progress = data;
-            vm.updating = false;
+            vm.setProgress(data);
           });
         }
     }

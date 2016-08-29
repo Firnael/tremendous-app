@@ -11,7 +11,6 @@
     </small></h2>
   </div>
 </div>
-<br/>
 
 <!-- Update progress -->
 <div class="row text-center" ng-show="vm.updating === true && vm.rosterSize > 0">
@@ -26,8 +25,8 @@
 </div>
 
 <!-- Roster -->
-<div class="row fade" ng-show="vm.updating === false">
-  <div class="col-md-9" style="border-right: 1px dashed #555;">
+<div class="row roster-wrapper fade" ng-show="vm.updating === false">
+  <div class="col-md-9 roster-table-wrapper" style="border-right: 1px dashed #555;">
     <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
@@ -60,7 +59,7 @@
         <!-- Role -->
         <td style="text-align: left;">
           <trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons>
-          <a ng-href="#/character/{{ raider.name }}" class="roster-item-name" ng-class="vm.getClassColor(raider.class)">
+          <a ng-href="#/character/{{ raider.name }}" class="roster-raider-name" ng-class="vm.getClassColor(raider.class)">
             {{ raider.name }}
           </a>
         </td>
@@ -69,7 +68,7 @@
         <!-- Separator -->
         <td></td>
         <!-- Slots -->
-        <td ng-repeat="item in raider.items" class="roster-item-ilvl" ng-class="vm.getItemQualityColor(item.quality)">
+        <td ng-repeat="item in raider.items" ng-class="vm.getItemQualityColor(item.quality)">
           {{ item.ilvl ? item.ilvl : ''}}
         </td>
         <!-- Separator -->
