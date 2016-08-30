@@ -4,13 +4,8 @@
 
 <div class="rows-wrapper" ng-class="$root.open">
 
-<div class="row title-bar">
-  <div class="col-md-12">
-    <h2>Roster <small class="fade" ng-show="vm.roster.length">
-      Derniere MaJ: {{ vm.getRosterLastUpdate() }}
-    </small></h2>
-  </div>
-</div>
+<trmds-title-bar page="Roster" updating="vm.updating" last-update="vm.rosterInfos.lastUpdate" update="vm.updateRoster">
+</trmds-title-bar>
 
 <!-- Update progress -->
 <div class="row text-center" ng-show="vm.updating === true && vm.rosterSize > 0">
@@ -131,11 +126,6 @@
                 chart-labels="vm.armorTokens.labels"
                 chart-colors="vm.armorTokens.colors">
         </canvas>
-      </div>
-
-      <!-- Update button -->
-      <div class="col-md-12">
-        <a class="btn btn-default" ng-click="vm.updateRoster()">Update</a>
       </div>
 
     </div>

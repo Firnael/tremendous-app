@@ -41,7 +41,6 @@
 
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;
-        vm.getRosterLastUpdate = getRosterLastUpdate;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getItemQualityColor = getItemQualityColor;
@@ -71,10 +70,6 @@
             vm.updateRosterData();
             vm.updating = false;
           });
-        }
-
-        function getRosterLastUpdate() {
-          return vm.rosterInfos ? moment(vm.rosterInfos.lastUpdate).calendar() : '';
         }
 
         function getClassColor(value) {

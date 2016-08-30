@@ -4,13 +4,8 @@
 
 <div class="rows-wrapper" ng-class="$root.open">
 
-  <div class="row title-bar">
-    <div class="col-md-12">
-      <h2>Ranking <small class="fade" ng-hide="vm.updating">
-        Derniere MaJ : {{ vm.getRankingLastUpdate() }}
-      </small></h2>
-    </div>
-  </div>
+  <trmds-title-bar page="Ranking" updating="vm.updating" last-update="vm.ranking.lastUpdate" update="vm.updateRanking">
+  </trmds-title-bar>
 
   <div class="row">
 
@@ -50,12 +45,6 @@
       <h2 class="text-muted"><b>World</b> Rank</h2>
       <h1 ng-hide="vm.updating">{{ vm.guild.worldRank }}</h1>
       <h1 ng-show="vm.updating">-</h1>
-      <br/>
-      <a ng-click="vm.updateRanking()" ng-disabled="vm.updating" class="btn btn-primary">
-        <i ng-class="vm.updating ? 'fa-spin' : ''" class="fa fa-refresh" aria-hidden="true"></i>
-        <span ng-hide="vm.updating">Refresh</span>
-        <span ng-show="vm.updating">Refreshing</span>
-      </a>
     </div>
     <div class="col-md-2 text-center">
       <h3>WowProgress</h3>
