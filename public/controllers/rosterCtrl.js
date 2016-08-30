@@ -31,13 +31,13 @@
         vm.armorTypes = {};
         vm.armorTypes.data = [0, 0, 0, 0];
         vm.armorTypes.labels = ['Plaque', 'Maille', 'Cuir', 'Tissu'];
-        vm.armorTypes.colors = ['#FFFFFF', '#AAAAAA', '#777777', '#222222'];
+        vm.armorTypes.colors = ['#FFFFFF', '#AAAAAA', '#777777', '#333333'];
 
         // Armor tokens
         vm.armorTokens = {};
         vm.armorTokens.data = [0, 0, 0];
         vm.armorTokens.labels = ['Vanquisher', 'Protector', 'Conqueror'];
-        vm.armorTokens.colors = ['#FFFFFF', '#AAAAAA', '#777777'];
+        vm.armorTokens.colors = ['#517a8b', '#a671e4', '#df9659'];
 
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;

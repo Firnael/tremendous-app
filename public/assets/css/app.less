@@ -259,8 +259,6 @@ html, body {
   }
 }
 
-
-
 .roster-raider-name {
   font-weight: bold;
   font-size: 16px;
@@ -291,6 +289,29 @@ html, body {
 .roster-ilvl-highest {
   font-size: 20px;
   color: fade(lightgreen, 80%);
+}
+
+.roster-armor-type {
+  width: 48px;
+  height:24px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  &.roster-armor-type-plate {
+    background-color: #333333;
+    background-image: url(http://wow.zamimg.com/images/wow/icons/large/inv_chest_plate04.jpg);
+  }
+  &.roster-armor-type-mail {
+    background-color: #777777;
+    background-image: url(http://wow.zamimg.com/images/wow/icons/large/inv_chest_chain.jpg);
+  }
+  &.roster-armor-type-leather {
+    background-color: #AAAAAA;
+    background-image: url(http://wow.zamimg.com/images/wow/icons/large/inv_chest_leather_10.jpg);
+  }
+  &.roster-armor-type-cloth {
+    background-color: #FFFFFF;
+    background-image: url(http://wow.zamimg.com/images/wow/icons/large/inv_chest_cloth_32.jpg);
+  }
 }
 
 

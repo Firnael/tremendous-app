@@ -100,26 +100,29 @@
         <span class="roster-ilvl-average">{{ vm.rosterInfos.averageItemLevel }}</span>
         <span class="roster-ilvl-highest">{{ vm.rosterInfos.highestItemLevel }}</span>
       </div>
-      <br/>
+
+      <div class="col-md-12">
+        <hr/>
+      </div>
 
       <!-- Armor Types -->
-      <div class="col-md-6">
-        <h4>Armor types</h4>
+      <h4>Armor types</h4>
+      <div class="col-md-8">
         <canvas class="chart chart-pie"
                 chart-data="vm.armorTypes.data"
                 chart-labels="vm.armorTypes.labels"
                 chart-colors="vm.armorTypes.colors">
         </canvas>
-        <!--
-        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_plate04.jpg" width="24" height="24"/>
-        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_chain.jpg" width="24" height="24"/>
-        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_leather_10.jpg" width="24" height="24"/>
-        <img src="http://wow.zamimg.com/images/wow/icons/large/inv_chest_cloth_32.jpg" width="24" height="24"/>
-        -->
+      </div>
+      <div class="col-md-4">
+        <div class="roster-armor-type roster-armor-type-plate"></div>
+        <div class="roster-armor-type roster-armor-type-mail"></div>
+        <div class="roster-armor-type roster-armor-type-leather"></div>
+        <div class="roster-armor-type roster-armor-type-cloth"></div>
       </div>
 
       <!-- Armor Tokens -->
-      <div class="col-md-6">
+      <div class="col-md-12">
         <h4>Armor tokens</h4>
         <canvas class="chart chart-pie"
                 chart-data="vm.armorTokens.data"

@@ -11,7 +11,7 @@
       function link (scope, element, attributes) {
         switch(scope.slot) {
           case 'head': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_helmet_03.jpg'; break;
-          case 'neck': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_30naxxramas.jpg'; break;
+          case 'neck': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_21.jpg'; break;
           case 'shoulder': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_shoulder_30.jpg'; break;
           case 'back': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_misc_cape_11.jpg'; break;
           case 'chest': scope.src = 'http://wow.zamimg.com/images/wow/icons/large/inv_chest_chain.jpg'; break;
