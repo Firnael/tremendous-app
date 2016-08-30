@@ -14,6 +14,7 @@
         vm.rerolls = {};
 
         // Chart Professions
+        vm.professionData = [];
         vm.labels = ['Accompli', 'Reste'];
         vm.colors = ['#71c326','#555555'];
 
@@ -29,28 +30,31 @@
         //////////////
 
         function activate() {
-            console.log('CharacterCtrl activate');
-            getCharacter();
+          console.log('CharacterCtrl activate');
+          vm.getCharacter();
         }
 
         function getCharacter() {
           CharacterSvc.getCharacter($routeParams.characterName).then(function (result) {
             vm.character = result;
+            vm.lastModified = moment(vm.character.lastModified).calendar();
+
+            // If data incomplete, update it
             if(typeof vm.character.class == 'undefined') {
-                return updateCharacter();
+              // return vm.updateCharacter();
+              vm.updatingCharacter = false;
+              return;
             }
 
-            vm.professionData = [];
+            // Get profession data for charts
             for(var i=0; i<6; i++) {
               vm.professionData[i] = vm.getProfessionData(i);
             }
-            console.log(vm.professionData[0]);
-
-            vm.lastModified = moment(vm.character.lastModified).calendar();
-            vm.updatingCharacter = false;
 
             // Get rerolls
             vm.getRerolls(vm.character.accountIdentifier);
+
+            vm.updatingCharacter = false;
           });
         }
 
@@ -87,23 +91,30 @@
          * Détermine la spec à afficher
          */
         function getSelectedSpec() {
-            if(vm.character.specs) {
-                if(vm.character.specs[0].selected) {
-                    return vm.character.specs[0].name;
-                } else {
-                    return vm.character.specs[1].name;
-                }
-            }
+          if(!vm.character.specs) {
+            console.log('vm.character.spec is undefined');
+            return;
+          }
+
+          var spec1 = vm.character.specs[0];
+          var spec2 = vm.character.specs[1];
+          if(spec1 && spec1.selected) {
+            return spec1.name;
+          } else if(spec2 && spec2.selected) {
+            return spec2.name;
+          } else {
+            console.log('vm.character.spec is empty');
+          }
         }
 
         /**
          * Lance le job de mise à jour du personnage
          */
         function updateCharacter() {
-            vm.updatingCharacter = true;
-            CharacterSvc.updateCharacter($routeParams.characterName).then(function (result) {
-                getCharacter();
-            });
+          vm.updatingCharacter = true;
+          CharacterSvc.updateCharacter($routeParams.characterName).then(function (result) {
+              vm.getCharacter();
+          });
         }
 
         function getClassColor(value) {

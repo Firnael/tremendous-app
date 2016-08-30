@@ -21,10 +21,11 @@ rosterApiRouter.get('/update', function(req, res) {
   Character.where('guildRank').in([0, 1, 2, 3]).exec(function (err, characters) {
     if (err) { return res.send(err); }
 
+    // Delete old
     Roster.remove({}, function(err) {
       if (err) { return res.send(err); }
 
-      // Create new Roster
+      // Create new
       var roster = new Roster();
       roster.lastUpdate = new Date().getTime();
       roster.size = characters.length;
@@ -76,8 +77,17 @@ function getRosterData(characters) {
   var classesTmp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   // Do work
+  var skippedCharacters = 0;
   for(var i=0; i<characters.length; i++) {
     var character = characters[i];
+
+    // Fail-safe if character data is absent
+    if(!character.averageItemLevel) {
+      console.log('Roster infos update : skipping ' + character.name);
+      skippedCharacters++;
+      continue;
+    }
+
     totalItemLevel += character.averageItemLevel;
 
     // Lowest ilvl
@@ -144,7 +154,7 @@ function getRosterData(characters) {
   }
 
   // Average ilvl
-  data.averageItemLevel = (totalItemLevel / characters.length).toFixed(1);
+  data.averageItemLevel = (totalItemLevel / (characters.length - skippedCharacters)).toFixed(1);
 
   return data;
 }

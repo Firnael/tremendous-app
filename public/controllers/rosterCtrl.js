@@ -93,12 +93,14 @@
         }
 
         function getGemAuditColor(raider) {
-          if(raider.audit.gemSlots === 0) {
-            return 'roster-audit-neutral';
-          } else if(raider.audit.equipedGems === raider.audit.gemSlots) {
-            return 'roster-audit-good';
+          if(raider.audit) {
+            if(raider.audit.gemSlots === 0) {
+              return 'roster-audit-neutral';
+            } else if(raider.audit.equipedGems === raider.audit.gemSlots) {
+              return 'roster-audit-good';
+            }
+            return 'roster-audit-bad';
           }
-          return 'roster-audit-bad';
         }
 
         function updateRoster() {

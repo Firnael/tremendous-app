@@ -268,41 +268,40 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               character.achievementPoints = body.achievementPoints;
               character.thumbnail = body.thumbnail;
               // Items
-              character.averageItemLevel = body.items.averageItemLevel;
-              character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
-              character.items = getItemsData(body.items);
-              // Audit
-              character.audit = getAuditData(body.items);
+              if(body.items) {
+                character.averageItemLevel = body.items.averageItemLevel;
+                character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
+                character.items = getItemsData(body.items);
+                // Audit
+                character.audit = getAuditData(body.items);
+              }
               // PvP
-              character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
-              character.arena2v2SeasonWon = body.pvp.brackets.ARENA_BRACKET_2v2.seasonWon;
-              character.arena2v2SeasonLost = body.pvp.brackets.ARENA_BRACKET_2v2.seasonLost;
-              character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
-              character.arena3v3SeasonWon = body.pvp.brackets.ARENA_BRACKET_3v3.seasonWon;
-              character.arena3v3SeasonLost = body.pvp.brackets.ARENA_BRACKET_3v3.seasonLost;
-              character.rbgRating = body.pvp.brackets.ARENA_BRACKET_RBG.rating;
-              character.rbgSeasonWon = body.pvp.brackets.ARENA_BRACKET_RBG.seasonWon;
-              character.rbgSeasonLost = body.pvp.brackets.ARENA_BRACKET_RBG.seasonLost;
-              // Achievements - Proving Grounds
-              character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
-              character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
-              character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
+              if(body.pvp) {
+                character.arena2v2Rating = body.pvp.brackets.ARENA_BRACKET_2v2.rating;
+                character.arena2v2SeasonWon = body.pvp.brackets.ARENA_BRACKET_2v2.seasonWon;
+                character.arena2v2SeasonLost = body.pvp.brackets.ARENA_BRACKET_2v2.seasonLost;
+                character.arena3v3Rating = body.pvp.brackets.ARENA_BRACKET_3v3.rating;
+                character.arena3v3SeasonWon = body.pvp.brackets.ARENA_BRACKET_3v3.seasonWon;
+                character.arena3v3SeasonLost = body.pvp.brackets.ARENA_BRACKET_3v3.seasonLost;
+                character.rbgRating = body.pvp.brackets.ARENA_BRACKET_RBG.rating;
+                character.rbgSeasonWon = body.pvp.brackets.ARENA_BRACKET_RBG.seasonWon;
+                character.rbgSeasonLost = body.pvp.brackets.ARENA_BRACKET_RBG.seasonLost;
+              }
+              // Achievements
+              if(body.achievements) {
+                // -- Proving Grounds
+                character.provingGroundsDps = getProvingGroundsAchievements('dps', body.achievements.achievementsCompleted);
+                character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
+                character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
+              }
               // Professions
-              character.professions = getProfessionsData(body.professions);
+              if(body.professions) {
+                character.professions = getProfessionsData(body.professions);
+              }
               // Specs
-              character.specs = {};
-              var spec1 = {};
-              if(body.talents[0].spec) {
-                spec1.name = body.talents[0].spec.name;
-                spec1.selected = body.talents[0].selected;
+              if(body.talents) {
+                character.specs = getSpecsData(body.talents);
               }
-              var spec2 = {};
-              if(body.talents[1].spec) {
-                spec2.name = body.talents[1].spec.name;
-                spec2.selected = body.talents[1].selected;
-              }
-              character.specs.push(spec1);
-              character.specs.push(spec2);
 
               // Save
               character.save(function(errsave) {
@@ -458,6 +457,28 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       data.gemSlots = gemSlots;
       data.equipedGems = equipedGems;
       data.equipedSetPieces = equipedSetPieces;
+      return data;
+    }
+
+    function getSpecsData(talents) {
+      var data = [];
+
+      if(talents) {
+        if(talents[0].spec) {
+          var spec1 = {};
+          spec1.name = talents[0].spec.name;
+          spec1.selected = talents[0].selected;
+          data.push(spec1);
+        }
+
+        if(talents[1].spec) {
+          var spec2 = {};
+          spec2.name = talents[1].spec.name;
+          spec2.selected = talents[1].selected;
+          data.push(spec2);
+        }
+      }
+      
       return data;
     }
 });
