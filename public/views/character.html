@@ -14,65 +14,81 @@
 
 <!-- Top row -->
 <div class="row character-row">
-    <!-- Name + Thumbnail + buttons -->
-    <div class="col-md-4 fill character-unit">
-        <div class="character-unit-header">PERSONNAGE</div>
-        <div class="character-unit-body">
-            <img class="character-unit-thumbnail img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath() }}"/>
-            <h1>{{ vm.character.name }}</h1>
-            <!-- Lien Battlenet -->
-            <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank">
-              <i class="fa fa-gamepad fa-2x" aria-hidden="true"></i>
-            </a>
-            <!-- Bouton Refresh -->
-            <a ng-click="vm.updateCharacter()" style="cursor: pointer;"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
-            <br/><br/>
-            <small class="text-muted">Derniere MAJ : {{ vm.lastModified }}</small>
-        </div>
-    </div>
-    <!-- Class + Level + Guild rank -->
-    <div class="col-md-4 fill character-unit">
-      <div class="character-unit-header">CLASS + LEVEL + RANK</div>
+  <!-- Name + Thumbnail + buttons -->
+  <div class="col-md-4 fill character-unit">
+      <div class="character-unit-header">PERSONNAGE</div>
       <div class="character-unit-body">
-        <h2>
-          <trmds-class char-class="{{ vm.character.class }}"></trmds-class>
-          <small>{{ vm.getSelectedSpec() }}</small>
-        </h2>
-        <h3>Lvl {{ vm.character.level }}</h3>
-        <hr/>
-        <h2><trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank></h2>
-      </div>
-    </div>
-
-    <div class="col-md-4 fill character-unit-container">
-      <!-- iLvl -->
-      <div class="character-unit half-character-unit">
-        <div class="character-unit-header">ILVL</div>
-        <div class="character-unit-body">
-          <h1>{{ vm.character.averageItemLevel }}</h1>
-          <h4 class="text-muted">{{ vm.character.averageItemLevelEquipped }} equipe</h4>
-        </div>
-      </div>
-      <!-- Rerolls -->
-      <div class="character-unit half-character-unit">
-        <div class="character-unit-header">REROLLS</div>
-        <div ng-repeat="reroll in vm.rerolls" ng-hide="reroll.name === vm.character.name">
-          <span ng-class="vm.getClassColor(reroll.class)">{{ reroll.name }}</span>
-          <a ng-href="#/character/{{ reroll.name }}" class="btn btn-default btn-xs">
-            <i class="fa fa-search" aria-hidden="true"></i>
+          <img class="character-unit-thumbnail img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath() }}"/>
+          <h1>{{ vm.character.name }}</h1>
+          <!-- Lien Battlenet -->
+          <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank">
+            <i class="fa fa-gamepad fa-2x" aria-hidden="true"></i>
           </a>
-        </div>
+          <!-- Bouton Refresh -->
+          <a ng-click="vm.updateCharacter()" style="cursor: pointer;"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
+          <br/><br/>
+          <small class="text-muted">Derniere MAJ : {{ vm.lastModified }}</small>
+      </div>
+  </div>
+
+  <div class="col-md-4 fill character-unit-container">
+    <!-- Class + Guild rank -->
+    <div class="character-unit half-character-unit">
+      <div class="character-unit-header">CLASS + RANK</div>
+      <div class="character-unit-body">
+        <h2><trmds-class char-class="{{ vm.character.class }}"></trmds-class>
+        <small>{{ vm.getSelectedSpec() }}</small></h2>
+        <h3><trmds-guild-rank rank="{{ vm.character.guildRank }}"></trmds-guild-rank></h3>
       </div>
     </div>
+    <!-- Lvl + ILvl -->
+    <div class="character-unit half-character-unit">
+      <div class="character-unit-header">LVL + ILVL</div>
+      <div class="character-unit-body">
+        <h3>Lvl {{ vm.character.level }}</h3>
+        <h2>{{ vm.character.averageItemLevel }}</h2>
+        <h4 class="text-muted">{{ vm.character.averageItemLevelEquipped }} equipe</h4>
+      </div>
+    </div>
+  </div>
+
+  <!-- Achievement points -->
+  <div class="col-md-2 fill character-unit">
+    <div class="character-unit-header">HAUT-FAITS</div>
+    <div class="character-unit-body">
+      <h1>{{ vm.character.achievementPoints }}</h1>
+      <img src="../assets/img/achievements.png" class="img-rounded"/>
+    </div>
+  </div>
+  <!-- Rerolls -->
+  <div class="col-md-2 fill character-unit">
+    <div class="character-unit-header">REROLLS</div>
+    <div class="character-unit-body">
+      <div ng-repeat="reroll in vm.rerolls" ng-hide="reroll.name === vm.character.name">
+        <span ng-class="vm.getClassColor(reroll.class)">{{ reroll.name }}</span>
+        <a ng-href="#/character/{{ reroll.name }}" class="btn btn-default btn-xs">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
 </div>
 <!-- Bottom row -->
 <div class="row character-row">
-    <!-- Achievement points -->
+    <!-- PvP -->
     <div class="col-md-2 fill character-unit">
-      <div class="character-unit-header">HAUT-FAITS</div>
+      <div class="character-unit-header">PVP</div>
       <div class="character-unit-body">
-        <h1>{{ vm.character.achievementPoints }}</h1>
-        <img src="../assets/img/achievements.png" class="img-rounded"/>
+        <h5>2c2</h5>
+        <h4>{{ vm.character.arena2v2Rating }}</h4>
+        <span class="text-muted">{{ vm.character.arena2v2SeasonWon }}W {{ vm.character.arena2v2SeasonLost }}L</span>
+        <h5>3c3</h5>
+        <h4>{{ vm.character.arena3v3Rating }}</h4>
+        <span class="text-muted">{{ vm.character.arena3v3SeasonWon }}W {{ vm.character.arena3v3SeasonLost }}L</span>
+        <h5>RBG</h5>
+        <h4>{{ vm.character.rbgRating }}</h4>
+        <span class="text-muted">{{ vm.character.rbgSeasonWon }}W {{ vm.character.rbgSeasonLost }}L</span>
       </div>
     </div>
     <!-- Proving Grounds -->
@@ -90,19 +106,13 @@
         <br/>
       </div>
     </div>
-    <!-- Arena -->
+    <!-- Reputations -->
     <div class="col-md-4 fill character-unit">
-      <div class="character-unit-header">PVP</div>
+      <div class="character-unit-header">REPUTATIONS</div>
       <div class="character-unit-body">
-        <h5>2c2</h5>
-        <h4>{{ vm.character.arena2v2Rating }}</h4>
-        <span class="text-muted">{{ vm.character.arena2v2SeasonWon }}W {{ vm.character.arena2v2SeasonLost }}L</span>
-        <h5>3c3</h5>
-        <h4>{{ vm.character.arena3v3Rating }}</h4>
-        <span class="text-muted">{{ vm.character.arena3v3SeasonWon }}W {{ vm.character.arena3v3SeasonLost }}L</span>
-        <h5>RBG</h5>
-        <h4>{{ vm.character.rbgRating }}</h4>
-        <span class="text-muted">{{ vm.character.rbgSeasonWon }}W {{ vm.character.rbgSeasonLost }}L</span>
+        <div ng-repeat="reput in vm.character.reputations">
+          {{ reput.name }} ({{ reput.standing }}) : {{ reput.current }} / {{ reput.max }}
+        </div>
       </div>
     </div>
     <!-- Professions -->

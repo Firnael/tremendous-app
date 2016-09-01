@@ -42,6 +42,9 @@ var CharacterSchema = new Schema({
     specs: [
       { name: String, selected: Boolean }
     ],
+    reputations: [
+      { name: String, standing: Number, current: Number, max: Number }
+    ],
     role: Number,
     accountIdentifier: Number
 });

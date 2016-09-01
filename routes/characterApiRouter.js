@@ -243,7 +243,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
-        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents';
+        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation';
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
@@ -301,6 +301,10 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               // Specs
               if(body.talents) {
                 character.specs = getSpecsData(body.talents);
+              }
+              // Reputations
+              if(body.reputation) {
+                character.reputations = getReputationsData(body.reputation);
               }
 
               // Save
@@ -478,7 +482,26 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
           data.push(spec2);
         }
       }
-      
+
+      return data;
+    }
+
+    function getReputationsData(reputations) {
+      var data = [];
+      var legionReputations = [1900, 1883, 1894, 1919, 1888, 1862, 1860, 1828, 1975, 1947, 1984];
+
+      for(var i=0; i<reputations.length; i++) {
+        var reput = reputations[i];
+        if(legionReputations.indexOf(reput.id) > 0) {
+          data.push({
+            name: reput.name,
+            standing: reput.standing,
+            current: reput.value,
+            max: reput.max
+          });
+        }
+      }
+
       return data;
     }
 });
