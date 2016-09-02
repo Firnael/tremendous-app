@@ -18,6 +18,7 @@ var CharacterSchema = new Schema({
     items: [
       { slot: String, id: Number, quality: Number, ilvl: Number }
     ],
+    artifactTraits: Number,
     audit: {
       missingEnchants: Number,
       gemSlots: Number,

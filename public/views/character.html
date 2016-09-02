@@ -19,13 +19,13 @@
       <div class="character-unit-header">PERSONNAGE</div>
       <div class="character-unit-body">
           <img class="character-unit-thumbnail img-thumbnail" ng-show="vm.character.thumbnail" ng-src="{{ vm.getThumbnailPath() }}"/>
-          <h1>{{ vm.character.name }}</h1>
+          <h1 ng-class="vm.getClassColor(vm.character.class)">{{ vm.character.name }}</h1>
           <!-- Lien Battlenet -->
-          <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank">
+          <a ng-href="http://eu.battle.net/wow/fr/character/ysondre/{{ vm.character.name }}/advanced" target="_blank" class="btn btn-sm btn-default">
             <i class="fa fa-gamepad fa-2x" aria-hidden="true"></i>
           </a>
           <!-- Bouton Refresh -->
-          <a ng-click="vm.updateCharacter()" style="cursor: pointer;"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
+          <a ng-click="vm.updateCharacter()" class="btn btn-sm btn-default"><i class="fa fa-refresh fa-2x" aria-hidden="true"></i></a>
           <br/><br/>
           <small class="text-muted">Derniere MAJ : {{ vm.lastModified }}</small>
       </div>
@@ -45,7 +45,7 @@
     <div class="character-unit half-character-unit">
       <div class="character-unit-header">LVL + ILVL</div>
       <div class="character-unit-body">
-        <h3>Lvl {{ vm.character.level }}</h3>
+        <div class="character-unit-lvl">Lvl {{ vm.character.level }}</div>
         <h2>{{ vm.character.averageItemLevel }}</h2>
         <h4 class="text-muted">{{ vm.character.averageItemLevelEquipped }} equipe</h4>
       </div>
@@ -111,7 +111,12 @@
       <div class="character-unit-header">REPUTATIONS</div>
       <div class="character-unit-body">
         <div ng-repeat="reput in vm.character.reputations">
-          {{ reput.name }} ({{ reput.standing }}) : {{ reput.current }} / {{ reput.max }}
+          <div class="row">
+            <div class="col-md-6">{{ reput.name }}</div>
+            <div class="col-md-6">
+              <trmds-reputations standing="{{ reput.standing }}" current="{{ reput.current }}" max="{{ reput.max }}"></trmds-reputations>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -272,6 +272,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.averageItemLevel = body.items.averageItemLevel;
                 character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
                 character.items = getItemsData(body.items);
+                character.artifactTraits = getArtifactTraitsCount(body.items.mainHand);
                 // Audit
                 character.audit = getAuditData(body.items);
               }
@@ -418,6 +419,17 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
+    function getArtifactTraitsCount(artifact) {
+      var result = 0;
+      if(artifact.artifactTraits) {
+        for(var i=0; i<artifact.artifactTraits.length; i++) {
+          var trait = artifact.artifactTraits[i];
+          result += trait.rank;
+        }
+      }
+      return result;
+    }
+
     function getAuditData(items) {
       var data = {};
       var missingEnchants = 0;
@@ -488,7 +500,18 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
     function getReputationsData(reputations) {
       var data = [];
-      var legionReputations = [1900, 1883, 1894, 1919, 1888, 1862, 1860, 1828, 1975, 1947, 1984];
+      var legionReputations = [
+        1900, // Cour de Farondis (Azsuna)
+        1883, // Tisse-rêves (Val'sharah)
+        1888, // Vrykul de Jandvik / Valarjar (Stormheim)
+        1828, // Tribu de Haut-Roc (Haut-Roc)
+        1894, // Les Gardiennes (Île du Guet - Azsuna)
+        1919, // Soif des Arcanes - Valtrois (Souffrenuits)
+        1862, // Soif des Arcanes - Oculeth (Souffrenuits)
+        1860, // Soif des Arcanes - Thalyssra (Souffrenuits)
+        1975, // Adjurateur Margoss (Pêche)
+        1984 // Les Guérisseuses (Secourisme)
+      ];
 
       for(var i=0; i<reputations.length; i++) {
         var reput = reputations[i];

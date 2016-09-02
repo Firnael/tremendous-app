@@ -189,15 +189,35 @@ html, body {
 .character-unit-body {
     padding-top: 10px;
     text-align: center;
-
     .character-unit-thumbnail {
       min-width: 236px;
       min-height: 122px;
+    }
+    .character-unit-lvl {
+      font-size: 26px;
     }
 }
 
 .character-unit-professions {
   margin-top: 0px;
+}
+
+.character-reputation-progress {
+  position: relative;
+  height: 16px;
+  background-color: #333;
+  margin-bottom: 10px;
+  .progress-bar {
+    font-size: 13px;
+    text-shadow: 1px 1px 1px #333;
+    line-height: 15px;
+    background-color: #65ae22;
+  }
+  .character-reputation-progress-text {
+    position: absolute;
+    display: block;
+    width: 100%;
+  }
 }
 
 
@@ -377,12 +397,13 @@ html, body {
 }
 
 /* Quality colors */
-@poor-color: #9d9d9d;
-@common-color: #FFFFFF;
+@poor-color: grey;
+@common-color: white;
 @uncommon-color: #1eff00;
 @rare-color: #0070ff;
 @epic-color: #a335ee;
 @legendary-color: #ff8000;
+@artefact-color: #e6cc80;
 @heirloom-color: @mage-color;
 
 .poor { color: @poor-color }
@@ -391,12 +412,14 @@ html, body {
 .rare { color: @rare-color }
 .epic { color: @epic-color }
 .legendary { color: @legendary-color }
+.artefact { color: @artefact-color }
 .heirloom { color: @heirloom-color }
 
-.poor-bg { background-color: fade(@poor-color, 50%) }
+.poor-bg { background-color: fade(@poor-color, 20%) }
 .common-bg { background-color: fade(@common-color, 50%) }
 .uncommon-bg { background-color: fade(@uncommon-color, 50%) }
 .rare-bg { background-color: fade(@rare-color, 50%) }
 .epic-bg { background-color: fade(@epic-color, 50%) }
 .legendary-bg { background-color: fade(@legendary-color, 50%) }
+.artefact-bg { background-color: fade(@artefact-color, 50%) }
 .heirloom-bg { background-color: fade(@heirloom-color, 50%) }

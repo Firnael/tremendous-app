@@ -16,7 +16,7 @@
         // Chart Professions
         vm.professionData = [];
         vm.labels = ['Accompli', 'Reste'];
-        vm.colors = ['#71c326','#555555'];
+        vm.colors = ['#65ae22','#555555'];
 
         vm.getCharacter = getCharacter;
         vm.getRerolls = getRerolls;
