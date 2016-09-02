@@ -279,12 +279,17 @@ html, body {
   }
 }
 
-.roster-raider-name {
-  font-weight: bold;
-  font-size: 16px;
-  text-decoration: none !important;
-  &:hover {
-    color: yellow;
+.roster-raider-role-name {
+  text-align: left;
+  .roster-raider-name {
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px #222;
+    text-decoration: none !important;
+    &:hover {
+      color: yellow;
+    }
   }
 }
 
@@ -359,42 +364,31 @@ html, body {
 @shaman-color: #0070DE;
 @warlock-color: #9482C9;
 
-.warrior {
-  color: @warrior-color;
-}
-.death-knight {
-  color: @death-knight-color;
-}
-.demon-hunter {
-  color: @demon-hunter-color;
-}
-.druid {
-  color: @druid-color;
-}
-.hunter {
-  color: @hunter-color;
-}
-.mage {
-  color: @mage-color;
-}
-.monk {
-  color: @monk-color;
-}
-.paladin {
-  color: @paladin-color;
-}
-.priest {
-  color: @priest-color;
-}
-.rogue {
-  color: @rogue-color;
-}
-.shaman {
-  color: @shaman-color;
-}
-.warlock {
-  color: @warlock-color;
-}
+.warrior { color: @warrior-color; }
+.death-knight { color: @death-knight-color; }
+.demon-hunter { color: @demon-hunter-color; }
+.druid { color: @druid-color; }
+.hunter { color: @hunter-color; }
+.mage { color: @mage-color; }
+.monk { color: @monk-color; }
+.paladin { color: @paladin-color; }
+.priest { color: @priest-color; }
+.rogue { color: @rogue-color; }
+.shaman { color: @shaman-color; }
+.warlock { color: @warlock-color; }
+
+.warrior-bg { background-color: fade(@warrior-color, 70%) }
+.death-knight-bg { background-color: fade(@death-knight-color, 70%) }
+.demon-hunter-bg { background-color: fade(@demon-hunter-color, 70%) }
+.druid-bg { background-color: fade(@druid-color, 70%) }
+.hunter-bg { background-color: fade(@hunter-color, 70%) }
+.mage-bg { background-color: fade(@mage-color, 70%) }
+.monk-bg { background-color: fade(@monk-color, 70%) }
+.paladin-bg { background-color: fade(@paladin-color, 70%) }
+.priest-bg { background-color: fade(@priest-color, 70%) }
+.rogue-bg { background-color: fade(@rogue-color, 70%) }
+.shaman-bg { background-color: fade(@shaman-color, 70%) }
+.warlock-bg { background-color: fade(@warlock-color, 70%) }
 
 /* Quality colors */
 @poor-color: grey;

@@ -25,9 +25,10 @@
     <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
-        <th></th>
-        <th></th>
-        <th></th>
+        <th><!-- Role --></th>
+        <th><!-- Name --></th>
+        <th><!-- Separator --></th>
+        <th><!-- Ilvl --></th>
         <th><trmds-slot-icons slot="head" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="neck" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="shoulder" size="24"></trmds-slot-icons></th>
@@ -52,17 +53,17 @@
     </thead>
     <tbody>
       <tr ng-repeat="raider in vm.roster | orderBy:['+role', '+class', '-averageItemLevel']">
-        <!-- Role -->
-        <td style="text-align: left;">
+        <!-- Role + Name -->
+        <td class="roster-raider-role-name" ng-class="vm.getClassColor(raider.class)">
           <trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons>
-          <a ng-href="#/character/{{ raider.name }}" class="roster-raider-name" ng-class="vm.getClassColor(raider.class)">
+          <a ng-href="#/character/{{ raider.name }}" class="roster-raider-name">
             {{ raider.name }}
           </a>
         </td>
+        <td><!-- Separator --></td>
         <!-- ilvl -->
         <td ng-class="vm.getIlvlColor(raider.averageItemLevel)">{{ raider.averageItemLevel }}</td>
-        <!-- Separator -->
-        <td></td>
+        <td><!-- Separator --></td>
         <!-- Slots -->
         <td ng-repeat="item in raider.items" ng-class="vm.getItemQualityColor(item.quality)">
           {{ item.ilvl ? item.ilvl : ''}}

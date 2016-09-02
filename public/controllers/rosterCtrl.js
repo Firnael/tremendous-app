@@ -73,7 +73,7 @@
         }
 
         function getClassColor(value) {
-          return UtilsSvc.getCssClassByCharacterClass(value);
+          return UtilsSvc.getCssClassByCharacterClass(value, true);
         }
 
         function getIlvlColor(value) {

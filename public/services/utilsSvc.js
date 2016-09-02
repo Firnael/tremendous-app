@@ -37,22 +37,24 @@
             return path + result;
         }
 
-        function getCssClassByCharacterClass(charClass) {
+        function getCssClassByCharacterClass(charClass, background) {
+          var result = '';
           switch(charClass) {
-            case 1: return 'warrior'; break;
-            case 2: return 'paladin'; break;
-            case 3: return 'hunter'; break;
-            case 4: return 'rogue'; break;
-            case 5: return 'priest'; break;
-            case 6: return 'death-knight'; break;
-            case 7: return 'shaman'; break;
-            case 8: return 'mage'; break;
-            case 9: return 'warlock'; break;
-            case 10: return 'monk'; break;
-            case 11: return 'druid'; break;
-            case 12: return 'demon-hunter'; break;
+            case 1: result = 'warrior'; break;
+            case 2: result = 'paladin'; break;
+            case 3: result = 'hunter'; break;
+            case 4: result = 'rogue'; break;
+            case 5: result = 'priest'; break;
+            case 6: result = 'death-knight'; break;
+            case 7: result = 'shaman'; break;
+            case 8: result = 'mage'; break;
+            case 9: result = 'warlock'; break;
+            case 10: result = 'monk'; break;
+            case 11: result = 'druid'; break;
+            case 12: result = 'demon-hunter'; break;
             default: break;
           }
+          return background ? result + '-bg' : result;
         }
 
         function getCssClassByIlvl(value, background) {
