@@ -1,0 +1,18 @@
+<!-- Mythic+ page -->
+<!-- Sidebar -->
+<trmds-side-bar page="mythic"></trmds-side-bar>
+
+<div class="rows-wrapper" ng-class="$root.open">
+
+<trmds-title-bar page="Mythic+" updating="vm.updating" last-update="vm.lastUpdate" update="vm.updateProgress"></trmds-title-bar>
+
+<div class="row fade" ng-show="vm.updating === false">
+  <span ng-repeat="raider in vm.roster">
+    <div class="col-md-2">{{ raider.name }}</div>
+    <div class="col-md-1" ng-repeat="entry in raider.mythicDungeonTags">
+      {{ entry.id }}
+    </span>
+  </span>
+</div>
+
+</div>

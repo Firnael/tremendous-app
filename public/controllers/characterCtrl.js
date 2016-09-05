@@ -39,9 +39,8 @@
             vm.character = result;
             vm.lastModified = moment(vm.character.lastModified).calendar();
 
-            // If data incomplete, update it
+            // If data incomplete, don't go further
             if(typeof vm.character.class == 'undefined') {
-              // return vm.updateCharacter();
               vm.updatingCharacter = false;
               return;
             }
@@ -113,7 +112,7 @@
         function updateCharacter() {
           vm.updatingCharacter = true;
           CharacterSvc.updateCharacter($routeParams.characterName).then(function (result) {
-              vm.getCharacter();
+            vm.getCharacter();
           });
         }
 

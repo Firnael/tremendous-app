@@ -16,6 +16,11 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
                 controller: "rosterCtrl",
                 controllerAs: "vm"
             })
+            .when("/mythic", {
+                templateUrl: "views/mythic.html",
+                controller: "mythicCtrl",
+                controllerAs: "vm"
+            })
             .when("/admin", {
                 templateUrl: "views/admin.html",
                 controller: "adminCtrl",

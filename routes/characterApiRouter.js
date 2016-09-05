@@ -243,7 +243,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
-        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation';
+        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation%2Cfeed';
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
@@ -306,6 +306,10 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               // Reputations
               if(body.reputation) {
                 character.reputations = getReputationsData(body.reputation);
+              }
+              // Mythic dungeon tags
+              if(body.feed) {
+                character.mythicDungeonTags = getFeedData(body.feed);
               }
 
               // Save
@@ -525,6 +529,36 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         }
       }
 
+      return data;
+    }
+
+    function getFeedData(feed) {
+      var data = [];
+      var achievementIds = [
+        10782, // Oeil d'Azshara
+        10785, // Fourré Sombrecoeur
+        10789, // Salles des Valeureux
+        10797, // Repaire de Neltharion
+        10800, // Assaut sur le fort Pourpre
+        10803, // Caveau des Gardiennes
+        10806, // Bastion du Freux
+        10809, // La Gueule des âmes
+        10813, // L?Arcavia
+        10816  // La Cour des étoiles
+      ];
+
+      for(var i=0; i<feed.length; i++) {
+        var element = feed[i];
+        if(element.type === 'ACHIEVEMENT') {
+          var index = achievementIds.indexOf(element.achievement.id);
+          if(index >= 0) {
+            data.push({
+              id: element.achievement.id,
+              timestamp: feed.timestamp
+            });
+          }
+        }
+      }
       return data;
     }
 });

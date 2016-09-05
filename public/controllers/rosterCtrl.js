@@ -31,7 +31,7 @@
         vm.armorTypes = {};
         vm.armorTypes.data = [0, 0, 0, 0];
         vm.armorTypes.labels = ['Plaque', 'Maille', 'Cuir', 'Tissu'];
-        vm.armorTypes.colors = ['#FFFFFF', '#AAAAAA', '#777777', '#333333'];
+        vm.armorTypes.colors = ['#333333', '#777777', '#AAAAAA', '#FFFFFF'];
 
         // Armor tokens
         vm.armorTokens = {};
