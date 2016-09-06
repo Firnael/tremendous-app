@@ -12,6 +12,15 @@
     <!-- Server ranking -->
     <div ng-hide="vm.updating" class="col-md-5">
       <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>Guildes</th>
+            <th>Serveur</th>
+            <th>Region</th>
+            <th>Monde</th>
+            <th>Progress</th>
+          </tr>
+        </thead>
         <tbody>
           <tr ng-repeat="guild in vm.ranking.guilds">
             <td class="guild-name">
