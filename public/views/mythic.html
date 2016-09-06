@@ -26,10 +26,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
+        <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']" class="text-center">
           <td>{{ raider.name }}</td>
           <td>{{ raider.mythicDungeonTags.count }}/10</td>
-          <td ng-repeat="entry in raider.mythicDungeonTags.dungeons" ng-class="entry > 0 ? 'roster-audit-good' : 'roster-audit-bad'"></td>
+          <td ng-repeat="entry in raider.mythicDungeonTags.dungeons" class="mythic-check">
+            <i ng-show="entry > 0" class="fa fa-check mythic-check-good"></i>
+            <i ng-hide="entry > 0" class="fa fa-times mythic-check-bad"></i>
+          </td>
         </tr>
       </tbody>
     </table>
