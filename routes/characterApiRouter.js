@@ -543,7 +543,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         10803, // Caveau des Gardiennes
         10806, // Bastion du Freux
         10809, // La Gueule des âmes
-        10813, // L?Arcavia
+        10813, // L'Arcavia
         10816  // La Cour des étoiles
       ];
 
