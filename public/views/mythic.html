@@ -45,7 +45,7 @@
           ng-class="[vm.getClassColor(raider.class), raider.mythicDungeonTags.dungeons[vm.selectedDungeon] === 0 ? 'mythic-selected' : '']">
             {{ raider.name }}
           </td>
-          <td>{{ raider.mythicDungeonTags.count ? raider.mythicDungeonTags.count : '?' }}</td>
+          <td>{{ raider.mythicDungeonTags.count ? raider.mythicDungeonTags.count : '0' }}</td>
           <td ng-repeat="(key,timestamp) in raider.mythicDungeonTags.dungeons" class="mythic-check" ng-click="vm.selectDungeon(0)"
               ng-class="vm.selectedDungeon === key && timestamp === 0 ? 'mythic-selected' : ''">
             <i ng-show="timestamp > 0" class="fa fa-check mythic-check-good"></i>

@@ -21,7 +21,7 @@
 
 <!-- Roster -->
 <div class="row roster-wrapper fade" ng-show="vm.updating === false">
-  <div class="col-md-9 roster-table-wrapper" style="border-right: 1px dashed #555;">
+  <div class="col-md-9 roster-table-wrapper">
     <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
@@ -52,7 +52,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="raider in vm.roster | orderBy:['+role', '+class', '-averageItemLevel']">
+      <tr ng-repeat="raider in vm.roster | orderBy:['+class', '-averageItemLevel']">
         <!-- Role + Name -->
         <td class="roster-raider-role-name" ng-class="vm.getClassColor(raider.class)">
           <trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons>
