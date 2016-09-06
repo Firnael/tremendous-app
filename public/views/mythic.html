@@ -39,14 +39,18 @@
           <th><!-- 10816 -->La Cour des etoiles</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody><!--  -->
         <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
-          <td class="mythic-table-name" ng-class="vm.getClassColor(raider.class)">{{ raider.name }}</td>
+          <td class="mythic-table-name"
+          ng-class="[vm.getClassColor(raider.class), raider.mythicDungeonTags.dungeons[vm.selectedDungeon] === 0 ? 'mythic-selected' : '']">
+            {{ raider.name }}
+          </td>
           <td>{{ raider.mythicDungeonTags.count ? raider.mythicDungeonTags.count : '?' }}</td>
-          <td ng-repeat="(key,timestamp) in raider.mythicDungeonTags.dungeons" class="mythic-check"
-              ng-class="vm.selectedDungeon === key && timestamp === 0 ? 'mythic-check-selected' : ''">
+          <td ng-repeat="(key,timestamp) in raider.mythicDungeonTags.dungeons" class="mythic-check" ng-click="vm.selectDungeon(0)"
+              ng-class="vm.selectedDungeon === key && timestamp === 0 ? 'mythic-selected' : ''">
             <i ng-show="timestamp > 0" class="fa fa-check mythic-check-good"></i>
-            <i ng-hide="timestamp > 0" class="fa fa-times mythic-check-bad" ng-click="timestamp === 0 ? vm.selectDungeon(key) : ''"></i>
+            <i ng-hide="timestamp > 0" class="fa fa-times mythic-check-bad"
+               ng-click="timestamp === 0 ? vm.selectDungeon(key) : ''; $event.stopPropagation();"></i>
           </td>
         </tr>
       </tbody>
