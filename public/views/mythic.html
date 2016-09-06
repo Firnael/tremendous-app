@@ -7,43 +7,33 @@
 <trmds-title-bar page="Mythic+" updating="vm.updating" last-update="vm.lastUpdate" update="vm.updateProgress"></trmds-title-bar>
 
 <div class="row fade" ng-show="vm.updating === false">
-  <table class="table table-hover table-condensed">
-    <thead>
-      <tr>
-        <th><!-- Name --></th>
-        <!--
-          10782, // Oeil d'Azshara
-          10785, // Fourré Sombrecoeur
-          10789, // Salles des Valeureux
-          10797, // Repaire de Neltharion
-          10800, // Assaut sur le fort Pourpre
-          10803, // Caveau des Gardiennes
-          10806, // Bastion du Freux
-          10809, // La Gueule des âmes
-          10813, // L'Arcavia
-          10816  // La Cour des étoiles
-        -->
-        <th>Oeil d'Azshara</th>
-        <th>Fourré Sombrecoeur</th>
-        <th>Salles des Valeureux</th>
-        <th>Repaire de Neltharion</th>
-        <th>Assaut sur le fort Pourpre</th>
-        <th>Caveau des Gardiennes</th>
-        <th>Bastion du Freux</th>
-        <th>La Gueule des âmes</th>
-        <th>L'Arcavia</th>
-        <th>La Cour des étoiles</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="raider in vm.roster">
-        <td>{{ raider.name }}</td>
-        <td ng-repeat="entry in raider.mythicDungeonTags">
-          {{ entry.id }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-md-8 col-md-offset-2">
+    <table class="table table-hover table-condensed">
+      <thead>
+        <tr>
+          <th><!-- Name --></th>
+          <th><!-- Count --></th>
+          <th><!-- 10782 -->Oeil d'Azshara</th>
+          <th><!-- 10785 -->Fourré Sombrecoeur</th>
+          <th><!-- 10789 -->Salles des Valeureux</th>
+          <th><!-- 10797 -->Repaire de Neltharion</th>
+          <th><!-- 10800 -->Assaut sur le fort Pourpre</th>
+          <th><!-- 10803 -->Caveau des Gardiennes</th>
+          <th><!-- 10806 -->Bastion du Freux</th>
+          <th><!-- 10809 -->La Gueule des âmes</th>
+          <th><!-- 10813 -->L'Arcavia</th>
+          <th><!-- 10816 -->La Cour des étoiles</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
+          <td>{{ raider.name }}</td>
+          <td>{{ raider.mythicDungeonTags.count }}/10</td>
+          <td ng-repeat="entry in raider.mythicDungeonTags.dungeons" ng-class="entry > 0 ? 'roster-audit-good' : 'roster-audit-bad'"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 </div>

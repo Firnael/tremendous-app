@@ -46,9 +46,10 @@ var CharacterSchema = new Schema({
     reputations: [
       { name: String, standing: Number, current: Number, max: Number }
     ],
-    mythicDungeonTags: [
-      { id: Number, timestamp: Number }
-    ],
+    mythicDungeonTags: {
+      count: Number,
+      dungeons: Object
+    },
     role: Number,
     accountIdentifier: Number
 });

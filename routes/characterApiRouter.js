@@ -533,29 +533,28 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     }
 
     function getFeedData(feed) {
-      var data = [];
-      var achievementIds = [
-        10782, // Oeil d'Azshara
-        10785, // Fourré Sombrecoeur
-        10789, // Salles des Valeureux
-        10797, // Repaire de Neltharion
-        10800, // Assaut sur le fort Pourpre
-        10803, // Caveau des Gardiennes
-        10806, // Bastion du Freux
-        10809, // La Gueule des âmes
-        10813, // L'Arcavia
-        10816  // La Cour des étoiles
-      ];
+      var data = {};
+      data.count = 0;
+      data.dungeons = {};
+      data.dungeons[10782] = 0; // Oeil d'Azshara
+      data.dungeons[10785] = 0; // Fourré Sombrecoeur
+      data.dungeons[10789] = 0; // Salles des Valeureux
+      data.dungeons[10797] = 0; // Repaire de Neltharion
+      data.dungeons[10800] = 0; // Assaut sur le fort Pourpre
+      data.dungeons[10803] = 0; // Caveau des Gardiennes
+      data.dungeons[10806] = 0; // Bastion du Freux
+      data.dungeons[10809] = 0; // La Gueule des âmes
+      data.dungeons[10813] = 0; // L'Arcavia
+      data.dungeons[10816] = 0; // La Cour des étoiles
 
       for(var i=0; i<feed.length; i++) {
         var element = feed[i];
         if(element.type === 'ACHIEVEMENT') {
-          var index = achievementIds.indexOf(element.achievement.id);
+          var id = String(element.achievement.id);
+          var index = Object.keys(data.dungeons).indexOf(id);
           if(index >= 0) {
-            data.push({
-              id: element.achievement.id,
-              timestamp: feed.timestamp
-            });
+            data.dungeons[element.achievement.id] = element.timestamp;
+            data.count++;
           }
         }
       }
