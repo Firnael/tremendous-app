@@ -27,30 +27,29 @@
         <tr>
           <th><!-- Name --></th>
           <th><!-- Count --></th>
-          <th><!-- 10782 -->Oeil d'Azshara</th>
-          <th><!-- 10785 -->Fourre Sombrecoeur</th>
-          <th><!-- 10789 -->Salles des Valeureux</th>
-          <th><!-- 10797 -->Repaire de Neltharion</th>
-          <th><!-- 10800 -->Assaut sur le fort Pourpre</th>
-          <th><!-- 10803 -->Caveau des Gardiennes</th>
-          <th><!-- 10806 -->Bastion du Freux</th>
-          <th><!-- 10809 -->La Gueule des ames</th>
-          <th><!-- 10813 -->L'Arcavia</th>
-          <th><!-- 10816 -->La Cour des etoiles</th>
+          <th><!-- 8040 -->Oeil d'Azshara</th>
+          <th><!-- 7673 -->Fourre Sombrecoeur</th>
+          <th><!-- 7672 -->Salles des Valeureux</th>
+          <th><!-- 7546 -->Repaire de Neltharion</th>
+          <th><!-- 7996 -->Assaut sur le fort Pourpre</th>
+          <th><!-- 7787 -->Caveau des Gardiennes</th>
+          <th><!-- 7805 -->Bastion du Freux</th>
+          <th><!-- 7812 -->La Gueule des ames</th>
+          <th><!-- 7855 -->L'Arcavia</th>
+          <th><!-- 8079 -->La Cour des etoiles</th>
         </tr>
       </thead>
       <tbody><!--  -->
         <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
           <td class="mythic-table-name"
-          ng-class="[vm.getClassColor(raider.class), raider.mythicDungeonTags.dungeons[vm.selectedDungeon] === 0 ? 'mythic-selected' : '']">
+          ng-class="[vm.getClassColor(raider.class), vm.checkResetTimer(raider.mythicDungeonTags.dungeons[vm.selectedDungeon]) ? '' : 'mythic-selected']">
             {{ raider.name }}
           </td>
-          <td>{{ raider.mythicDungeonTags.count ? raider.mythicDungeonTags.count : '0' }}</td>
+          <td>{{ raider.mythicDungeonTags.count ? '-' : '-' }}</td>
           <td ng-repeat="(key,timestamp) in raider.mythicDungeonTags.dungeons" class="mythic-check" ng-click="vm.selectDungeon(0)"
-              ng-class="vm.selectedDungeon === key && timestamp === 0 ? 'mythic-selected' : ''">
-            <i ng-show="timestamp > 0" class="fa fa-check mythic-check-good"></i>
-            <i ng-hide="timestamp > 0" class="fa fa-times mythic-check-bad"
-               ng-click="timestamp === 0 ? vm.selectDungeon(key) : ''; $event.stopPropagation();"></i>
+              ng-class="vm.selectedDungeon === key && !vm.checkResetTimer(timestamp) ? 'mythic-selected' : ''">
+            <i ng-class="vm.checkResetTimer(timestamp) ? 'fa-check mythic-check-good' : 'fa-times mythic-check-bad'" class="fa"
+               ng-click="vm.checkResetTimer(timestamp) ? '' : vm.selectDungeon(key); $event.stopPropagation();"></i>
           </td>
         </tr>
       </tbody>

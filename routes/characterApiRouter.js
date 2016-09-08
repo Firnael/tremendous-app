@@ -309,7 +309,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               }
               // Mythic dungeon tags
               if(body.feed) {
-                character.mythicDungeonTags = getFeedData(body.feed);
+                character.mythicDungeonTags = getFeedData(body.feed, character.mythicDungeonTags);
               }
 
               // Save
@@ -505,21 +505,25 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     function getReputationsData(reputations) {
       var data = [];
       var legionReputations = [
-        1900, // Cour de Farondis (Azsuna)
+        1828, // Tribu de Haut-Roc (Haut-Roc)
         1883, // Tisse-rêves (Val'sharah)
         1888, // Vrykul de Jandvik / Valarjar (Stormheim)
-        1828, // Tribu de Haut-Roc (Haut-Roc)
         1894, // Les Gardiennes (Île du Guet - Azsuna)
-        1919, // Soif des Arcanes - Valtrois (Souffrenuits)
-        1862, // Soif des Arcanes - Oculeth (Souffrenuits)
+        1900, // Cour de Farondis (Azsuna)
+
+        // 1899, // Gardes de la lune
+
         1860, // Soif des Arcanes - Thalyssra (Souffrenuits)
+        1862, // Soif des Arcanes - Oculeth (Souffrenuits)
+        1919, // Soif des Arcanes - Valtrois (Souffrenuits)
+
         1975, // Adjurateur Margoss (Pêche)
-        1984 // Les Guérisseuses (Secourisme)
+        1984  // Les Guérisseuses (Secourisme)
       ];
 
       for(var i=0; i<reputations.length; i++) {
         var reput = reputations[i];
-        if(legionReputations.indexOf(reput.id) > 0) {
+        if(legionReputations.indexOf(reput.id) >= 0) {
           data.push({
             name: reput.name,
             standing: reput.standing,
@@ -532,33 +536,70 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
-    function getFeedData(feed) {
-      var data = {};
-      data.count = 0;
-      data.dungeons = {};
-      data.dungeons[10782] = 0; // Oeil d'Azshara
-      data.dungeons[10785] = 0; // Fourré Sombrecoeur
-      data.dungeons[10789] = 0; // Salles des Valeureux
-      data.dungeons[10797] = 0; // Repaire de Neltharion
-      data.dungeons[10800] = 0; // Assaut sur le fort Pourpre
-      data.dungeons[10803] = 0; // Caveau des Gardiennes
-      data.dungeons[10806] = 0; // Bastion du Freux
-      data.dungeons[10809] = 0; // La Gueule des âmes
-      data.dungeons[10813] = 0; // L'Arcavia
-      data.dungeons[10816] = 0; // La Cour des étoiles
+    function getFeedData(feed, tags) {
+      if(typeof tags === 'undefined') {
+        var data = {};
+        data.count = 0;
+        data.dungeons = {};
+        data.dungeons[8040] = 0; // Oeil d'Azshara
+        data.dungeons[7673] = 0; // Fourré Sombrecoeur
+        data.dungeons[7672] = 0; // Salles des Valeureux
+        data.dungeons[7546] = 0; // Repaire de Neltharion
+        data.dungeons[7996] = 0; // Assaut sur le fort Pourpre
+        data.dungeons[7787] = 0; // Caveau des Gardiennes
+        data.dungeons[7805] = 0; // Bastion du Freux
+        data.dungeons[7812] = 0; // La Gueule des âmes
+        data.dungeons[7855] = 0; // L'Arcavia
+        data.dungeons[8079] = 0; // La Cour des étoiles
+        tags = data;
+      }
+
+      var achievementIds = [];
+      achievementIds[10782] = 8040;
+      achievementIds[10785] = 7673;
+      achievementIds[10789] = 7672;
+      achievementIds[10797] = 7546;
+      achievementIds[10800] = 7996;
+      achievementIds[10803] = 7787;
+      achievementIds[10806] = 7805;
+      achievementIds[10809] = 7812;
+      achievementIds[10813] = 7855;
+      achievementIds[10816] = 8079;
+
+      var bossKillIds = [];
+      bossKillIds[10880] = 8040;
+      bossKillIds[10883] = 7673;
+      bossKillIds[10889] = 7672;
+      bossKillIds[10886] = 7546;
+      bossKillIds[10895] = 7996;
+      bossKillIds[10898] = 7787;
+      bossKillIds[10901] = 7805;
+      bossKillIds[10904] = 7812;
+      bossKillIds[10907] = 7855;
+      bossKillIds[10910] = 8079;
 
       for(var i=0; i<feed.length; i++) {
         var element = feed[i];
+
         if(element.type === 'ACHIEVEMENT') {
           var id = String(element.achievement.id);
-          var index = Object.keys(data.dungeons).indexOf(id);
+          var index = achievementIds.indexOf(id);
           if(index >= 0) {
-            data.dungeons[element.achievement.id] = element.timestamp;
-            data.count++;
+            tags.dungeons[element.achievement.id].timestamp = element.timestamp;
+            tags.count++;
+          }
+
+        } else if(element.type === 'BOSSKILL') {
+          var id = String(element.achievement.id);
+          var index = bossKillIds.indexOf(id);
+          if(index >= 0) {
+            tags.dungeons[element.achievement.id].timestamp = element.timestamp;
+            tags.count++;
           }
         }
       }
-      return data;
+
+      return tags;
     }
 });
 

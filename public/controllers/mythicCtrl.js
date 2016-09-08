@@ -13,11 +13,14 @@
         vm.selectedDungeon = undefined;
         vm.updating = true;
         vm.lastUpdate = new Date().getTime();
+        vm.lastWeekWednesdayAt3Am = moment().day(-4).hour(3).minute(0).second(0);
+        vm.thisWeekWednesdayAt3Am = moment().day(3).hour(3).minute(0).second(0);
 
         vm.getRoster = getRoster;
         vm.update = update;
         vm.selectDungeon = selectDungeon;
         vm.getClassColor = getClassColor;
+        vm.checkResetTimer = checkResetTimer;
         activate();
 
         //////////////
@@ -45,6 +48,23 @@
 
         function getClassColor(value) {
           return UtilsSvc.getCssClassByCharacterClass(value, false);
+        }
+
+        function checkResetTimer(timestamp) {
+          if(vm.thisWeekWednesdayAt3Am.isBefore(moment())) {
+            // on est après le reset de cette semaine
+            if(moment(timestamp).isAfter(vm.thisWeekWednesdayAt3Am)) {
+              // timestamp est après le reset, gg
+              return true;
+            }
+          } else {
+            // on est avant le reset de cette semaine
+            if(vm.lastWeekWednesdayAt3Am.isBefore(moment(timestamp))) {
+              // on est après le reset de la semaine dernière, gg
+              return true;
+            }
+          }
+          return false;
         }
     }
 })();
