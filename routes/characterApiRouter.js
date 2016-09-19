@@ -583,18 +583,24 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         if(element.type === 'ACHIEVEMENT') {
           var id = String(element.achievement.id);
-          var index = achievementIds.indexOf(id);
+          var index = Object.keys(achievementIds).indexOf(id);
           if(index >= 0) {
-            tags.dungeons[element.achievement.id].timestamp = element.timestamp;
-            tags.count++;
+            var realIndex = achievementIds[element.achievement.id];
+            if(tags.dungeons[realIndex] < element.timestamp) {
+              tags.dungeons[realIndex] = element.timestamp;
+              tags.count++;
+            }
           }
-
-        } else if(element.type === 'BOSSKILL') {
+        }
+        else if(element.type === 'BOSSKILL') {
           var id = String(element.achievement.id);
-          var index = bossKillIds.indexOf(id);
+          var index = Object.keys(bossKillIds).indexOf(id);
           if(index >= 0) {
-            tags.dungeons[element.achievement.id].timestamp = element.timestamp;
-            tags.count++;
+            var realIndex = String(bossKillIds[element.achievement.id]);
+            if(tags.dungeons[realIndex] < element.timestamp) {
+              tags.dungeons[realIndex] = element.timestamp;
+              tags.count++;
+            }
           }
         }
       }
