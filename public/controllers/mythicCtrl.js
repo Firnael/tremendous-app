@@ -51,18 +51,8 @@
         }
 
         function checkResetTimer(timestamp) {
-          if(vm.thisWeekWednesdayAt3Am.isBefore(moment())) {
-            // on est après le reset de cette semaine
-            if(moment(timestamp).isAfter(vm.thisWeekWednesdayAt3Am)) {
-              // timestamp est après le reset, gg
-              return true;
-            }
-          } else {
-            // on est avant le reset de cette semaine
-            if(vm.lastWeekWednesdayAt3Am.isBefore(moment(timestamp))) {
-              // on est après le reset de la semaine dernière, gg
-              return true;
-            }
+          if(moment(timestamp).isBetween(vm.lastWeekWednesdayAt3Am, vm.thisWeekWednesdayAt3Am)) {
+            return true;
           }
           return false;
         }
