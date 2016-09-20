@@ -458,7 +458,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Check gems
         if(item.bonusLists) {
-          if(item.bonusLists.indexOf(564) >= 0 || item.bonusLists.indexOf(565) >= 0) {
+          if(item.bonusLists.indexOf(1808) >= 0) {
             gemSlots++;
             // Item has gem socket
             if(item.tooltipParams.gem0) {

@@ -4,6 +4,7 @@ Bonus:
   564, 566
 ]
 
+- 40 (evitement)
 - 41 (leech)
 - 42 (speed)
 - 43 (indestructible)
@@ -18,6 +19,12 @@ Bonus:
 - 757 (warforged +5)
 - 758 (warforged +10)
 - 759 (warforged +15)
+
+- 1497 (+5)
+- 1502 (+10)
+- 1727 (mythic)
+- 1808 (socket)
+- 3336 (de guerre)
 
 Enchant : x/5 (epaule + gants pour métiers, 3 autres pour opti)
 ---------------------------------------------------------------
