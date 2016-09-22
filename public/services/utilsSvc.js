@@ -59,15 +59,15 @@
 
         function getCssClassByIlvl(value, background) {
           var result = '';
-          if(value >= 840) {
+          if(value >= 865) {
             result = 'legendary';
-          } else if(value >= 830) {
+          } else if(value >= 860) {
             result = 'epic';
-          } else if(value >= 820) {
+          } else if(value >= 855) {
             result = 'rare';
-          } else if(value >= 810) {
+          } else if(value >= 850) {
             result = 'uncommon';
-          } else if(value >= 800) {
+          } else if(value >= 845) {
             result = 'common';
           } else {
             result = 'poor';
