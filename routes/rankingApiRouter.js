@@ -55,6 +55,8 @@ function getGuildsRankingData(result) {
   var data = [];
   for(var i=0; i<result.length; i++) {
     var guild = result[i];
+    var progress = guild['progress'] ? guild['progress'][0]['text'] : '';
+
     data.push({
       name: guild['guild'][0]['text'],
       url: guild['guild'][0]['href'],
@@ -62,7 +64,7 @@ function getGuildsRankingData(result) {
       worldRank: guild['world_rank'][0]['text'],
       regionRank: 0,
       realmRank: guild['rank'][0]['text'],
-      tierProgress: guild['progress'][0]['text']
+      tierProgress: progress
     });
   }
   return data;

@@ -8,51 +8,61 @@
     RankingCtrl.$inject = ['RankingSvc'];
 
     function RankingCtrl(RankingSvc){
-        var vm = this;
-        vm.ranking = undefined;
-        vm.guild = undefined;
-        vm.updating = true;
+      var vm = this;
+      vm.ranking = undefined;
+      vm.guild = undefined;
+      vm.updating = true;
 
-        vm.setRanking = setRanking;
-        vm.getRanking = getRanking;
-        vm.getGuildRanking = getGuildRanking;
-        vm.updateRanking = updateRanking;
+      vm.setRanking = setRanking;
+      vm.getRanking = getRanking;
+      vm.getGuildRanking = getGuildRanking;
+      vm.updateRanking = updateRanking;
+      vm.getTierProgress = getTierProgress;
 
-        activate();
+      activate();
 
-        //////////////
+      //////////////
 
-        function activate() {
-          console.log('RankingCtrl activate');
-          vm.getRanking();
-        }
+      function activate() {
+        console.log('RankingCtrl activate');
+        vm.getRanking();
+      }
 
-        function setRanking(data) {
-          vm.ranking = data;
-          vm.guild = getGuildRanking();
-          vm.updating = false;
-        }
+      function setRanking(data) {
+        vm.ranking = data;
+        vm.guild = getGuildRanking();
+        vm.updating = false;
+      }
 
-        function getRanking() {
-          RankingSvc.get().then(function (data) {
-            vm.setRanking(data);
-          });
-        }
+      function getRanking() {
+        RankingSvc.get().then(function (data) {
+          if(!data) {
+            console.log('getRanking: no data');
+            vm.updating = false;
+          }
+          vm.setRanking(data);
+        });
+      }
 
-        function getGuildRanking() {
-          for(var i=0; i<vm.ranking.guilds.length; i++) {
-            var guild = vm.ranking.guilds[i];
-            if(guild.name === 'Millenium') {
-              return guild;
-            }
+      function getGuildRanking() {
+        for(var i=0; i<vm.ranking.guilds.length; i++) {
+          var guild = vm.ranking.guilds[i];
+          if(guild.name === 'Tremendous') {
+            return guild;
           }
         }
+      }
 
-        function updateRanking() {
-          vm.updating = true;
-          RankingSvc.update().then(function (data) {
-            vm.setRanking(data);
-          });
-        }
+      function updateRanking() {
+        vm.updating = true;
+        RankingSvc.update().then(function (data) {
+          vm.setRanking(data);
+        });
+      }
+
+      function getTierProgress(progress) {
+        var array = progress.split(' ');
+        return array[0] + ' ' + array[1];
+      }
     }
 })();

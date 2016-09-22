@@ -26,13 +26,13 @@
             <td class="guild-name">
               <a ng-href="{{ guild.url }}" target="_blank">
                 {{ guild.name }}
-                <img ng-show="guild.name === 'Millenium'" src="https://wiki.mylzh.net/sites/world-of-warcraft/images/1/17/Shattered_Sun_64.png" width="16" height="16"/>
+                <img ng-show="guild.name === 'Tremendous'" src="https://wiki.mylzh.net/sites/world-of-warcraft/images/1/17/Shattered_Sun_64.png" width="16" height="16"/>
               </a>
             </td>
             <td>{{ guild.realmRank }}</td>
             <td>{{ guild.regionRank }}</td>
             <td>{{ guild.worldRank }}</td>
-            <td>{{ guild.tierProgress }}</td>
+            <td>{{ vm.getTierProgress(guild.tierProgress) }}</td>
           </tr>
         </tbody>
       </table>
