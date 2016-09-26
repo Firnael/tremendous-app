@@ -5,7 +5,11 @@
 <div class="rows-wrapper" ng-class="$root.open"
      style="background-image: url(http://cdn.mos.cms.futurecdn.net/2vC8ubyt5UosVvuLL4uMDF.jpg); background-size: cover;">
 
-     <span class="home-timer">
-       <timer interval="1000" countdown="vm.countdown">{{days}}D:{{hours}}H:{{minutes}}M:{{seconds}}S</timer>
-     </span>
+  <!-- <span class="home-timer">
+    <timer interval="1000" countdown="vm.countdown">{{days}}D:{{hours}}H:{{minutes}}M:{{seconds}}S</timer>
+  </span> -->
+  <div ng-repeat="log in vm.logs">
+    <a ng-href="https://www.warcraftlogs.com/reports/{{ log.id }}" target="_blank">{{ log.title }}</a>
+    ({{ log.zone }}) ({{ log.start }} : {{ log.end }}) by {{ log.owner }}
+  </div>
 </div>

@@ -13,8 +13,9 @@
         scope.getHighestProgress = getHighestProgress;
         scope.getDifficulty = getDifficulty;
         scope.getHumanTimestamp = getHumanTimestamp;
+        scope.getProgressCssClass = getProgressCssClass;
 
-        function getHighestProgress() {
+        function getHighestProgress(isClass) {
           var result = 0;
           for(var i=0; i<scope.downs.length; i++) {
             var down = scope.downs[i];
@@ -23,6 +24,10 @@
                 result = down.difficulty;
               }
             }
+          }
+
+          if(isClass) {
+            return scope.getProgressCssClass(result);
           }
           return scope.getDifficulty(result);
         };
@@ -41,6 +46,15 @@
             return '---';
           }
           return moment(timestamp).calendar();
+        };
+
+        function getProgressCssClass(difficulty) {
+          switch(difficulty) {
+            case 0: return 'progress-difficulty-no-down'; break;
+            case 1: return 'progress-difficulty-normal'; break;
+            case 2: return 'progress-difficulty-heroic'; break;
+            case 3: return 'progress-difficulty-mythic'; break;
+          }
         };
 
       };

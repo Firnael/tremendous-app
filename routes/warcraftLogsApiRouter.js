@@ -3,7 +3,7 @@ var express = require('express');
 var warcraftLogsApiRouter = express.Router();
 // Data
 var key = "a5d4d1f280318807615b920121493cde";
-var url = "https://www.warcraftlogs.com:443/v1/reports/guild/Fesseroll/Ysondre/EU?api_key=" + key;
+var url = "https://www.warcraftlogs.com:443/v1/reports/guild/Tremendous/Ysondre/EU?api_key=" + key;
 
 
 /**
