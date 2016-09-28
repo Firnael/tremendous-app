@@ -126,7 +126,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
  * Get mains
  */
 characterApiRouter.route('/mains').get(function(req, res) {
-  getByGuildRank([0, 1, 2, 3, 4, 6], res);
+  getByGuildRank([0, 1, 2, 3, 4, 5], res);
 });
 
 /**
@@ -140,7 +140,7 @@ characterApiRouter.route('/roster').get(function (req, res) {
  * Get rerolls
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {
-  getByGuildRank([5], res);
+  getByGuildRank([6], res);
 });
 
 function getByGuildRank(rankArray, res) {
@@ -537,21 +537,20 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     }
 
     function getFeedData(feed, tags) {
-      if(typeof tags === 'undefined') {
-        var data = {};
-        data.count = 0;
-        data.dungeons = {};
-        data.dungeons[8040] = 0; // Oeil d'Azshara
-        data.dungeons[7673] = 0; // Fourré Sombrecoeur
-        data.dungeons[7672] = 0; // Salles des Valeureux
-        data.dungeons[7546] = 0; // Repaire de Neltharion
-        data.dungeons[7996] = 0; // Assaut sur le fort Pourpre
-        data.dungeons[7787] = 0; // Caveau des Gardiennes
-        data.dungeons[7805] = 0; // Bastion du Freux
-        data.dungeons[7812] = 0; // La Gueule des âmes
-        data.dungeons[7855] = 0; // L'Arcavia
-        data.dungeons[8079] = 0; // La Cour des étoiles
-        tags = data;
+      if(typeof tags.count === 'undefined') {
+        tags = {};
+        tags.count = 0;
+        tags.dungeons = {};
+        tags.dungeons[8040] = 0; // Oeil d'Azshara
+        tags.dungeons[7673] = 0; // Fourré Sombrecoeur
+        tags.dungeons[7672] = 0; // Salles des Valeureux
+        tags.dungeons[7546] = 0; // Repaire de Neltharion
+        tags.dungeons[7996] = 0; // Assaut sur le fort Pourpre
+        tags.dungeons[7787] = 0; // Caveau des Gardiennes
+        tags.dungeons[7805] = 0; // Bastion du Freux
+        tags.dungeons[7812] = 0; // La Gueule des âmes
+        tags.dungeons[7855] = 0; // L'Arcavia
+        tags.dungeons[8079] = 0; // La Cour des étoiles
       }
 
       var achievementIds = [];
