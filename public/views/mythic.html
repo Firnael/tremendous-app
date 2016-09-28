@@ -39,7 +39,7 @@
           <th><!-- 8079 -->La Cour des etoiles</th>
         </tr>
       </thead>
-      <tbody><!--  -->
+      <tbody>
         <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
           <td class="mythic-table-name"
           ng-class="[vm.getClassColor(raider.class), vm.checkResetTimer(raider.mythicDungeonTags.dungeons[vm.selectedDungeon]) ? '' : 'mythic-selected']">

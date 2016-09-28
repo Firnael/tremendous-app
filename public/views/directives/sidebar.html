@@ -20,6 +20,14 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
+  <!-- Recipes -->
+  <a href="#/recipes" class="sidenav-element" ng-class="page === 'recipes' ? 'active' : ''">
+    <span class="sidenav-element-content">
+      <i class="fa fa-flask" aria-hidden="true"></i>
+      <span class="fade" ng-show="$root.open === 'open'">Recipes</span>
+      <span ng-hide="$root.open === 'open'"></span>
+    </span>
+  </a>
   <!-- Mythic+ -->
   <a href="#/mythic" class="sidenav-element" ng-class="page === 'mythic' ? 'active' : ''">
     <span class="sidenav-element-content">
