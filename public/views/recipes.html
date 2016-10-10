@@ -46,22 +46,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Croclardon</td>
+          <tr ng-repeat="character in vm.charactersWithRecipes">
+            <td>{{ character.name }}</td>
             <!-- Flacons -->
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>{{ vm.getRecipeRank('flask_endu', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('flask_str', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('flask_int', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('flask_agi', character.recipes) }}</td>
             <!-- Potions buff -->
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>{{ vm.getRecipeRank('potion_melee', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('potion_distant', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('potion_armor', character.recipes) }}</td>
             <!-- Potions regen -->
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
+            <td>{{ vm.getRecipeRank('potion_hp', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('potion_both', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('potion_mana', character.recipes) }}</td>
+            <td>{{ vm.getRecipeRank('potion_mana_channel', character.recipes) }}</td>
           </tr>
         </tbody>
       </table>

@@ -163,6 +163,17 @@ characterApiRouter.route('/account-id/:accountId').get(function(req, res) {
 });
 
 /**
+ * Get character with usefull recipes
+ */
+ characterApiRouter.route('/with-recipes').get(function(req, res) {
+   Character.find({ recipes: { $gt: [] } })
+            .exec(function (err, characters) {
+               if (err) { res.send(err); return; }
+               res.send(characters);
+   });
+ });
+
+/**
  * Link reroll to main
  */
 characterApiRouter.route('/link').post(function (req, res) {
@@ -295,9 +306,10 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.provingGroundsTank = getProvingGroundsAchievements('tank', body.achievements.achievementsCompleted);
                 character.provingGroundsHeal = getProvingGroundsAchievements('heal', body.achievements.achievementsCompleted);
               }
-              // Professions
+              // Professions & Recipes
               if(body.professions) {
                 character.professions = getProfessionsData(body.professions);
+                character.recipes = getRecipesData(body.professions);
               }
               // Specs
               if(body.talents) {
@@ -389,6 +401,20 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         data.primary = primary;
       }
       return data;
+    }
+
+    function getRecipesData(professions) {
+      var alchemy;
+      if(professions.primary[0].id === 171) {
+        alchemy = professions.primary[0];
+      } else if(professions.primary[1].id === 171) {
+        alchemy = professions.primary[1];
+      }
+
+      if(!alchemy) {
+        return;
+      }
+      return alchemy.recipes;
     }
 
     function getItemsData(items) {

@@ -16,6 +16,7 @@
             getMains: getMains,
             getRerolls: getRerolls,
             getByAccountId: getByAccountId,
+            getCharactersWithRecipes: getCharactersWithRecipes,
             updateCharacter: updateCharacter,
             updateCollection: updateCollection,
             linkRerollToMain: linkRerollToMain,
@@ -65,6 +66,13 @@
 
         function getByAccountId(accountId) {
           var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/account-id/" + accountId).then(function(response) {
+              return response.data;
+          });
+          return promise;
+        }
+
+        function getCharactersWithRecipes() {
+          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/with-recipes").then(function(response) {
               return response.data;
           });
           return promise;
