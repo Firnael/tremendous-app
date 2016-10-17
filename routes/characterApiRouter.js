@@ -457,7 +457,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
           result += trait.rank;
         }
       }
-      return result;
+      return result-3;
     }
 
     function getAuditData(items) {

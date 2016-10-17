@@ -62,7 +62,7 @@
         </td>
         <td><!-- Separator --></td>
         <!-- ilvl -->
-        <td ng-class="vm.getIlvlColor(raider.averageItemLevel)">{{ raider.averageItemLevel }}</td>
+        <td ng-class="vm.getIlvlColor(raider.averageItemLevelEquipped)">{{ raider.averageItemLevelEquipped }}</td>
         <td><!-- Separator --></td>
         <!-- Slots -->
         <td ng-repeat="item in raider.items" ng-class="vm.getItemQualityColor(item.quality)">
