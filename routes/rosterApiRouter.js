@@ -82,30 +82,30 @@ function getRosterData(characters) {
     var character = characters[i];
 
     // Fail-safe if character data is absent
-    if(!character.averageItemLevel) {
+    if(!character.averageItemLevelEquipped) {
       console.log('Roster infos update : skipping ' + character.name);
       skippedCharacters++;
       continue;
     }
 
-    totalItemLevel += character.averageItemLevel;
+    totalItemLevel += character.averageItemLevelEquipped;
 
     // Lowest ilvl
     if(data.lowestItemLevel !== 0) {
-      if(data.lowestItemLevel > character.averageItemLevel) {
-        data.lowestItemLevel = character.averageItemLevel;
+      if(data.lowestItemLevel > character.averageItemLevelEquipped) {
+        data.lowestItemLevel = character.averageItemLevelEquipped;
       }
     } else {
-      data.lowestItemLevel = character.averageItemLevel;
+      data.lowestItemLevel = character.averageItemLevelEquipped;
     }
 
     // Highest ilvl
     if(data.highestItemLevel !== 0) {
-      if(data.highestItemLevel < character.averageItemLevel) {
-        data.highestItemLevel = character.averageItemLevel;
+      if(data.highestItemLevel < character.averageItemLevelEquipped) {
+        data.highestItemLevel = character.averageItemLevelEquipped;
       }
     } else {
-      data.highestItemLevel = character.averageItemLevel;
+      data.highestItemLevel = character.averageItemLevelEquipped;
     }
 
     // Armor types
