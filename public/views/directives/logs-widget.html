@@ -1,0 +1,11 @@
+<div class="media log-widget">
+  <div class="media-left">
+    <a ng-href="https://www.warcraftlogs.com/reports/{{ log.id }}" target="_blank">
+      <img class="media-object" ng-src="http://warcraftlogs.com/img/icons/warcraft/zone-{{ log.zone }}.png" width="48" height="48"/>
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{ log.title }}</h4>
+    {{ log.owner }} - {{ getMomentByTimestamp(log.start) }} <i class="fa fa-arrow-right" aria-hidden="true"></i> {{ getMomentByTimestamp(log.end) }}
+  </div>
+</div>

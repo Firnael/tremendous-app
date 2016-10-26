@@ -8,8 +8,13 @@
   <!-- <span class="home-timer">
     <timer interval="1000" countdown="vm.countdown">{{days}}D:{{hours}}H:{{minutes}}M:{{seconds}}S</timer>
   </span> -->
-  <div ng-repeat="log in vm.logs">
-    <a ng-href="https://www.warcraftlogs.com/reports/{{ log.id }}" target="_blank">{{ log.title }}</a>
-    ({{ log.zone }}) ({{ log.start }} : {{ log.end }}) by {{ log.owner }}
+
+  <div class="row">
+    <div class="col-md-3">
+      <div ng-show="vm.logs" ng-repeat="log in vm.logs | limitTo : 10 | orderBy:['-start']">
+        <trmds-logs-widget log="log"></trmds-logs-widget>
+      </div>
+      (10 derniers logs sur les {{ vm.logs.length }} existants)
+    </div>
   </div>
 </div>
