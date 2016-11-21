@@ -44,6 +44,7 @@
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getItemQualityColor = getItemQualityColor;
+        vm.getSaberEyeAuditColor = getSaberEyeAuditColor;
         vm.getGemAuditColor = getGemAuditColor;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
@@ -87,11 +88,25 @@
           return UtilsSvc.getCssClassByQuality(value, true);
         }
 
+        function getSaberEyeAuditColor(raider) {
+          if(raider.audit) {
+            if(raider.audit.gemSlots === 0) {
+              return 'roster-audit-neutral';
+            } else if(raider.audit.equipedSaberEye > 0) {
+              return 'roster-audit-good';
+            }
+            return 'roster-audit-bad';
+          }
+        }
+
         function getGemAuditColor(raider) {
           if(raider.audit) {
             if(raider.audit.gemSlots === 0) {
               return 'roster-audit-neutral';
             } else if(raider.audit.equipedGems === raider.audit.gemSlots) {
+              if(raider.audit.equipedWrongGems > 0) {
+                return 'roster-audit-warning';
+              }
               return 'roster-audit-good';
             }
             return 'roster-audit-bad';

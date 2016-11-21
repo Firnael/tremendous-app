@@ -466,6 +466,11 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       var gemSlots = 0;
       var equipedGems = 0;
       var equipedSetPieces = 0;
+      var equipedSaberEye = 0;
+      var equipedWrongGems = 0;
+      var saberEyeIds = [130246, 130247, 130248];
+      var gemIds = [130219, 130220, 130221, 130222];
+      var legendaryNeckOrRing = false;
 
       for(var key in items) {
         var item = {};
@@ -484,14 +489,35 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Check gems
         if(item.bonusLists) {
-          if(item.bonusLists.indexOf(1808) >= 0) {
-            gemSlots++;
+          // Legendary necks and rings always have sockets
+          if(['neck', 'finger1', 'finger2'].indexOf(key) >= 0) {
+            if(item.bonusLists.indexOf(1811) >= 0) {
+              legendaryNeckOrRing = true;
+            }
+          }
+
+          if(item.bonusLists.indexOf(1808) >= 0 || legendaryNeckOrRing) {
             // Item has gem socket
-            if(item.tooltipParams.gem0) {
+            gemSlots++;
+
+            var gem = item.tooltipParams.gem0;
+            if(gem) {
+              // Item has gem equipped
               equipedGems++;
+              if(saberEyeIds.indexOf(gem) >= 0) {
+                // Item has +200 stat gem equipped
+                equipedSaberEye++;
+              }
+              else if(gemIds.indexOf(gem) < 0) {
+                console.log(gem);
+                // Item has wrong gem equipped
+                equipedWrongGems++;
+              }
             }
           }
         }
+        legendaryNeckOrRing = false;
+
 
         // Check set pieces
         if(item.tooltipParams.set) {
@@ -503,6 +529,8 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       data.gemSlots = gemSlots;
       data.equipedGems = equipedGems;
       data.equipedSetPieces = equipedSetPieces;
+      data.equipedSaberEye = equipedSaberEye;
+      data.equipedWrongGems = equipedWrongGems;
       return data;
     }
 

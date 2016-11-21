@@ -22,7 +22,9 @@ var CharacterSchema = new Schema({
     audit: {
       missingEnchants: Number,
       gemSlots: Number,
+      equipedSaberEye: Number,
       equipedGems: Number,
+      equipedWrongGems: Number,
       equipedSetPieces: Number
     },
     arena2v2Rating: Number,
