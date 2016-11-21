@@ -46,6 +46,7 @@
         vm.getItemQualityColor = getItemQualityColor;
         vm.getSaberEyeAuditColor = getSaberEyeAuditColor;
         vm.getGemAuditColor = getGemAuditColor;
+        vm.getEnchantAuditColor = getEnchantAuditColor;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
         vm.updateRosterData = updateRosterData;
@@ -110,6 +111,17 @@
               return 'roster-audit-good';
             }
             return 'roster-audit-bad';
+          }
+        }
+
+        function getEnchantAuditColor(raider) {
+          if(raider.audit) {
+            if(raider.audit.missingEnchants > 0) {
+              return 'roster-audit-bad';
+            } else if(raider.audit.wrongEnchant > 0) {
+              return 'roster-audit-warning';
+            }
+            return 'roster-audit-good';
           }
         }
 

@@ -463,6 +463,8 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     function getAuditData(items) {
       var data = {};
       var missingEnchants = 0;
+      var wrongEnchant = 0;
+      var enchantIds = [5427, 5428, 5429, 5430, 5434, 5435, 5436, 5437, 5438, 5439, 5889, 5890, 5891];
       var gemSlots = 0;
       var equipedGems = 0;
       var equipedSetPieces = 0;
@@ -482,8 +484,13 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Check enchants
         if(['neck', 'back', 'finger1', 'finger2'].indexOf(key) >= 0) {
-          if(!item.tooltipParams.enchant) {
+          var enchant = item.tooltipParams.enchant;
+          if(!enchant) {
             missingEnchants++;
+          } else {
+            if(enchantIds.indexOf(enchant) < 0) {
+              wrongEnchant++;
+            }
           }
         }
 
@@ -526,6 +533,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       }
 
       data.missingEnchants = missingEnchants;
+      data.wrongEnchant = wrongEnchant;
       data.gemSlots = gemSlots;
       data.equipedGems = equipedGems;
       data.equipedSetPieces = equipedSetPieces;

@@ -84,7 +84,7 @@
           {{ raider.audit.equipedGems }}/{{ raider.audit.gemSlots }}
         </td>
         <!-- Enchants -->
-        <td ng-class="raider.audit.missingEnchants > 0 ? 'roster-audit-bad' : 'roster-audit-good'">
+        <td ng-class="vm.getEnchantAuditColor(raider)">
           {{ 4 - raider.audit.missingEnchants }}/4
         </td>
       </tr>

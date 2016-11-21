@@ -21,6 +21,7 @@ var CharacterSchema = new Schema({
     artifactTraits: Number,
     audit: {
       missingEnchants: Number,
+      wrongEnchant: Number,
       gemSlots: Number,
       equipedSaberEye: Number,
       equipedGems: Number,
