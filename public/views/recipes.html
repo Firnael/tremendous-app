@@ -6,8 +6,21 @@
 
   <trmds-title-bar page="Recipes"></trmds-title-bar>
 
+  <!-- Tabs -->
+  <div class="row recipes-tabs">
+    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 0 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(0)">
+      <div class="recipe-tab-content">Flasks & Pots</div>
+    </div>
+    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 1 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(1)">
+      <div class="recipe-tab-content">Gems</div>
+    </div>
+    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 2 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(2)">
+      <div class="recipe-tab-content">Enchants</div>
+    </div>
+  </div>
+  <br/>
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" ng-show="vm.currentTab === 0">
       <table class="table table-hover table-condensed">
         <thead>
           <tr>
@@ -46,26 +59,76 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="character in vm.charactersWithRecipes | orderBy:['+guildRank']">
+          <tr ng-repeat="character in vm.charactersWithAlchemyRecipes | orderBy:['+guildRank']">
             <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
             <!-- Flacons -->
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_endu', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_str', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_int', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_agi', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('flask_endu', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('flask_str', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('flask_int', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('flask_agi', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
             <!-- Potions buff -->
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_melee', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_distant', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_armor', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_melee', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_distant', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_armor', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
             <!-- Potions regen -->
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_hp', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_both', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_mana', character.recipes) }}" size="40"></trmds-proving-grounds></td>
-            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_mana_channel', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_hp', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_both', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_mana', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getAlchemyRecipeRank('potion_mana_channel', character.alchemyRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
           </tr>
         </tbody>
       </table>
     </div>
+    <div class="col-md-12" ng-show="vm.currentTab === 1">
+      <table class="table table-hover table-condensed">
+        <thead>
+          <tr>
+            <th><!-- Name --></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_saberseye.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_cutgem03_purple.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_cutgem03_yellow.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_cutgem03_orange.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_cutgem03_blue.jpg"/></th>
+          </tr>
+          <tr>
+            <th><!-- Name --></th>
+            <th>Oeil de sabre</th>
+            <th>Maitrise</th>
+            <th>Hate</th>
+            <th>Critique</th>
+            <th>Polyvalence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="character in vm.charactersWithJewelcraftingRecipes | orderBy:['+guildRank']">
+            <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
+            <!-- Flacons -->
+            <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('saber_eye', character.jewelcraftingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('mastery', character.jewelcraftingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('haste', character.jewelcraftingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('crit', character.jewelcraftingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('vers', character.jewelcraftingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12" ng-show="vm.currentTab === 2">Enchants</div>
   </div>
 
 </div>

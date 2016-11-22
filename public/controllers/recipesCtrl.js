@@ -9,11 +9,15 @@
 
     function RecipesCtrl(CharacterSvc, UtilsSvc){
       var vm = this;
-      vm.charactersWithRecipes;
+      vm.currentTab = 0;
+      vm.charactersWithAlchemyRecipes;
+      vm.charactersWithJewelcraftingRecipes;
 
+      vm.setCurrentTab = setCurrentTab;
       vm.getClassColor = getClassColor;
       vm.getCharactersWithRecipes = getCharactersWithRecipes;
-      vm.getRecipeRank = getRecipeRank;
+      vm.getAlchemyRecipeRank = getAlchemyRecipeRank;
+      vm.getGemRecipeRank = getGemRecipeRank;
       activate();
 
       //////////////
@@ -23,17 +27,24 @@
         vm.getCharactersWithRecipes();
       }
 
+      function setCurrentTab(tab) {
+        vm.currentTab = tab;
+      }
+
       function getClassColor(value) {
         return UtilsSvc.getCssClassByCharacterClass(value, false);
       }
 
       function getCharactersWithRecipes() {
-        CharacterSvc.getCharactersWithRecipes().then(function(data){
-          vm.charactersWithRecipes = data;
+        CharacterSvc.getCharactersWithRecipes('alchemy').then(function(data){
+          vm.charactersWithAlchemyRecipes = data;
+        });
+        CharacterSvc.getCharactersWithRecipes('jewelcrafting').then(function(data){
+          vm.charactersWithJewelcraftingRecipes = data;
         });
       }
 
-      function getRecipeRank(recipe, recipes) {
+      function getAlchemyRecipeRank(recipe, recipes) {
         switch(recipe) {
           // Flasks
           case 'flask_endu':
@@ -101,5 +112,31 @@
 
         return 0;
       }
+
+      function getGemRecipeRank(recipe, recipes) {
+        switch(recipe) {
+
+          case 'saber_eye':
+            if(recipes.indexOf(195877) >= 0) { return 3; }
+            break;
+          case 'mastery':
+            if(recipes.indexOf(195855) >= 0) { return 3; }
+            break;
+          case 'haste':
+            if(recipes.indexOf(195853) >= 0) { return 3; }
+            break;
+          case 'crit':
+            if(recipes.indexOf(195852) >= 0) { return 3; }
+            break;
+          case 'vers':
+            if(recipes.indexOf(195854) >= 0) { return 3; }
+            break;
+
+          default: return -1; break;
+        }
+
+        return 0;
+      }
+
     }
 })();

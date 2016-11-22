@@ -163,14 +163,25 @@ characterApiRouter.route('/account-id/:accountId').get(function(req, res) {
 });
 
 /**
- * Get character with usefull recipes
+ * Get character with useful recipes
  */
- characterApiRouter.route('/with-recipes').get(function(req, res) {
-   Character.find({ recipes: { $gt: [] } })
-            .exec(function (err, characters) {
-               if (err) { res.send(err); return; }
-               res.send(characters);
-   });
+characterApiRouter.route('/with-recipes/:profession').get(function(req, res) {
+  var profession = req.params.profession;
+  var query;
+
+  switch(profession) {
+    case 'alchemy': query = Character.find({ alchemyRecipes: { $gt: [] } }); break;
+    case 'jewelcrafting': query = Character.find({ jewelcraftingRecipes: { $gt: [] } }); break;
+  }
+
+  if(!query) {
+    console.log('/with-recipes/ error, profession: ' + profession);
+  }
+
+  query.exec(function (err, characters) {
+    if (err) { res.send(err); return; }
+    res.send(characters);
+  });
  });
 
 /**
@@ -309,7 +320,8 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               // Professions & Recipes
               if(body.professions) {
                 character.professions = getProfessionsData(body.professions);
-                character.recipes = getRecipesData(body.professions);
+                character.alchemyRecipes = getRecipesData(body.professions, 171);
+                character.jewelcraftingRecipes = getRecipesData(body.professions, 755);
               }
               // Specs
               if(body.talents) {
@@ -403,18 +415,13 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
-    function getRecipesData(professions) {
-      var alchemy;
-      if(professions.primary[0].id === 171) {
-        alchemy = professions.primary[0];
-      } else if(professions.primary[1].id === 171) {
-        alchemy = professions.primary[1];
+    function getRecipesData(professions, professionId) {
+      if(professions.primary[0].id === professionId) {
+        return professions.primary[0].recipes;
+      } else if(professions.primary[1].id === professionId) {
+        return professions.primary[1].recipes;
       }
-
-      if(!alchemy) {
-        return;
-      }
-      return alchemy.recipes;
+      return;
     }
 
     function getItemsData(items) {

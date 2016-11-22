@@ -43,7 +43,8 @@ var CharacterSchema = new Schema({
     professions: [
       { name: String, rank: Number, max: Number, primary: Boolean }
     ],
-    recipes: Array,
+    alchemyRecipes: Array,
+    jewelcraftingRecipes: Array,
     specs: [
       { name: String, selected: Boolean }
     ],

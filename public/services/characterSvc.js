@@ -71,8 +71,8 @@
           return promise;
         }
 
-        function getCharactersWithRecipes() {
-          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/with-recipes").then(function(response) {
+        function getCharactersWithRecipes(profession) {
+          var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/with-recipes/" + profession).then(function(response) {
               return response.data;
           });
           return promise;
