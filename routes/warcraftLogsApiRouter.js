@@ -7,16 +7,16 @@ var url = "https://www.warcraftlogs.com:443/v1/reports/guild/Tremendous/Ysondre/
 
 
 /**
- * Test route
+ * Get all logs
  */
 warcraftLogsApiRouter.get('/', function(req, res) {
-    request(url, function (err, response, body) {
-        if (!err && response.statusCode == 200) {
-            res.send(body);
-        } else {
-            console.log(err);
-        }
-    })
+  request(url, function (err, response, body) {
+    if (!err && response.statusCode == 200) {
+      return res.send(body);
+    } else {
+      console.log(err);
+    }
+  })
 });
 
 

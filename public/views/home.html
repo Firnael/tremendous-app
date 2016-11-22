@@ -11,7 +11,7 @@
 
   <div class="row">
     <div class="col-md-3">
-      <div ng-show="vm.logs" ng-repeat="log in vm.logs | limitTo : 10 | orderBy:['-start']">
+      <div ng-show="vm.logs" ng-repeat="log in vm.logs | limitTo: -10 | orderBy:['-start']">
         <trmds-logs-widget log="log"></trmds-logs-widget>
       </div>
       (10 derniers logs sur les {{ vm.logs.length }} existants)
