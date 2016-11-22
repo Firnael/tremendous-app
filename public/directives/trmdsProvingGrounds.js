@@ -33,10 +33,11 @@
 
         return {
             restrict: "E",
-            template: '<img ng-src="{{ result }}" width="60" height="60" class="img-circle img-thumbnail"/>',
+            template: '<img ng-src="{{ result }}" width="{{ size }}" height="{{ size }}" class="img-circle img-thumbnail"/>',
             link: link,
             scope: {
-              value: '@'
+              value: '@',
+              size: '@'
             }
         };
     }

@@ -46,22 +46,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="character in vm.charactersWithRecipes">
-            <td>{{ character.name }}</td>
+          <tr ng-repeat="character in vm.charactersWithRecipes | orderBy:['+guildRank']">
+            <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
             <!-- Flacons -->
-            <td>{{ vm.getRecipeRank('flask_endu', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('flask_str', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('flask_int', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('flask_agi', character.recipes) }}</td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_endu', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_str', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_int', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('flask_agi', character.recipes) }}" size="40"></trmds-proving-grounds></td>
             <!-- Potions buff -->
-            <td>{{ vm.getRecipeRank('potion_melee', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('potion_distant', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('potion_armor', character.recipes) }}</td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_melee', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_distant', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_armor', character.recipes) }}" size="40"></trmds-proving-grounds></td>
             <!-- Potions regen -->
-            <td>{{ vm.getRecipeRank('potion_hp', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('potion_both', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('potion_mana', character.recipes) }}</td>
-            <td>{{ vm.getRecipeRank('potion_mana_channel', character.recipes) }}</td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_hp', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_both', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_mana', character.recipes) }}" size="40"></trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getRecipeRank('potion_mana_channel', character.recipes) }}" size="40"></trmds-proving-grounds></td>
           </tr>
         </tbody>
       </table>

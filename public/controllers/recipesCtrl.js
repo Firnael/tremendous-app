@@ -5,12 +5,13 @@
         .module('app')
         .controller('recipesCtrl', RecipesCtrl);
 
-    RecipesCtrl.$inject = ['CharacterSvc'];
+    RecipesCtrl.$inject = ['CharacterSvc', 'UtilsSvc'];
 
-    function RecipesCtrl(CharacterSvc){
+    function RecipesCtrl(CharacterSvc, UtilsSvc){
       var vm = this;
       vm.charactersWithRecipes;
 
+      vm.getClassColor = getClassColor;
       vm.getCharactersWithRecipes = getCharactersWithRecipes;
       vm.getRecipeRank = getRecipeRank;
       activate();
@@ -20,6 +21,10 @@
       function activate() {
         console.log('RecipesCtrl activate');
         vm.getCharactersWithRecipes();
+      }
+
+      function getClassColor(value) {
+        return UtilsSvc.getCssClassByCharacterClass(value, false);
       }
 
       function getCharactersWithRecipes() {
