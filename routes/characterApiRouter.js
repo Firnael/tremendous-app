@@ -172,6 +172,7 @@ characterApiRouter.route('/with-recipes/:profession').get(function(req, res) {
   switch(profession) {
     case 'alchemy': query = Character.find({ alchemyRecipes: { $gt: [] } }); break;
     case 'jewelcrafting': query = Character.find({ jewelcraftingRecipes: { $gt: [] } }); break;
+    case 'enchants': query = Character.find({ enchantRecipes: { $gt: [] } }); break;
   }
 
   if(!query) {
@@ -322,6 +323,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.professions = getProfessionsData(body.professions);
                 character.alchemyRecipes = getRecipesData(body.professions, 171);
                 character.jewelcraftingRecipes = getRecipesData(body.professions, 755);
+                character.enchantRecipes = getRecipesData(body.professions, 333);
               }
               // Specs
               if(body.talents) {

@@ -11,13 +11,15 @@
       var vm = this;
       vm.currentTab = 0;
       vm.charactersWithAlchemyRecipes;
-      vm.charactersWithJewelcraftingRecipes;
+      vm.charactersWithGemRecipes;
+      vm.charactersWithEnchantRecipes;
 
       vm.setCurrentTab = setCurrentTab;
       vm.getClassColor = getClassColor;
       vm.getCharactersWithRecipes = getCharactersWithRecipes;
       vm.getAlchemyRecipeRank = getAlchemyRecipeRank;
       vm.getGemRecipeRank = getGemRecipeRank;
+      vm.getEnchantRecipeRank = getEnchantRecipeRank;
       activate();
 
       //////////////
@@ -40,7 +42,10 @@
           vm.charactersWithAlchemyRecipes = data;
         });
         CharacterSvc.getCharactersWithRecipes('jewelcrafting').then(function(data){
-          vm.charactersWithJewelcraftingRecipes = data;
+          vm.charactersWithGemRecipes = data;
+        });
+        CharacterSvc.getCharactersWithRecipes('enchants').then(function(data){
+          vm.charactersWithEnchantRecipes = data;
         });
       }
 
@@ -115,7 +120,6 @@
 
       function getGemRecipeRank(recipe, recipes) {
         switch(recipe) {
-
           case 'saber_eye':
             if(recipes.indexOf(195877) >= 0) { return 3; }
             break;
@@ -131,10 +135,80 @@
           case 'vers':
             if(recipes.indexOf(195854) >= 0) { return 3; }
             break;
-
           default: return -1; break;
         }
+        return 0;
+      }
 
+      function getEnchantRecipeRank(recipe, recipes) {
+        switch(recipe) {
+          case 'cloak_agi':
+            if(recipes.indexOf(191021) >= 0) { return 3; }
+            else if(recipes.indexOf(191004) >= 0) { return 2; }
+            else if(recipes.indexOf(190878) >= 0) { return 1; }
+            break;
+          case 'cloak_int':
+            if(recipes.indexOf(191022) >= 0) { return 3; }
+            else if(recipes.indexOf(191005) >= 0) { return 2; }
+            else if(recipes.indexOf(190879) >= 0) { return 1; }
+            break;
+          case 'cloak_str':
+            if(recipes.indexOf(191020) >= 0) { return 3; }
+            else if(recipes.indexOf(191003) >= 0) { return 2; }
+            else if(recipes.indexOf(190877) >= 0) { return 1; }
+            break;
+          case 'neck_priestess':
+            if(recipes.indexOf(228410) >= 0) { return 3; }
+            else if(recipes.indexOf(228409) >= 0) { return 2; }
+            else if(recipes.indexOf(228408) >= 0) { return 1; }
+            break;
+          case 'neck_claw':
+            if(recipes.indexOf(191023) >= 0) { return 3; }
+            else if(recipes.indexOf(191006) >= 0) { return 2; }
+            else if(recipes.indexOf(190892) >= 0) { return 1; }
+            break;
+          case 'neck_army':
+            if(recipes.indexOf(191024) >= 0) { return 3; }
+            else if(recipes.indexOf(191007) >= 0) { return 2; }
+            else if(recipes.indexOf(190893) >= 0) { return 1; }
+            break;
+          case 'neck_hide':
+            if(recipes.indexOf(228404) >= 0) { return 3; }
+            else if(recipes.indexOf(228403) >= 0) { return 2; }
+            else if(recipes.indexOf(228402) >= 0) { return 1; }
+            break;
+          case 'neck_satyr':
+            if(recipes.indexOf(191025) >= 0) { return 3; }
+            else if(recipes.indexOf(191008) >= 0) { return 2; }
+            else if(recipes.indexOf(190894) >= 0) { return 1; }
+            break;
+          case 'neck_soldier':
+            if(recipes.indexOf(228407) >= 0) { return 3; }
+            else if(recipes.indexOf(228406) >= 0) { return 2; }
+            else if(recipes.indexOf(228405) >= 0) { return 1; }
+            break;
+          case 'ring_crit':
+            if(recipes.indexOf(191013) >= 0) { return 3; }
+            else if(recipes.indexOf(190996) >= 0) { return 2; }
+            else if(recipes.indexOf(190870) >= 0) { return 1; }
+            break;
+          case 'ring_haste':
+            if(recipes.indexOf(191014) >= 0) { return 3; }
+            else if(recipes.indexOf(190997) >= 0) { return 2; }
+            else if(recipes.indexOf(190871) >= 0) { return 1; }
+            break;
+          case 'ring_mastery':
+            if(recipes.indexOf(191015) >= 0) { return 3; }
+            else if(recipes.indexOf(190998) >= 0) { return 2; }
+            else if(recipes.indexOf(190872) >= 0) { return 1; }
+            break;
+          case 'ring_versa':
+            if(recipes.indexOf(191016) >= 0) { return 3; }
+            else if(recipes.indexOf(190999) >= 0) { return 2; }
+            else if(recipes.indexOf(190873) >= 0) { return 1; }
+            break;
+          default: return -1; break;
+        }
         return 0;
       }
 

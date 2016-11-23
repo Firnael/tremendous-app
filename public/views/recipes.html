@@ -19,9 +19,11 @@
     </div>
   </div>
   <br/>
-  <div class="row">
+  <!-- Arrays -->
+  <div class="row fade" ng-show="vm.charactersWithAlchemyRecipes">
+    <!-- Alchemy -->
     <div class="col-md-12" ng-show="vm.currentTab === 0">
-      <table class="table table-hover table-condensed">
+      <table class="table table-hover table-condensed recipes-table">
         <thead>
           <tr>
             <th><!-- Name --></th>
@@ -90,8 +92,9 @@
         </tbody>
       </table>
     </div>
+    <!-- Gems -->
     <div class="col-md-12" ng-show="vm.currentTab === 1">
-      <table class="table table-hover table-condensed">
+      <table class="table table-hover table-condensed recipes-table">
         <thead>
           <tr>
             <th><!-- Name --></th>
@@ -111,7 +114,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="character in vm.charactersWithJewelcraftingRecipes | orderBy:['+guildRank']">
+          <tr ng-repeat="character in vm.charactersWithGemRecipes | orderBy:['+guildRank']">
             <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
             <!-- Flacons -->
             <td><trmds-proving-grounds value="{{ vm.getGemRecipeRank('saber_eye', character.jewelcraftingRecipes) }}" size="40">
@@ -128,7 +131,85 @@
         </tbody>
       </table>
     </div>
-    <div class="col-md-12" ng-show="vm.currentTab === 2">Enchants</div>
+    <!-- Enchants -->
+    <div class="col-md-12" ng-show="vm.currentTab === 2">
+      <table class="table table-hover table-condensed recipes-table">
+        <thead>
+          <tr>
+            <th><!-- Name --></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_cape_20.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_cape_20.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_cape_20.jpg"/></th>
+            <th></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_necklace_11.jpg"/></th>
+            <th></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_03.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_03.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_03.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_jewelry_ring_03.jpg"/></th>
+          </tr>
+          <tr>
+            <th><!-- Name --></th>
+            <th>Agi</th>
+            <th>Int</th>
+            <th>Str</th>
+            <th></th>
+            <th>Heal proc</th>
+            <th>Claw</th>
+            <th>Distant Army</th>
+            <th>Armor proc</th>
+            <th>Satyr</th>
+            <th>Mastery</th>
+            <th></th>
+            <th>Crit</th>
+            <th>Haste</th>
+            <th>Mastery</th>
+            <th>Versa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="character in vm.charactersWithEnchantRecipes | orderBy:['+guildRank']">
+            <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
+            <!-- Cloaks -->
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('cloak_agi', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('cloak_int', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('cloak_str', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td></td>
+            <!-- Necks -->
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_priestess', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_claw', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_army', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_hide', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_satyr', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('neck_soldier', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td></td>
+            <!-- Rings -->
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('ring_crit', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('ring_haste', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('ring_mastery', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('ring_versa', character.enchantRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 </div>

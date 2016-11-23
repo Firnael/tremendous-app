@@ -45,6 +45,7 @@ var CharacterSchema = new Schema({
     ],
     alchemyRecipes: Array,
     jewelcraftingRecipes: Array,
+    enchantRecipes: Array,
     specs: [
       { name: String, selected: Boolean }
     ],
