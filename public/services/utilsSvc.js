@@ -61,13 +61,13 @@
           var result = '';
           if(value >= 880) {
             result = 'legendary';
-          } else if(value >= 870) {
+          } else if(value >= 875) {
             result = 'epic';
-          } else if(value >= 865) {
+          } else if(value >= 870) {
             result = 'rare';
-          } else if(value >= 860) {
+          } else if(value >= 865) {
             result = 'uncommon';
-          } else if(value >= 855) {
+          } else if(value >= 860) {
             result = 'common';
           } else {
             result = 'poor';
