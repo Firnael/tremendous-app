@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="guild in vm.ranking.guilds">
+          <tr ng-repeat="guild in vm.ranking.guilds" ng-class="vm.getProgressValue(guild.tierProgress)">
             <td class="guild-name">
               <a ng-href="{{ guild.url }}" target="_blank">
                 {{ guild.name }}
