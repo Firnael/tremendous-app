@@ -13,6 +13,7 @@
       vm.charactersWithAlchemyRecipes;
       vm.charactersWithGemRecipes;
       vm.charactersWithEnchantRecipes;
+      vm.charactersWithCookingRecipes;
 
       vm.setCurrentTab = setCurrentTab;
       vm.getClassColor = getClassColor;
@@ -20,6 +21,7 @@
       vm.getAlchemyRecipeRank = getAlchemyRecipeRank;
       vm.getGemRecipeRank = getGemRecipeRank;
       vm.getEnchantRecipeRank = getEnchantRecipeRank;
+      vm.getCookingRecipeRank = getCookingRecipeRank;
       activate();
 
       //////////////
@@ -46,6 +48,9 @@
         });
         CharacterSvc.getCharactersWithRecipes('enchants').then(function(data){
           vm.charactersWithEnchantRecipes = data;
+        });
+        CharacterSvc.getCharactersWithRecipes('cooking').then(function(data){
+          vm.charactersWithCookingRecipes = data;
         });
       }
 
@@ -212,5 +217,36 @@
         return 0;
       }
 
+      function getCookingRecipeRank(recipe, recipes) {
+        switch(recipe) {
+          case 'haste':
+            if(recipes.indexOf(201555) >= 0) { return 3; }
+            else if(recipes.indexOf(201535) >= 0) { return 2; }
+            else if(recipes.indexOf(201506) >= 0) { return 1; }
+            break;
+          case 'versa':
+            if(recipes.indexOf(201557) >= 0) { return 3; }
+            else if(recipes.indexOf(201537) >= 0) { return 2; }
+            else if(recipes.indexOf(201508) >= 0) { return 1; }
+            break;
+          case 'mastery':
+            if(recipes.indexOf(201556) >= 0) { return 3; }
+            else if(recipes.indexOf(201536) >= 0) { return 2; }
+            else if(recipes.indexOf(201507) >= 0) { return 1; }
+            break;
+          case 'crit':
+            if(recipes.indexOf(201554) >= 0) { return 3; }
+            else if(recipes.indexOf(201534) >= 0) { return 2; }
+            else if(recipes.indexOf(201505) >= 0) { return 1; }
+            break;
+          case 'damages':
+            if(recipes.indexOf(201558) >= 0) { return 3; }
+            else if(recipes.indexOf(201538) >= 0) { return 2; }
+            else if(recipes.indexOf(201511) >= 0) { return 1; }
+            break;
+          default: return -1; break;
+        }
+        return 0;
+      }
     }
 })();

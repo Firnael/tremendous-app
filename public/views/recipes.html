@@ -8,21 +8,24 @@
 
   <!-- Tabs -->
   <div class="row recipes-tabs">
-    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 0 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(0)">
+    <div class="col-md-3 recipe-tab" ng-class="vm.currentTab === 0 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(0)">
       <div class="recipe-tab-content">Flasks & Pots</div>
     </div>
-    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 1 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(1)">
+    <div class="col-md-3 recipe-tab" ng-class="vm.currentTab === 1 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(1)">
       <div class="recipe-tab-content">Gems</div>
     </div>
-    <div class="col-md-4 recipe-tab" ng-class="vm.currentTab === 2 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(2)">
+    <div class="col-md-3 recipe-tab" ng-class="vm.currentTab === 2 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(2)">
       <div class="recipe-tab-content">Enchants</div>
+    </div>
+    <div class="col-md-3 recipe-tab" ng-class="vm.currentTab === 3 ? 'recipes-current-tab' : ''" ng-click="vm.setCurrentTab(3)">
+      <div class="recipe-tab-content">Food</div>
     </div>
   </div>
   <br/>
   <!-- Arrays -->
   <div class="row fade" ng-show="vm.charactersWithAlchemyRecipes">
     <!-- Alchemy -->
-    <div class="col-md-12" ng-show="vm.currentTab === 0">
+    <div class="col-md-8 col-md-offset-2" ng-show="vm.currentTab === 0">
       <table class="table table-hover table-condensed recipes-table">
         <thead>
           <tr>
@@ -93,7 +96,7 @@
       </table>
     </div>
     <!-- Gems -->
-    <div class="col-md-12" ng-show="vm.currentTab === 1">
+    <div class="col-md-8 col-md-offset-2" ng-show="vm.currentTab === 1">
       <table class="table table-hover table-condensed recipes-table">
         <thead>
           <tr>
@@ -132,7 +135,7 @@
       </table>
     </div>
     <!-- Enchants -->
-    <div class="col-md-12" ng-show="vm.currentTab === 2">
+    <div class="col-md-8 col-md-offset-2" ng-show="vm.currentTab === 2">
       <table class="table table-hover table-condensed recipes-table">
         <thead>
           <tr>
@@ -206,6 +209,45 @@
             </trmds-proving-grounds></td>
             <td><trmds-proving-grounds value="{{ vm.getEnchantRecipeRank('ring_versa', character.enchantRecipes) }}" size="40">
             </trmds-proving-grounds></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Food -->
+    <div class="col-md-8 col-md-offset-2" ng-show="vm.currentTab === 3">
+      <table class="table table-hover table-condensed recipes-table">
+        <thead>
+          <tr>
+            <th><!-- Name --></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_food_legion_azsharisalad.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_food_legion_seedbatteredfishplate.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_food_legion_nightbornedelicacyplatter.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_food_legion_thehungrymagistar.jpg"/></th>
+            <th><img class="img-rounded" src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_food_legion_fishbrulspecial.jpg"/></th>
+          </tr>
+          <tr>
+            <th><!-- Name --></th>
+            <th>Haste</th>
+            <th>Versa</th>
+            <th>Mastery</th>
+            <th>Crit</th>
+            <th>Damages</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="character in vm.charactersWithCookingRecipes | orderBy:['+guildRank']">
+            <td ng-class="vm.getClassColor(character.class)">{{ character.name }}</td>
+            <td><trmds-proving-grounds value="{{ vm.getCookingRecipeRank('haste', character.cookingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getCookingRecipeRank('versa', character.cookingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getCookingRecipeRank('mastery', character.cookingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getCookingRecipeRank('crit', character.cookingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td><trmds-proving-grounds value="{{ vm.getCookingRecipeRank('damages', character.cookingRecipes) }}" size="40">
+            </trmds-proving-grounds></td>
+            <td></td>
           </tr>
         </tbody>
       </table>

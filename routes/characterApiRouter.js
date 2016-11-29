@@ -173,6 +173,7 @@ characterApiRouter.route('/with-recipes/:profession').get(function(req, res) {
     case 'alchemy': query = Character.find({ alchemyRecipes: { $gt: [] } }); break;
     case 'jewelcrafting': query = Character.find({ jewelcraftingRecipes: { $gt: [] } }); break;
     case 'enchants': query = Character.find({ enchantRecipes: { $gt: [] } }); break;
+    case 'cooking': query = Character.find({ cookingRecipes: { $gt: [] } }); break;
   }
 
   if(!query) {
@@ -324,6 +325,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.alchemyRecipes = getRecipesData(body.professions, 171);
                 character.jewelcraftingRecipes = getRecipesData(body.professions, 755);
                 character.enchantRecipes = getRecipesData(body.professions, 333);
+                character.cookingRecipes = getRecipesData(body.professions, 185);
               }
               // Specs
               if(body.talents) {
@@ -418,10 +420,25 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     }
 
     function getRecipesData(professions, professionId) {
-      if(professions.primary[0].id === professionId) {
-        return professions.primary[0].recipes;
-      } else if(professions.primary[1].id === professionId) {
-        return professions.primary[1].recipes;
+      var professionArray;
+
+      // Secondary
+      if(professionId === 185) {
+        professionArray = professions.secondary;
+        for (var i=0; i<professionArray.length; i++) {
+          if(professionArray[i].id === professionId) {
+            return professionArray[i].recipes;
+          }
+        }
+        return;
+      }
+
+      // Primary
+      professionArray = professions.primary;
+      if(professionArray[0].id === professionId) {
+        return professionArray[0].recipes;
+      } else if(professionArray[1].id === professionId) {
+        return professionArray[1].recipes;
       }
       return;
     }
