@@ -32,6 +32,7 @@ progressApiRouter.route('/update').get(function (req, res) {
       progress.lastUpdate = new Date().getTime();
       progress.emeraldNightmare = data.emeraldNightmare;
       progress.nighthold = data.nighthold;
+      progress.trialOfValor = data.trialOfValor;
 
       // Save it
       progress.save(function(errsave) {
@@ -48,6 +49,7 @@ function createProgressData(progression) {
 
   // Extract Legion raids
   var enTmp;
+  var tovTmp;
   var nhTmp;
   for(var i=0; i<progression.raids.length; i++) {
     var raid = progression.raids[i];
@@ -56,6 +58,8 @@ function createProgressData(progression) {
       enTmp = raid;
     } else if(raid.id === 8025) { // Palais Sacrenuit
       nhTmp = raid;
+    } else if(raid.id === 8440) { // Jugement des Valeureux
+      tovTmp = raid;
     }
   }
 
@@ -72,8 +76,15 @@ function createProgressData(progression) {
     nighthold.push({ 'bossName': boss.name, 'downs': getProgressTimestamps(boss) });
   }
 
+  var trialOfValor = [];
+  for(var i=0; i<tovTmp.bosses.length; i++) {
+    var boss = tovTmp.bosses[i];
+    trialOfValor.push({ 'bossName': boss.name, 'downs': getProgressTimestamps(boss) });
+  }
+
   data.emeraldNightmare = emeraldNightmare;
   data.nighthold = nighthold;
+  data.trialOfValor = trialOfValor;
   return data;
 }
 

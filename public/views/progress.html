@@ -10,7 +10,7 @@
 <div class="row progress-wrapper">
 
   <!-- Emerald Nightmare -->
-  <div class="col-md-6 fill" style="background-image: url(http://2.bp.blogspot.com/-p5fFpOAHgFA/Vek7T-kyqKI/AAAAAAAAC_s/u52b_te4oeA/s1600/nightmare.JPG);
+  <div class="col-md-4 fill" style="background-image: url(http://2.bp.blogspot.com/-p5fFpOAHgFA/Vek7T-kyqKI/AAAAAAAAC_s/u52b_te4oeA/s1600/nightmare.JPG);
   background-size: cover;">
     <div class="progress-title">
         <h3>Cauchemard d'Emeraude
@@ -30,8 +30,28 @@
     </div>
   </div>
 
+  <!-- Trial of Valor -->
+  <div class="col-md-4 fill" style="background-image: url(http://www.icy-veins.com/forums/news/24320-patch-71-trial-of-valor.jpg); background-size: cover;">
+    <div class="progress-title">
+        <h3>Jugement des Valeureux
+          <a href="http://fr.wowhead.com/trial-of-valor" target="_blank">
+            <img src="http://static.zealous-studios.co.uk/projects/wowwiki/images/Icon-wowhead-48x48.png" title="Voir sur WoWHead" width="20" height="20"/>
+          </a>
+        </h3>
+    </div>
+    <div class="fade progress-content" ng-hide="vm.updating">
+      <trmds-progress-boss-unit ng-repeat="boss in vm.progress.trialOfValor"
+        name="boss.bossName"
+        downs="boss.downs">
+      </trmds-progress-boss-unit>
+    </div>
+    <div class="progress-update" ng-show="vm.updating">
+      <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+    </div>
+  </div>
+
   <!-- Nighthold -->
-  <div class="col-md-6 fill" style="background-image: url(http://wow.zamimg.com/uploads/screenshots/resized/516576.jpg); background-size: cover;">
+  <div class="col-md-4 fill" style="background-image: url(http://wow.zamimg.com/uploads/screenshots/resized/516576.jpg); background-size: cover;">
     <div class="progress-title">
         <h3>Palais Sacrenuit
           <a href="http://fr.wowhead.com/zone=8025/palais-sacrenuit" target="_blank">

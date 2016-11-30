@@ -16,6 +16,17 @@ var ProgressSchema = new Schema({
         ]
       }
     ],
+    trialOfValor : [
+      {
+        bossName: String,
+        downs: [
+          {
+            difficulty: Number,
+            timestamp: Number
+          }
+        ]
+      }
+    ],
     nighthold : [
       {
         bossName: String,
