@@ -435,10 +435,10 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
       // Primary
       professionArray = professions.primary;
-      if(professionArray[0].id === professionId) {
-        return professionArray[0].recipes;
-      } else if(professionArray[1].id === professionId) {
-        return professionArray[1].recipes;
+      for (var j=0; j<professionArray.length; j++) {
+        if(professionArray[j].id === professionId) {
+          return professionArray[j].recipes;
+        }
       }
       return;
     }
