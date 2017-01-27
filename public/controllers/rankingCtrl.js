@@ -63,30 +63,31 @@
 
       function getTierProgress(progress) {
         var array = progress.split(' ');
-        return array[0] + ' ' + array[1] + ' ' + array[2] + ' ' + array[3];
+        return array[2] + ' ' + array[3] + ' ' + array[4] + ' ' + array[5];
       }
 
       function getProgressValue(progress) {
         var array = progress.split(' ');
-        var emeraldNightmare = parseInt(array[0].substring(0,1));
-        if(array[1].indexOf('M') >= 0) {
-          emeraldNightmare += 7;
-        }
         var trialOfValor = parseInt(array[2].substring(0,1));
         if(array[3].indexOf('M') >= 0) {
           trialOfValor += 3;
         }
+        var nighthold = parseInt(array[4].substring(0,1));
+        if(array[5].indexOf('M') >= 0) {
+          nighthold += 10;
+        }
 
-        var final = emeraldNightmare + trialOfValor;
-        if(final === 20) {
+        var final = trialOfValor + nighthold;
+
+        if(final === 26) {
           return 'legendary';
-        } else if(final === 19) {
+        } else if(final >= 23) {
           return 'epic';
-        } else if(final === 18) {
+        } else if(final >= 19) {
           return 'rare';
-        } else if(final === 17) {
+        } else if(final >= 16) {
           return 'uncommon';
-        } else if(final === 16) {
+        } else if(final >= 15) {
           return 'common';
         } else {
           return 'poor';
