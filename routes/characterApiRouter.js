@@ -267,7 +267,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
-        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation%2Cfeed';
+        var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation%2Cfeed%2Cstatistics';
         var locale = '&locale=fr_FR';
         var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
@@ -335,9 +335,9 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               if(body.reputation) {
                 character.reputations = getReputationsData(body.reputation);
               }
-              // Mythic dungeon tags
-              if(body.feed) {
-                character.mythicDungeonTags = getFeedData(body.feed, character.mythicDungeonTags);
+              // Mythic dungeons
+              if(body.statistics) {
+                character.mythicDungeons = getMythicDungeonsData(body.statistics.subCategories[5].subCategories[6].statistics);
               }
 
               // Save
@@ -618,6 +618,39 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
             current: reput.value,
             max: reput.max
           });
+        }
+      }
+
+      return data;
+    }
+
+    function getMythicDungeonsData(dungeonStatsArray) {
+      var data = {};
+      data.total = 0;
+      data.dungeons = {};
+      data.dungeons[8040] = 0; // Oeil d'Azshara
+      data.dungeons[7673] = 0; // Fourré Sombrecoeur
+      data.dungeons[7546] = 0; // Repaire de Neltharion
+      data.dungeons[7672] = 0; // Salles des Valeureux
+      data.dungeons[7787] = 0; // Caveau des Gardiennes
+      data.dungeons[7805] = 0; // Bastion du Freux
+      data.dungeons[7812] = 0; // La Gueule des âmes
+      data.dungeons[7855] = 0; // L'Arcavia
+      data.dungeons[8079] = 0; // La Cour des étoiles
+
+      for(var i=0; i<dungeonStatsArray.length; i++) {
+        var dungeon = dungeonStatsArray[i];
+        switch(dungeon.id) {
+          case 10880: data.dungeons[8040] += dungeon.quantity; data.total += dungeon.quantity; break; // EoA
+          case 10883: data.dungeons[7673] += dungeon.quantity; data.total += dungeon.quantity; break; // DHT
+          case 10886: data.dungeons[7546] += dungeon.quantity; data.total += dungeon.quantity; break; // NL
+          case 10889: data.dungeons[7672] += dungeon.quantity; data.total += dungeon.quantity; break; // HoV
+          case 10898: data.dungeons[7787] += dungeon.quantity; data.total += dungeon.quantity; break; // VoW
+          case 10901: data.dungeons[7805] += dungeon.quantity; data.total += dungeon.quantity; break; // BRH
+          case 10904: data.dungeons[7812] += dungeon.quantity; data.total += dungeon.quantity; break; // MoS
+          case 10907: data.dungeons[7855] += dungeon.quantity; data.total += dungeon.quantity; break; // Arc
+          case 10910: data.dungeons[8079] += dungeon.quantity; data.total += dungeon.quantity; break; // CoS
+          default: break;
         }
       }
 

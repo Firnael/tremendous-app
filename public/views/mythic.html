@@ -13,44 +13,35 @@
         <tr>
           <th><!-- Name --></th>
           <th><!-- Count --></th>
+          <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_eyeofazshara.jpg"/></th>
+          <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_darkheartthicket.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_neltharionslair.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_hallsofvalor.jpg"/></th>
-          <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_darkheartthicket.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_vaultofthewardens.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_blackrookhold.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_mawofsouls.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_thearcway.jpg"/></th>
-          <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_violethold.jpg"/></th>
-          <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_eyeofazshara.jpg"/></th>
           <th><img src="http://media.blizzard.com/wow/icons/56/achievement_dungeon_courtofstars.jpg"/></th>
         </tr>
         <tr>
           <th><!-- Name --></th>
           <th><!-- Count --></th>
+          <th><!-- 8040 -->Oeil d'Azshara</th>
+          <th><!-- 7673 -->Fourre Sombrecoeur</th>
           <th><!-- 7546 -->Repaire de Neltharion</th>
           <th><!-- 7672 -->Salles des Valeureux</th>
-          <th><!-- 7673 -->Fourre Sombrecoeur</th>
           <th><!-- 7787 -->Caveau des Gardiennes</th>
           <th><!-- 7805 -->Bastion du Freux</th>
           <th><!-- 7812 -->La Gueule des ames</th>
           <th><!-- 7855 -->L'Arcavia</th>
-          <th><!-- 7996 -->Assaut sur le fort Pourpre</th>
-          <th><!-- 8040 -->Oeil d'Azshara</th>
           <th><!-- 8079 -->La Cour des etoiles</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeonTags.count']">
-          <td class="mythic-table-name"
-          ng-class="[vm.getClassColor(raider.class), vm.checkResetTimer(raider.mythicDungeonTags.dungeons[vm.selectedDungeon]) ? '' : 'mythic-selected']">
-            {{ raider.name }}
-          </td>
-          <td>{{ raider.mythicDungeonTags.count ? '-' : '-' }}</td>
-          <td ng-repeat="(key,timestamp) in raider.mythicDungeonTags.dungeons" class="mythic-check" ng-click="vm.selectDungeon(0)"
-              ng-class="vm.selectedDungeon === key && !vm.checkResetTimer(timestamp) ? 'mythic-selected' : ''">
-            <i ng-class="vm.checkResetTimer(timestamp) ? 'fa-check mythic-check-good' : 'fa-times mythic-check-bad'" class="fa"
-               ng-click="vm.checkResetTimer(timestamp) ? '' : vm.selectDungeon(key); $event.stopPropagation();"></i>
-          </td>
+        <tr ng-repeat="raider in vm.roster | orderBy:['-mythicDungeons.total']">
+          <td class="mythic-table-name" ng-class="vm.getClassColor(raider.class)">{{ raider.name }}</td>
+          <td class="mythic-table-total">{{ raider.mythicDungeons.total ? raider.mythicDungeons.total : '-' }}</td>
+          <td ng-repeat="(key, count) in raider.mythicDungeons.dungeons" class="mythic-table-count">{{ count }}</td>
         </tr>
       </tbody>
     </table>
