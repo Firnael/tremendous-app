@@ -296,7 +296,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.averageItemLevel = body.items.averageItemLevel;
                 character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
                 character.items = getItemsData(body.items);
-                character.artifactTraits = getArtifactTraitsCount(body.items.mainHand);
+                character.artifactTraits = getArtifactTraitsCount(body.items.mainHand, character.artifactTraits);
                 // Audit
                 character.audit = getAuditData(body.items);
               }
@@ -475,7 +475,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
-    function getArtifactTraitsCount(artifact) {
+    function getArtifactTraitsCount(artifact, current) {
       var result = 0;
       if(artifact.artifactTraits) {
         for(var i=0; i<artifact.artifactTraits.length; i++) {
@@ -483,7 +483,9 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
           result += trait.rank;
         }
       }
-      return result-3;
+      result -= 3; // relics artificially adds 3 points
+
+      return result > current ? result : current;
     }
 
     function getAuditData(items) {
