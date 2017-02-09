@@ -296,7 +296,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.averageItemLevel = body.items.averageItemLevel;
                 character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
                 character.items = getItemsData(body.items);
-                character.artifactTraits = getArtifactTraitsCount(body.items.mainHand, character.artifactTraits);
+                character.artifactTraits = getArtifactTraitsCount(body.items, character.artifactTraits);
                 // Audit
                 character.audit = getAuditData(body.items);
               }
@@ -475,7 +475,12 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
-    function getArtifactTraitsCount(artifact, current) {
+    function getArtifactTraitsCount(items, current) {
+      var artifact = items.mainHand;
+      if(artifact.artifactId === 0) {
+        artifact = items.offHand;
+      }
+
       var result = 0;
       if(artifact.artifactTraits) {
         for(var i=0; i<artifact.artifactTraits.length; i++) {
