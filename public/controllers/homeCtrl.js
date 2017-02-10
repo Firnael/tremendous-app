@@ -5,13 +5,15 @@
         .module('app')
         .controller('homeCtrl', HomeCtrl);
 
-    HomeCtrl.$inject = ['LogsSvc'];
+    HomeCtrl.$inject = ['LogsSvc', 'TokenSvc'];
 
-    function HomeCtrl(LogsSvc){
+    function HomeCtrl(LogsSvc, TokenSvc){
       var vm = this;
       vm.logs = [];
+      vm.token = {};
 
       vm.getLogs = getLogs;
+      vm.getTokenInfos = getTokenInfos;
       activate();
 
       //////////////
@@ -19,6 +21,7 @@
       function activate() {
         console.log('HomeCtrl activate');
         vm.getLogs();
+        vm.getTokenInfos();
 
         // Get time left to wait before release in seconds
         // var currentDate = new Date();
@@ -34,6 +37,13 @@
               vm.logs.push(log);
             }
           }
+        });
+      }
+
+      function getTokenInfos() {
+        TokenSvc.get().then(function (result) {
+          vm.token.value = result.value;
+          vm.token.moment = moment(result.lastUpdate).format("HH:mm");
         });
       }
     }

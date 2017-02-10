@@ -12,6 +12,7 @@ var progressApiRouter = require('./routes/progressApiRouter');
 var rankingApiRouter = require('./routes/rankingApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
+var wowTokenApiRouter = require('./routes/wowTokenApiRouter');
 
 // Connecting to MongoLab
 mongoose.connect('mongodb://admin:admin@ds015934.mlab.com:15934/heroku_fgn342m5', function (err, res) {
@@ -45,6 +46,7 @@ app.use('/api/ranking', rankingApiRouter);
 // External APIs
 app.use('/api/bnet', bnetApiRouter);
 app.use('/api/warcraftlogs', warcraftLogsApiRouter);
+app.use('/api/wowtoken', wowTokenApiRouter);
 
 // Initialize the app.
 var server = app.listen(process.env.PORT || 8080, function () {

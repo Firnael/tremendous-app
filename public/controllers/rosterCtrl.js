@@ -168,7 +168,8 @@
         }
 
         function getTraitsColor(count) {
-          if(count >= 50) { return 'roster-audit-good'; }
+          if(count === 54) { return 'roster-audit-awesome'; }
+          else if(count >= 50) { return 'roster-audit-good'; }
           else if(count >= 45) { return 'roster-audit-warning'; }
           else return 'roster-audit-bad';
         }
