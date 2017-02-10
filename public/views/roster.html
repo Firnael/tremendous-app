@@ -72,7 +72,7 @@
         <!-- Separator -->
         <td></td>
         <!-- Traits -->
-        <td ng-class="raider.artifactTraits > 0 ? 'roster-audit-good' : 'roster-audit-neutral'">
+        <td ng-class="vm.getTraitsColor(raider.artifactTraits)">
           <strong>{{ raider.artifactTraits }}</strong>
         </td>
         <!-- +200 stat gem -->

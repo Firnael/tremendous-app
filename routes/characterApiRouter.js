@@ -480,6 +480,9 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       if(artifact.artifactId === 0) {
         artifact = items.offHand;
       }
+      if(!artifact) {
+        return 0;
+      }
 
       var result = 0;
       if(artifact.artifactTraits) {

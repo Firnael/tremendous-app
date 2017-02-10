@@ -50,6 +50,7 @@
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
         vm.updateRosterData = updateRosterData;
+        vm.getTraitsColor = getTraitsColor;
         activate();
 
         //////////////
@@ -164,6 +165,12 @@
           vm.armorTokens.data[0] = vm.rosterInfos.armorTokens.vanquisher;
           vm.armorTokens.data[1] = vm.rosterInfos.armorTokens.protector;
           vm.armorTokens.data[2] = vm.rosterInfos.armorTokens.conqueror;
+        }
+
+        function getTraitsColor(count) {
+          if(count >= 50) { return 'roster-audit-good'; }
+          else if(count >= 45) { return 'roster-audit-warning'; }
+          else return 'roster-audit-bad';
         }
 
     }
