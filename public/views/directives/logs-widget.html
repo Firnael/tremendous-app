@@ -1,11 +1,14 @@
-<div class="media log-widget">
+<div class="media log-widget" ng-init="showBtn = false" ng-mouseenter="showBtn=true" ng-mouseleave="showBtn=false">
   <div class="media-left">
-    <a ng-href="https://www.warcraftlogs.com/reports/{{ log.id }}" target="_blank">
+    <a href="">
       <img class="media-object" ng-src="http://warcraftlogs.com/img/icons/warcraft/zone-{{ log.zone }}.png" width="48" height="48"/>
     </a>
   </div>
   <div class="media-body">
-    <h4 class="media-heading">{{ log.title }}</h4>
-    {{ log.owner }} - {{ getMomentByTimestamp(log.start) }} <i class="fa fa-arrow-right" aria-hidden="true"></i> {{ getMomentByTimestamp(log.end) }}
+    <a ng-show="showBtn" class="log-widget-btn btn btn-sm btn-default" ng-href="https://www.warcraftlogs.com/reports/{{ log.id }}" target="_blank">
+      <i class="fa fa-external-link" aria-hidden="true"></i>
+    </a>
+    <h4 class="media-heading">{{ log.title }} <small>{{ log.owner }}</small></h4>
+    {{ log.start }} <i class="fa fa-arrow-right" aria-hidden="true"></i> {{ log.end }}
   </div>
 </div>

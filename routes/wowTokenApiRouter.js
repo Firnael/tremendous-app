@@ -23,7 +23,6 @@ wowTokenApiRouter.get('/', function(req, res) {
       request(url, function (err, response, body) {
         if (err || response.statusCode !== 200) { return console.log(err); }
         var data = JSON.parse(body);
-        console.log(data.attention);
         token.lastUpdate = Date.now();
         token.value = data.update.EU.raw.buy;
         token.save(function(errsave) {
