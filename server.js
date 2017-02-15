@@ -19,12 +19,6 @@ var bnetApiRouter = require('./routes/bnetApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
 var wowTokenApiRouter = require('./routes/wowTokenApiRouter');
 
-// Prepare options for HTTPS
-var options = {
-  cert: fs.readFileSync('ssl/cert.pem', 'utf8'),
-  key: fs.readFileSync('ssl/key.pem', 'utf8')
-};
-
 // Secured routes middleware
 var auth = function(req, res, next) {
   if (!req.isAuthenticated()) {
@@ -113,7 +107,17 @@ app.get('/logout', function(request, response) {
   response.sendStatus(200);
 });
 
+// Prepare options for HTTPS
+// var options = {
+//   cert: fs.readFileSync('ssl/cert.crt', 'utf8'),
+//   key: fs.readFileSync('ssl/key.key', 'utf8')
+// };
 // Run server
-var serverHttps = https.createServer(options, app).listen(process.env.PORT || 8080, function () {
-  console.log("Server HTTPS now running on port", serverHttps.address().port);
+
+// var serverHttps = https.createServer(options, app).listen(process.env.PORT || 8080, function () {
+//   console.log("Server HTTPS now running on port", serverHttps.address().port);
+// });
+
+app.listen(process.env.PORT || 8080,, function () {
+  console.log('Express server running')
 });
