@@ -5,9 +5,9 @@
         .module('app')
         .controller('homeCtrl', HomeCtrl);
 
-    HomeCtrl.$inject = ['LogsSvc', 'TokenSvc'];
+    HomeCtrl.$inject = ['LogsSvc', 'TokenSvc', '$rootScope'];
 
-    function HomeCtrl(LogsSvc, TokenSvc){
+    function HomeCtrl(LogsSvc, TokenSvc, $rootScope){
       var vm = this;
       vm.logs = [];
       vm.token = {};

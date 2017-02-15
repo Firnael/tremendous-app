@@ -476,6 +476,9 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     }
 
     function getArtifactTraitsCount(items, current) {
+      if(!current) {
+        current = 0;
+      }
       var artifact = items.mainHand;
       if(artifact.artifactId === 0) {
         artifact = items.offHand;

@@ -20,7 +20,7 @@
 
         function getUrlPrefix(){
             var prefix = '';
-            $location.host().includes('localhost') ? prefix = 'http' : prefix = 'https';
+            $location.host().includes('localhost') ? prefix = 'https' : prefix = 'https'; //TODO change
             return prefix + '://' + $location.host() + ":" + $location.port();
         }
 
