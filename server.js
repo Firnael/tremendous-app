@@ -45,10 +45,13 @@ passport.deserializeUser(function(user, done) {
 
 // Use Bnet Strategy
 passport.use(new BnetStrategy({
-    clientID: 'w5s9afqgp8eq9y7q3crqdzmryq4qxadd',
-    clientSecret: 'WSwhJMfBXemxA7ejPnWrG7yaEJVTUA8Z',
-    callbackURL: "https://localhost:5443/auth/bnet/callback"
+    clientID: process.env.BNET_STRATEGY_CLIENT_ID,
+    clientSecret: process.env.BNET_STRATEGY_CLIENT_SECRET,
+    callbackURL: process.env.BNET_STRATEGY_CALLBACK_URL,
+    region: 'eu',
+    scope: 'wow.profile'
 }, function(accessToken, refreshToken, profile, done) {
+    console.log("Profile : " + JSON.stringify(profile));
     return done(null, profile);
 }));
 
@@ -110,11 +113,7 @@ app.get('/logout', function(request, response) {
   response.sendStatus(200);
 });
 
-var serverHttps = https.createServer(options, app).listen(5443, function () {
+// Run server
+var serverHttps = https.createServer(options, app).listen(process.env.PORT || 8080, function () {
   console.log("Server HTTPS now running on port", serverHttps.address().port);
 });
-
-// Run server
-// var server = app.listen(process.env.PORT || 8080, function () {
-// 	console.log("Server now running on port", server.address().port);
-// });
