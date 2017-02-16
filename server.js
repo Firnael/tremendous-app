@@ -119,5 +119,9 @@ app.get('/logout', function(request, response) {
 // });
 
 app.listen(process.env.PORT || 8080, function () {
+  console.log(process.env.BNET_STRATEGY_CLIENT_ID);
+  console.log(process.env.BNET_STRATEGY_CLIENT_SECRET);
+  console.log(process.env.BNET_STRATEGY_CALLBACK_URL);
+
   console.log('Express server running')
 });
