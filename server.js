@@ -118,6 +118,6 @@ app.get('/logout', function(request, response) {
 //   console.log("Server HTTPS now running on port", serverHttps.address().port);
 // });
 
-app.listen(process.env.PORT || 8080,, function () {
+app.listen(process.env.PORT || 8080, function () {
   console.log('Express server running')
 });
