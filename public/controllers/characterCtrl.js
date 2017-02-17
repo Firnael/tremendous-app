@@ -70,7 +70,7 @@
         }
 
         /**
-         * Récupère les données nécessaires à l'affichage des donuts des métiers
+         * RÃ©cupÃ¨re les donnÃ©es nÃ©cessaires Ã  l'affichage des donuts des mÃ©tiers
          */
         function getProfessionData(index) {
           if(!vm.character.professions[index]) {
@@ -87,7 +87,7 @@
         }
 
         /**
-         * Détermine la spec à afficher
+         * DÃ©termine la spec Ã  afficher
          */
         function getSelectedSpec() {
           if(!vm.character.specs) {
@@ -107,7 +107,7 @@
         }
 
         /**
-         * Lance le job de mise à jour du personnage
+         * Lance le job de mise Ã  jour du personnage
          */
         function updateCharacter() {
           vm.updatingCharacter = true;

@@ -17,14 +17,14 @@
                         case '2': scope.result = 'Paladin'; break;
                         case '3': scope.result = 'Chasseur'; break;
                         case '4': scope.result = 'Voleur'; break;
-                        case '5': scope.result = 'Prêtre'; break;
+                        case '5': scope.result = 'PrÃªtre'; break;
                         case '6': scope.result = 'Chevalier de la mort'; break;
                         case '7': scope.result = 'Chaman'; break;
                         case '8': scope.result = 'Mage'; break;
-                        case '9': scope.result = 'Démoniste'; break;
+                        case '9': scope.result = 'DÃ©moniste'; break;
                         case '10': scope.result = 'Moine'; break;
                         case '11': scope.result = 'Druide'; break;
-                        case '12': scope.result = 'Chasseur de démons'; break;
+                        case '12': scope.result = 'Chasseur de dÃ©mons'; break;
                         default: scope.result = '???'; break;
                     }
                 }

@@ -36,7 +36,7 @@
           switch(difficulty) {
             case 0: return 'Pas encore down'; break;
             case 1: return 'Normal'; break;
-            case 2: return 'Heroique'; break;
+            case 2: return 'Héroique'; break;
             case 3: return 'Mythique'; break;
           }
         };
