@@ -46,7 +46,6 @@ passport.use(new BnetStrategy({
     region: 'eu',
     scope: 'wow.profile'
 }, function(accessToken, refreshToken, profile, done) {
-    httpRequest.post(process.env.HOST + '/api/user/refresh').form(profile);
     return done(null, profile);
 }));
 
@@ -94,10 +93,18 @@ app.use('/api/wowtoken', wowTokenApiRouter);
 // Bnet auth & callback
 app.get('/auth/bnet', passport.authenticate('bnet'));
 app.get('/auth/bnet/callback',
-    passport.authenticate('bnet', { failureRedirect: '/' }),
-    function(req, res) {
-      res.redirect('/');
-    }
+  passport.authenticate('bnet', { failureRedirect: '/' }),
+  function(req, res) {
+    httpRequest.post({ url: process.env.HOST + '/api/user/refresh', form: req.user }, function(err, response, body) {
+      if(err) { console.log(err) };
+      if(response.statusCode === 403) {
+        req.logOut();
+        return res.redirect('/#/guest');
+      } else {
+        return res.redirect('/');
+      }
+    });
+  }
 );
 // Authent check & logout
 app.get('/authenticated', function(request, response) {

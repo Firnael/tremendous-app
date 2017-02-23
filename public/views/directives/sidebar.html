@@ -54,6 +54,9 @@
   </a>
   <div class="sidenav-element sidenav-element-content sidenav-element-btag">
     {{ $root.user.battletag }}
+    <span class="fade" ng-show="$root.open === 'open'">
+      <a href="/logout" class="btn btn-sm btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+    </span>
   </div>
   <!-- Admin -->
   <!-- <a href="#/admin" class="sidenav-element" ng-class="page === 'admin' ? 'active' : ''">

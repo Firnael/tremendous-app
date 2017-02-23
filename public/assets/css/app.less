@@ -67,7 +67,7 @@ html, body {
     .sidenav-logo-brand {
       position: absolute;
       font-family: 'Oswald', sans-serif;
-      color: #8A0804;
+      color: @brand;
       font-size: 22px;
       margin-top: 14px;
       margin-left: 12px;
@@ -466,6 +466,23 @@ html, body {
   margin-left: 5px;
 }
 
+/* Guest */
+.guest-brand {
+  font-family: 'Oswald', sans-serif;
+  color: @brand;
+  font-size: 30px;
+  margin-top: 20px;
+}
+.guest-text {
+  margin-top: 100px;
+}
+.guest-button {
+  margin-top: 100px;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Colors */
+@brand: #8A0804;
 
 /* Classes colors */
 @warrior-color: #C79C6E;
