@@ -7,7 +7,7 @@
 
     HomeCtrl.$inject = ['LogsSvc', 'TokenSvc', '$rootScope'];
 
-    function HomeCtrl(LogsSvc, TokenSvc, $rootScope){
+    function HomeCtrl(LogsSvc, TokenSvc, $rootScope) {
       var vm = this;
       vm.logs = [];
       vm.token = {};

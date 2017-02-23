@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var path = require("path");
 var bodyParser = require("body-parser");
 var passport = require("passport");
+var httpRequest = require('request');
 var BnetStrategy = require('passport-bnet').Strategy;
 
 // Routers
@@ -18,6 +19,7 @@ var rankingApiRouter = require('./routes/rankingApiRouter');
 var bnetApiRouter = require('./routes/bnetApiRouter');
 var warcraftLogsApiRouter = require('./routes/warcraftLogsApiRouter');
 var wowTokenApiRouter = require('./routes/wowTokenApiRouter');
+var userApiRouter = require('./routes/userApiRouter');
 
 // Secured routes middleware
 var auth = function(req, res, next) {
@@ -30,14 +32,13 @@ var auth = function(req, res, next) {
 
 // User serializer
 passport.serializeUser(function(user, done) {
-  console.log("Serialize User : " + JSON.stringify(user));
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-// Use Bnet Strategy
+// Use Bnet Strategy to authentify
 passport.use(new BnetStrategy({
     clientID: process.env.BNET_STRATEGY_CLIENT_ID,
     clientSecret: process.env.BNET_STRATEGY_CLIENT_SECRET,
@@ -45,7 +46,7 @@ passport.use(new BnetStrategy({
     region: 'eu',
     scope: 'wow.profile'
 }, function(accessToken, refreshToken, profile, done) {
-    console.log("Profile : " + JSON.stringify(profile));
+    httpRequest.post(process.env.HOST + '/api/user/refresh').form(profile);
     return done(null, profile);
 }));
 
@@ -83,6 +84,7 @@ app.use('/api/guild', guildApiRouter);
 app.use('/api/roster', rosterApiRouter);
 app.use('/api/progress', progressApiRouter);
 app.use('/api/ranking', auth, rankingApiRouter);
+app.use('/api/user', userApiRouter);
 
 // External APIs
 app.use('/api/bnet', bnetApiRouter);
@@ -104,21 +106,21 @@ app.get('/authenticated', function(request, response) {
 app.get('/logout', function(request, response) {
   console.log('Logging out');
   request.logOut();
-  response.sendStatus(200);
+  response.redirect('/');
 });
 
-// Prepare options for HTTPS
-// var options = {
-//   cert: fs.readFileSync('ssl/cert.crt', 'utf8'),
-//   key: fs.readFileSync('ssl/key.key', 'utf8')
-// };
 // Run server
-
-// var serverHttps = https.createServer(options, app).listen(process.env.PORT || 8080, function () {
-//   console.log("Server HTTPS now running on port", serverHttps.address().port);
-// });
-
-app.listen(process.env.PORT || 8080, function () {
-  console.log(process.env.BNET_STRATEGY_CALLBACK_URL);
-  console.log('Express server running')
-});
+if(process.env.DEV) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  var options = {
+    cert: fs.readFileSync('ssl/cert.crt', 'utf8'),
+    key: fs.readFileSync('ssl/key.key', 'utf8')
+  };
+  https.createServer(options, app).listen(process.env.PORT, function () {
+    console.log('Server (DEV) now running on port ' + process.env.PORT);
+  });
+} else {
+  app.listen(process.env.PORT || 8080, function () {
+    console.log('Server now running on port ' + process.env.PORT);
+  });
+}

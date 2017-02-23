@@ -1,8 +1,16 @@
 /* Fade in - out */
 .fade {
+  z-index: 8888;
   transition: 0.3s ease all;
   opacity: 1;
 }
 .fade.ng-hide {
+  z-index: 9999;
   opacity: 0;
+}
+
+// Tests
+@-webkit-keyframes slideInFromLeft {
+  from { -webkit-transform: translate(-100%,0); }
+  to { -webkit-transform: translate(0,0); }
 }

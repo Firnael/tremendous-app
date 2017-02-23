@@ -1,19 +1,14 @@
 var express = require('express');
-var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
+var httpRequest = require('request');
+var blizzard = require('blizzard.js').initialize({ apikey: process.env.BNET_STRATEGY_CLIENT_ID });
 var bnetApiRouter = express.Router();
 
 
-/**
- * Test route
- */
-bnetApiRouter.get('/', function(request, response) {
-    bnet.wow.data.battlegroups({ origin: 'eu' }, function(err, body, res) {
-        if(!err) {
-            response.send(body);
-        } else {
-            console.log(err);
-        }
-    });
+bnetApiRouter.get('/characters/:token', function(req, res) {
+  console.log('User access token : ' + req.params.token);
+  blizzard.account.wow({ access_token: req.params.token, origin: 'eu' }).then(function(response) {
+    console.log(response);
+  });
 });
 
 
