@@ -60,14 +60,14 @@ function compareCharacters(arrayFromDb, arrayFromBnet) {
   // Add new characters
   for(var j=0; j<arrayFromBnet.length; j++) {
     var charToCompare = arrayFromBnet[j];
-    if(!arrayFromDb.contains(charToCompare)) {
+    if(arrayFromDb.indexOf(charToCompare) < 0) {
       arrayFromDb.push(charToCompare);
     }
   }
   // Remove deleted / migrated characters
   for(var k=0; k<arrayFromDb.length; k++) {
     var charToRemove = arrayFromDb[k];
-    if(!arrayFromBnet.contains(charToRemove)) {
+    if(arrayFromBnet.indexOf(charToRemove) < 0) {
       arrayFromDb.splice(k, 1);
     }
   }
