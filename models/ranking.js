@@ -13,7 +13,9 @@ var RankingSchema = new Schema({
         worldRank: Number,
         regionRank: Number,
         realmRank: Number,
-        tierProgress: String
+        emeraldNightmare: String,
+        trialOfValor: String,
+        nighthold: String
       }
     ]
 });

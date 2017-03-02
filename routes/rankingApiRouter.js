@@ -5,7 +5,9 @@ var rankingApiRouter = express.Router();
 // Models
 var Ranking = require('../models/ranking');
 // Data
-var guildListUrl = "https://extraction.import.io/query/extractor/5482b056-6980-4082-af5a-8de7e1c5d138?_apikey=57b7550f7ae349e9b41555ab1c2a00e8c0891167a8ae8f6c4d3b4851d63b7e96f494aaececc0e20602025e5700ed6172577b11a6e19fe884244a86895809cb174ec909632690b704988daddfdb021fbb&url=http%3A%2F%2Fwww.wowprogress.com%2Fpve%2Feu%2Fysondre";
+var progressUrl = 'https://storage.scrapinghub.com/items/162829/1' + '?apikey=8215dde3dcc941bf92f772fd973abaee&state=finished&count=20';
+// https://app.scrapinghub.com/p/162829/1
+// https://portia.scrapinghub.com/#/projects/162829?url=https%3A%2F%2Fwww.wowprogress.com%2Fpve%2Feu%2Fysondre
 
 /**
  * Get server guilds ranking (Server, Region and World)
@@ -21,9 +23,9 @@ rankingApiRouter.get('/', function(req, res) {
  * Update and return ranking
  */
 rankingApiRouter.get('/update', function(req, res) {
-  request(guildListUrl, function (err, response, body) {
+  var options = { uri: progressUrl, method: 'GET', json: true };
+  request(options, function (err, response, body) {
     if (err || response.statusCode !== 200) { return console.log(err); }
-    var result = JSON.parse(body).extractorData.data[0].group;
 
     Ranking.remove({}, function(err) {
       if (err) { return res.send(err); }
@@ -31,7 +33,7 @@ rankingApiRouter.get('/update', function(req, res) {
       // Create new Ranking
       var ranking = new Ranking();
       ranking.lastUpdate = new Date().getTime();
-      ranking.guilds = getGuildsRankingData(result);
+      ranking.guilds = getGuildsRankingData(body);
 
       // Get specific region & score ranking
       async.each(ranking.guilds, function (guild, asyncCallback) {
@@ -48,6 +50,7 @@ rankingApiRouter.get('/update', function(req, res) {
         });
       });
     });
+
   });
 });
 
@@ -55,32 +58,31 @@ function getGuildsRankingData(result) {
   var data = [];
   for(var i=0; i<result.length; i++) {
     var guild = result[i];
-    var progress = guild['progress'] ? guild['progress'][0]['text'] : '';
-
+    var guildUrl = guild.url.replace('pve', 'guild') + '/' + encodeURI(guild.guildName[0]);
     data.push({
-      name: guild['guild'][0]['text'],
-      url: guild['guild'][0]['href'],
+      name: guild.guildName[0],
+      url: guildUrl,
       score: 0,
-      worldRank: guild['world_rank'][0]['text'],
+      worldRank: guild.worldRank ? guild.worldRank[0] : '',
       regionRank: 0,
-      realmRank: guild['rank'][0]['text'],
-      tierProgress: progress
+      realmRank: guild.rank[0],
+      emeraldNightmare: guild.enProgress[0],
+      trialOfValor: guild.tovProgress[0],
+      nighthold: guild.nhProgress[0]
     });
   }
   return data;
 }
 
 function getGuildRanking(guild, asyncCallback) {
-  var url = guild.url + "/json_rank";
-  request(url, function (err, response, body) {
+  var rankingUrl = guild.url + "/json_rank";
+  request(rankingUrl, function (err, response, body) {
     if (err || response.statusCode !== 200) { return res.send(body); }
     var result = JSON.parse(body);
-
     if(result) {
       guild.score = result.score;
       guild.regionRank = result.area_rank;
     }
-
     return asyncCallback();
   });
 }

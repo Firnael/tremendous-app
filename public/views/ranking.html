@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="guild in vm.ranking.guilds" ng-class="vm.getProgressValue(guild.tierProgress)">
+          <tr ng-repeat="guild in vm.ranking.guilds" ng-class="vm.getProgressValue(guild)">
             <td class="guild-name">
               <a ng-href="{{ guild.url }}" target="_blank">
                 {{ guild.name }}
@@ -32,7 +32,7 @@
             <td>{{ guild.realmRank }}</td>
             <td>{{ guild.regionRank }}</td>
             <td>{{ guild.worldRank }}</td>
-            <td>{{ vm.getTierProgress(guild.tierProgress) }}</td>
+            <td>{{ guild.emeraldNightmare }} {{ guild.trialOfValor }} {{ guild.nighthold }}</td>
           </tr>
         </tbody>
       </table>

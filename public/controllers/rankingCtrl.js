@@ -17,7 +17,6 @@
       vm.getRanking = getRanking;
       vm.getGuildRanking = getGuildRanking;
       vm.updateRanking = updateRanking;
-      vm.getTierProgress = getTierProgress;
       vm.getProgressValue = getProgressValue;
 
       activate();
@@ -61,33 +60,17 @@
         });
       }
 
-      function getTierProgress(progress) {
-        var array = progress.split(' ');
-        return array[2] + ' ' + array[3] + ' ' + array[4] + ' ' + array[5];
-      }
-
-      function getProgressValue(progress) {
-        var array = progress.split(' ');
-        var trialOfValor = parseInt(array[2].substring(0,1));
-        if(array[3].indexOf('M') >= 0) {
-          trialOfValor += 3;
-        }
-        var nighthold = parseInt(array[4].substring(0,1));
-        if(array[5].indexOf('M') >= 0) {
-          nighthold += 10;
-        }
-
-        var final = trialOfValor + nighthold;
-
-        if(final === 26) {
+      function getProgressValue(guild) {
+        var nighthold = parseInt(guild.nighthold.substring(0,1));
+        if(nighthold === 10) {
           return 'legendary';
-        } else if(final >= 23) {
+        } else if(nighthold >= 7) {
           return 'epic';
-        } else if(final >= 19) {
+        } else if(nighthold >= 5) {
           return 'rare';
-        } else if(final >= 16) {
+        } else if(nighthold >= 4) {
           return 'uncommon';
-        } else if(final >= 15) {
+        } else if(nighthold >= 3) {
           return 'common';
         } else {
           return 'poor';
