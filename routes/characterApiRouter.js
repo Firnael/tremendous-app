@@ -16,23 +16,34 @@ var forceUpdate = true;
  * Get all
  */
 characterApiRouter.route('/').get(function(req, res) {
-    Character.find(function(err, characters) {
-        if (err) { res.send(err); }
-        res.json(characters);
-    });
+  Character.find(function(err, characters) {
+    if (err) { res.send(err); }
+    res.json(characters);
+  });
+});
+
+/**
+ * Get by battletag
+ */
+characterApiRouter.route('/battletag/:battletag').get(function(req, res) {
+  var battletag = req.params.battletag;
+  Character.find({ 'battletag': battletag }, null, { sort: 'guildRank' }, function(err, characters) {
+    if (err) { res.send(err); }
+    res.json(characters);
+  });
 });
 
 /**
  * Get one
  */
 characterApiRouter.route('/info/:characterName').get(function(req, res) {
-    Character.findOne({ 'name': req.params.characterName }, function(err, character) {
-        if (err) { return res.send(err); }
-        if (character == null ) {
-          return res.send({ message: 'Cannot find character ' + req.params.characterName });
-        }
-        res.json(character);
-    });
+  Character.findOne({ 'name': req.params.characterName }, function(err, character) {
+    if (err) { return res.send(err); }
+    if (character == null ) {
+      return res.send({ message: 'Cannot find character ' + req.params.characterName });
+    }
+    res.json(character);
+  });
 });
 
 /**
@@ -44,10 +55,10 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
   var addedCharacters = [];
   var removedCharacters = [];
   function overrideCallback(added, characterName, asyncCallback) {
-      if(characterName) {
-          added ? addedCharacters.push(characterName) : removedCharacters.push(characterName);
-      }
-      asyncCallback();
+    if(characterName) {
+      added ? addedCharacters.push(characterName) : removedCharacters.push(characterName);
+    }
+    asyncCallback();
   }
 
   Guild.findOne({ 'name': guildName }, function(errFindGuild, guild) {
@@ -68,7 +79,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   var accountId = member.rank !== 5 ? Math.floor(Math.random() * 10000000000) : 0;
                   console.log(member.name + ', ' + member.rank + ', ' + accountId);
                   newCharacter.role = 2;
-                  newCharacter.accountIdentifier = accountId;
+                  newCharacter.accountIdentifier = String(accountId);
                   newCharacter.save(function(errcreate) {
                       if (errcreate) { res.send(errcreate); }
                       overrideCallback(true, member.name, asyncAddCallback);
@@ -223,6 +234,29 @@ characterApiRouter.route('/role').post(function (req, res) {
 });
 
 /**
+ * Update loot
+ */
+characterApiRouter.route('/loot').post(function (req, res) {
+  Character.findOne({ 'name': req.body.characterName }, function (err, character) {
+    if (err) { res.send(err); return; }
+
+    for(var i=0; i<character.loot.length; i++) {
+      var boss = character.loot[i];
+      if(boss.bossId === req.body.bossId) {
+        character.loot[i].value = req.body.value;
+        break;
+      }
+    }
+
+    character.save(function(errsave) {
+      if (errsave) { return res.send(errsave); }
+      console.log('Loot updated for character: ' + character.name);
+      return res.send(character);
+    });
+  });
+});
+
+/**
  * Update roster characters
  */
 characterApiRouter.route('/update-roster').get(function(req, res) {
@@ -338,6 +372,10 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               // Mythic dungeons
               if(body.statistics) {
                 character.mythicDungeons = getMythicDungeonsData(body.statistics.subCategories[5].subCategories[6].statistics);
+              }
+              // Loot needs
+              if(character.loot.length === 0) {
+                character.loot = getLootData();
               }
 
               // Save
@@ -739,6 +777,21 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       }
 
       return tags;
+    }
+
+    function getLootData() {
+      var data = [];
+      data.push({ bossId: 102263, value: 0 }); // skorpyron
+      data.push({ bossId: 104415, value: 0 }); // anomaly
+      data.push({ bossId: 104288, value: 0 }); // trilliax
+      data.push({ bossId: 101002, value: 0 }); // krosus
+      data.push({ bossId: 107699, value: 0 }); // aluriel
+      data.push({ bossId: 104528, value: 0 }); // botanist
+      data.push({ bossId: 103685, value: 0 }); // tichondrius
+      data.push({ bossId: 103758, value: 0 }); // star augur
+      data.push({ bossId: 110965, value: 0 }); // elisande
+      data.push({ bossId: 105503, value: 0 }); // guldan
+      return data;
     }
 });
 

@@ -11,7 +11,7 @@
         function link (scope, element, attributes) {
           scope.$watch('charClass', function(newValue, oldValue) {
             if (newValue){
-              scope.url = 'http://wow.zamimg.com/images/wow/icons/large/';
+              scope.url = 'https://wow.zamimg.com/images/wow/icons/large/';
               switch(newValue) {
                 case '1': scope.url += 'classicon_warrior.jpg'; break;
                 case '2': scope.url += 'classicon_paladin.jpg'; break;

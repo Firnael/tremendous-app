@@ -108,6 +108,14 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
                 authenticated: checkAuthenticated
               }
           })
+          .when("/user", {
+              templateUrl: "views/user.html",
+              controller: "userCtrl",
+              controllerAs: "vm",
+              resolve: {
+                authenticated: checkAuthenticated
+              }
+          })
           .when("/guest", {
               templateUrl: "views/guest.html",
               controller: "guestCtrl",

@@ -58,7 +58,11 @@ var CharacterSchema = new Schema({
       dungeons: Object
     },
     role: Number,
-    accountIdentifier: Number
+    accountIdentifier: Number,
+    battletag: String,
+    loot : [
+      { bossId: Number, value: Number }
+    ]
 });
 
 module.exports = mongoose.model('Character', CharacterSchema);

@@ -5,7 +5,7 @@ var rankingApiRouter = express.Router();
 // Models
 var Ranking = require('../models/ranking');
 // Data
-var progressUrl = 'https://storage.scrapinghub.com/items/162829/1' + '?apikey=8215dde3dcc941bf92f772fd973abaee&state=finished&count=20';
+var progressUrl = 'https://storage.scrapinghub.com/items/162829/1' + '?apikey=8215dde3dcc941bf92f772fd973abaee&count=20';
 // https://app.scrapinghub.com/p/162829/1
 // https://portia.scrapinghub.com/#/projects/162829?url=https%3A%2F%2Fwww.wowprogress.com%2Fpve%2Feu%2Fysondre
 

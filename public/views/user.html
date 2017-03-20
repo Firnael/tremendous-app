@@ -1,0 +1,33 @@
+<!-- User page -->
+<!-- Sidebar -->
+<trmds-side-bar page="user"></trmds-side-bar>
+
+<div class="rows-wrapper" ng-class="$root.open">
+
+<div class="row title-bar">
+  <div class="col-md-12"><h2>{{ $root.user.battletag }}</h2></div>
+</div>
+<br/>
+
+<div class="row" ng-show="vm.characters">
+  <div class="col-md-3">
+    <div ng-repeat="(key,character) in vm.characters" style="cursor: pointer;">
+      <div class="user-character" ng-class="{'user-character-selected': vm.selectedCharacterIndex === key}" ng-click="vm.selectCharacter(key)">
+        <img class="user-character-thumbnail img-thumbnail" ng-src="{{ vm.getThumbnailUrl(character.thumbnail) }}" width="64" height="64"/>
+        <span class="user-character-name" ng-class="vm.getClassColor(character.class)">{{ character.name }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div ng-repeat="item in vm.getSelectedCharacterLoot()">
+      <trmds-loot boss-id="item.bossId" value="item.value" change-value="vm.changeValue"></trmds-loot>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <a href="/logout" class="btn btn-sm btn-default">
+      Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>
+
+</div>

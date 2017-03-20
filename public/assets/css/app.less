@@ -18,11 +18,11 @@ html, body {
   font-family: 'Open Sans', sans-serif;
 }
 
-.label {
-  font-size: 100%;
-  background-color: rgba(0, 0, 0, 0);
-  text-shadow: 1px 1px 1px #000;
-}
+// .label {
+//   font-size: 100%;
+//   background-color: rgba(0, 0, 0, 0);
+//   text-shadow: 1px 1px 1px #000;
+// }
 
 .container-fluid {
   padding-left: 0px;
@@ -438,6 +438,24 @@ html, body {
 }
 
 
+/* User */
+.user-character {
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  &.user-character-selected {
+    background-color: rgba(100, 100, 100, 0.4);
+  }
+  .user-character-thumbnail {
+    min-width: 64px;
+    min-height: 64px;
+  }
+  .user-character-name {
+    font-size: 20px;
+  }
+}
+
+
 /* Logs widgets */
 .log-widget {
   margin: 5px 5px 5px 5px;
@@ -457,6 +475,7 @@ html, body {
   }
 }
 
+
 /* Token */
 .token-gold-value {
   font-size: 30px;
@@ -465,6 +484,7 @@ html, body {
   margin-bottom: 15px;
   margin-left: 5px;
 }
+
 
 /* Guest */
 .guest-brand {
@@ -480,6 +500,7 @@ html, body {
   margin-top: 100px;
   background-color: rgba(0, 0, 0, 0);
 }
+
 
 /* Colors */
 @brand: #8A0804;

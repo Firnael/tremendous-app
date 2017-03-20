@@ -52,18 +52,12 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <div class="sidenav-element sidenav-element-content sidenav-element-btag">
-    {{ $root.user.battletag }}
-    <span class="fade" ng-show="$root.open === 'open'">
-      <a href="/logout" class="btn btn-sm btn-default"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-    </span>
-  </div>
-  <!-- Admin -->
-  <!-- <a href="#/admin" class="sidenav-element" ng-class="page === 'admin' ? 'active' : ''">
-    <span class="sidenav-element-content" >
-      <i class="fa fa-cog" aria-hidden="true"></i>
-      <span class="fade" ng-show="$root.open === 'open'">Admin</span>
+  <!-- User -->
+  <a href="#/user" class="sidenav-element" ng-class="page === 'user' ? 'active' : ''">
+    <div class="sidenav-element-content">
+      <i class="fa fa-user" aria-hidden="true"></i>
+      <span class="fade" ng-show="$root.open === 'open'">{{ $root.user.battletag }}</span>
       <span ng-hide="$root.open === 'open'"></span>
-    </span>
-  </a> -->
+    </div>
+  </a>
 </div>
