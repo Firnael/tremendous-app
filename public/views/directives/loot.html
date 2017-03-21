@@ -1,11 +1,11 @@
 <div ng-init="showButtons=false" ng-mouseenter="showButtons=true" ng-mouseleave="showButtons=false">
   <img ng-src="{{ thumbnail }}" width="100"/>
   <span ng-show="showButtons">
-    <a ng-click="changeValue(4, bossId)" class="btn btn-sm btn-info">BiS</a>
-    <a ng-click="changeValue(3, bossId)" class="btn btn-sm btn-success">Up</a>
-    <a ng-click="changeValue(2, bossId)" class="btn btn-sm btn-warning">Proc</a>
-    <a ng-click="changeValue(1, bossId)" class="btn btn-sm btn-default">+2</a>
-    <a ng-click="changeValue(0, bossId)" class="btn btn-sm btn-danger">No</a>
+    <a ng-disabled="value === 4" ng-click="changeValue(4, bossId)" class="btn btn-sm btn-info">BiS</a>
+    <a ng-disabled="value === 3" ng-click="changeValue(3, bossId)" class="btn btn-sm btn-success">Up</a>
+    <a ng-disabled="value === 2" ng-click="changeValue(2, bossId)" class="btn btn-sm btn-warning">Proc</a>
+    <a ng-disabled="value === 1" ng-click="changeValue(1, bossId)" class="btn btn-sm btn-default">+2</a>
+    <a ng-disabled="value === 0" ng-click="changeValue(0, bossId)" class="btn btn-sm btn-danger">No</a>
   </span>
   <span ng-hide="showButtons" class="label" ng-class="labelClass">{{ label }}</span>
 </div>

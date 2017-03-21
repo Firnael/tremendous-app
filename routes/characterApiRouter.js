@@ -76,7 +76,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   newCharacter.lastModified = 0;
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
-                  var accountId = member.rank !== 5 ? Math.floor(Math.random() * 10000000000) : 0;
+                  var accountId = member.rank <= 5 ? Math.floor(Math.random() * 10000000000) : 0;
                   console.log(member.name + ', ' + member.rank + ', ' + accountId);
                   newCharacter.role = 2;
                   newCharacter.accountIdentifier = String(accountId);

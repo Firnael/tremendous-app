@@ -51,16 +51,25 @@
             }
 
             // Get rerolls
-            vm.getRerolls(vm.character.accountIdentifier);
+            vm.getRerolls(vm.character.accountIdentifier, vm.character.battletag);
 
             vm.updatingCharacter = false;
           });
         }
 
-        function getRerolls(accountId) {
-          CharacterSvc.getByAccountId(accountId).then(function (result) {
-            vm.rerolls = result;
-          });
+        function getRerolls(accountIdentifier, battletag) {
+          console.log('accountIdentifier: ' + accountIdentifier);
+          console.log('battletag: ' + battletag);
+
+          if(battletag) {
+            CharacterSvc.getByBattletag(battletag).then(function (result) {
+              vm.rerolls = result;
+            });
+          } else {
+            CharacterSvc.getByAccountId(accountIdentifier).then(function (result) {
+              vm.rerolls = result;
+            });
+          }
         }
 
         function getThumbnailPath() {
