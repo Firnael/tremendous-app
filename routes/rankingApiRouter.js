@@ -5,7 +5,8 @@ var rankingApiRouter = express.Router();
 // Models
 var Ranking = require('../models/ranking');
 // Data
-var progressUrl = 'https://storage.scrapinghub.com/items/162829/1' + '?apikey=8215dde3dcc941bf92f772fd973abaee&count=20';
+var scraperUri = 'https://storage.scrapinghub.com/items/162829/1/';
+var apiKeyUri = '?apikey=8215dde3dcc941bf92f772fd973abaee';
 // https://app.scrapinghub.com/p/162829/1
 // https://portia.scrapinghub.com/#/projects/162829?url=https%3A%2F%2Fwww.wowprogress.com%2Fpve%2Feu%2Fysondre
 
@@ -23,16 +24,28 @@ rankingApiRouter.get('/', function(req, res) {
  * Update and return ranking
  */
 rankingApiRouter.get('/update', function(req, res) {
-  var options = { uri: progressUrl, method: 'GET', json: true };
-  request(options, function (err, response, body) {
-    if (err || response.statusCode !== 200) { return console.log(err); }
-
-    Ranking.remove({}, function(err) {
-      if (err) { return res.send(err); }
-
+  Ranking.findOne({}, function(err, ranking) {
+    if (err) { return res.send(err); }
+    if(!ranking) {
       // Create new Ranking
-      var ranking = new Ranking();
-      ranking.lastUpdate = new Date().getTime();
+      console.log('Ranking not found, creating...');
+      ranking = new Ranking();
+      ranking.jobId = 366;
+      ranking.lastUpdate = 0;
+    }
+    if(Date.now() - ranking.lastUpdate >= 3600000) { // un jour écoulé
+      console.log('Ranking too old, updating...');
+      ranking.jobId++;
+      ranking.lastUpdate = Date.now();
+    } else {
+      console.log('Ranking already up to date');
+      return res.send(ranking);
+    }
+
+    var fullUrl = scraperUri + ranking.jobId + apiKeyUri;
+    var options = { uri: fullUrl, method: 'GET', json: true };
+    request(options, function (err, response, body) {
+      if (err || response.statusCode !== 200) { return console.log(err); }
       ranking.guilds = getGuildsRankingData(body);
 
       // Get specific region & score ranking
@@ -41,7 +54,6 @@ rankingApiRouter.get('/update', function(req, res) {
       },
       function (errAsync) {
         if(errAsync) { return res.send(errAsync); }
-
         // Save ranking
         ranking.save(function(errsave) {
           if (errsave) { return res.send(errsave); }
@@ -50,7 +62,6 @@ rankingApiRouter.get('/update', function(req, res) {
         });
       });
     });
-
   });
 });
 

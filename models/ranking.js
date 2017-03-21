@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 var RankingSchema = new Schema({
     lastUpdate: Number,
+    jobId: Number,
     guilds: [
       {
         name: String,
