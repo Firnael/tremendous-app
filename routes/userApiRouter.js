@@ -12,16 +12,45 @@ var GUILD = 'Tremendous';
 
 
 /**
- * Match user battletag with characters battletag
+ * Get users
  */
-userApiRouter.post('/match', function(req, res) {
-  var battletag = req.body.battletag;
-  User.findOne({ 'battletag': battletag }, function (err, user) {
+userApiRouter.get('/all', function(req, res) {
+  User.find({}, function (err, users) {
     if (err) { return res.send(err); }
-    var result = matchUserBattleTagWithCharactersAccountIdentifier(user);
-    return res.sendStatus(result);
+    return res.send(users);
   });
 });
+
+
+/**
+ * Get by battletag
+ */
+userApiRouter.get('/battletag/:battletag', function(req, res) {
+  User.findOne({ 'battletag': req.params.battletag }, function (err, user) {
+    if (err) { return res.send(err); }
+    return res.send(user);
+  });
+});
+
+
+/**
+ * Update user thumbnail
+ */
+userApiRouter.post('/thumbnail', function(req, res) {
+  var data = req.body;
+  User.findOne({ 'battletag': data.battletag }, function (err, user) {
+    if (err) { return res.send(err); }
+    user.thumbnail = data.thumbnail;
+    user.lastUpdate = Date.now();
+    // Save user
+    user.save(function(errsave) {
+      if (errsave) { return res.send(errsave); }
+      console.log('User ' + user.battletag + ' thumbnail updated');
+      return res.send(user);
+    });
+  });
+});
+
 
 /**
  * Refresh user profile on connection
@@ -34,8 +63,9 @@ userApiRouter.post('/refresh', function(req, res) {
       console.log('User ' + profile.battletag + ' doesnt exist, creating.');
       user = new User();
       user.battletag = profile.battletag;
-      needToMatch = true;
       user.characters = [];
+      user.needToMatch = true;
+      user.thumbnail = '';
     }
     user.lastUpdate = Date.now();
     user.token = profile.token;
@@ -60,7 +90,7 @@ userApiRouter.post('/refresh', function(req, res) {
       user.save(function(errsave) {
         if (errsave) { return res.send(errsave); }
         console.log('User ' + user.battletag + ' refreshed');
-        return res.sendStatus(200);
+        return res.send(user);
       });
     });
   });
@@ -69,13 +99,13 @@ userApiRouter.post('/refresh', function(req, res) {
 function matchUserWithCharacters(user) {
   async.each(user.characters, function (characterName, asyncCallback) {
     Character.findOne({ 'name': characterName }, function(errFindChar, character) {
-      if (errFindChar) { console.log(errFindChar); return 500; }
+      if (errFindChar) { console.log(errFindChar); return; }
       if (character) {
         character.battletag = user.battletag;
         character.accountIdentifier = -1;
         character.lastModified = Date.now();
         character.save(function(errSaveChar) {
-          if (errSaveChar) { console.log(errSaveChar); return 500; }
+          if (errSaveChar) { console.log(errSaveChar); return; }
           console.log('Character ' + character.name + ' matched with the account ' + user.battletag);
           asyncCallback();
         });
@@ -83,9 +113,8 @@ function matchUserWithCharacters(user) {
     });
   },
   function (errAsync) {
-    if(errAsync) { console.log(errAsync); return 500; }
+    if(errAsync) { console.log(errAsync); return; }
     console.log('Match done');
-    return 200;
   });
 }
 

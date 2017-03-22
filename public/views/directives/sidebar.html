@@ -63,7 +63,7 @@
   <!-- User -->
   <a href="#/user" class="sidenav-element" ng-class="page === 'user' ? 'active' : ''">
     <div class="sidenav-element-content">
-      <i class="fa fa-user" aria-hidden="true"></i>
+      <img ng-src="http://render-api-eu.worldofwarcraft.com/static-render/eu/{{ $root.user.thumbnail }}"/>
       <span class="fade" ng-show="$root.open === 'open'">{{ $root.user.battletag }}</span>
       <span ng-hide="$root.open === 'open'"></span>
     </div>

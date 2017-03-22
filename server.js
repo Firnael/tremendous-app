@@ -35,7 +35,9 @@ passport.serializeUser(function(user, done) {
   done(null, user);
 });
 passport.deserializeUser(function(user, done) {
-  done(null, user);
+  httpRequest.get(process.env.HOST + '/api/user/battletag/' + encodeURIComponent(user.battletag), function(err, response, body) {
+    done(null, body);
+  });
 });
 
 // Use Bnet Strategy to authentify

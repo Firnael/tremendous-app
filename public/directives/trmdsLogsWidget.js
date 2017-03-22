@@ -24,7 +24,6 @@
           case 'Sunday': scope.dayColor = '#c0392b'; break;
           default: break;
         }
-
       };
 
       return {

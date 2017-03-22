@@ -5,10 +5,11 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     lastUpdate: Number,
-    needToMatch: Boolean,
     battletag: String,
     token: String,
-    characters: [String]
+    characters: [String],
+    thumbnail: { type: String, default: '' },
+    needToMatch: { type: Boolean, default: true }
 });
 
 module.exports = mongoose.model('User', UserSchema);

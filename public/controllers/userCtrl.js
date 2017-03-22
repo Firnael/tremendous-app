@@ -31,6 +31,9 @@
         var battletag = $rootScope.user.battletag;
         CharacterSvc.getByBattletag(battletag).then(function (characters) {
           vm.characters = characters;
+          UserSvc.updateThumbnail(characters[0].thumbnail).then(function (result) {
+            $rootScope.user = result;
+          });
         })
       }
 

@@ -10,13 +10,13 @@
   function UserSvc($http, $rootScope, UtilsSvc) {
 
     var service = {
-      match: match
+      updateThumbnail: updateThumbnail
     };
     return service;
 
-    function match(battletag) {
-      var data = { 'battletag': battletag };
-      var promise = $http.post(UtilsSvc.getUrlPrefix() + '/api/user/match', data).then(function(response) {
+    function updateThumbnail(thumbnail) {
+      var data = { 'battletag': $rootScope.user.battletag, 'thumbnail': thumbnail };
+      var promise = $http.post(UtilsSvc.getUrlPrefix() + '/api/user/thumbnail', data).then(function(response) {
         return response.data;
       });
       return promise;

@@ -18,10 +18,8 @@
       };
       return service;
 
-      function getUrlPrefix(){
-        var prefix = '';
-        $location.host().includes('localhost') ? prefix = 'https' : prefix = 'https'; //TODO change
-        return prefix + '://' + $location.host() + ":" + $location.port();
+      function getUrlPrefix() {
+        return 'https://' + $location.host() + ":" + $location.port();
       }
 
       /**
@@ -59,7 +57,7 @@
 
       function getCssClassByIlvl(value, background) {
         var result = '';
-        if(value >= 910) {
+        if(value >= 905) {
           result = 'legendary';
         } else if(value >= 900) {
           result = 'epic';
