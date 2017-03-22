@@ -21,16 +21,32 @@ rankingApiRouter.get('/', function(req, res) {
 });
 
 /**
+ * Change job id
+ */
+rankingApiRouter.get('/update-job-id/:jobId', function(req, res) {
+  Ranking.findOne({}, function (err, ranking) {
+    if (err) { res.send(err); return; }
+    ranking.jobId = req.params.jobId;
+    ranking.lastUpdate = 0;
+    ranking.save(function(errsave) {
+      if (errsave) { return res.send(errsave); }
+      console.log('Ranking jobId updated');
+      return res.sendStatus(200);
+    });
+  });
+});
+
+/**
  * Update and return ranking
  */
 rankingApiRouter.get('/update', function(req, res) {
   Ranking.findOne({}, function(err, ranking) {
-    if (err) { return res.send(err); }
+    if (err) { console.log(err); return res.sendStatus(500); }
     if(!ranking) {
       // Create new Ranking
       console.log('Ranking not found, creating...');
       ranking = new Ranking();
-      ranking.jobId = 366;
+      ranking.jobId = 0;
       ranking.lastUpdate = 0;
     }
     if(Date.now() - ranking.lastUpdate >= 3600000) { // un jour écoulé
@@ -44,6 +60,7 @@ rankingApiRouter.get('/update', function(req, res) {
 
     var fullUrl = scraperUri + ranking.jobId + apiKeyUri;
     var options = { uri: fullUrl, method: 'GET', json: true };
+    console.log('Requesting Scraping Hub Job with ID: ' + ranking.jobId);
     request(options, function (err, response, body) {
       if (err || response.statusCode !== 200) { return console.log(err); }
       ranking.guilds = getGuildsRankingData(body);

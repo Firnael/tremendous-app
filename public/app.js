@@ -19,7 +19,7 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
             deferred.resolve();
             if(authenticated) {
               $rootScope.user = user;
-              $location.url('/home');
+              $location.url('/roster');
             }
           }
           else {
@@ -55,6 +55,14 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
           .when("/roster", {
               templateUrl: "views/roster.html",
               controller: "rosterCtrl",
+              controllerAs: "vm",
+              resolve: {
+                authenticated: checkAuthenticated
+              }
+          })
+          .when("/raid", {
+              templateUrl: "views/raid.html",
+              controller: "raidCtrl",
               controllerAs: "vm",
               resolve: {
                 authenticated: checkAuthenticated
@@ -122,7 +130,7 @@ angular.module("app", ['ngRoute', 'ngAnimate', 'timer', 'chart.js'])
               controllerAs: "vm"
           })
           .otherwise({
-              redirectTo: "/home"
+              redirectTo: "/roster"
           });
     })
     .run(function ($rootScope) {

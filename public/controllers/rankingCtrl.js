@@ -61,7 +61,7 @@
       }
 
       function getProgressValue(guild) {
-        var nighthold = parseInt(guild.nighthold.substring(0,1));
+        var nighthold = parseInt(guild.nighthold.substring(0,2));
         if(nighthold === 10) {
           return 'legendary';
         } else if(nighthold >= 7) {

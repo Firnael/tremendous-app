@@ -1,7 +1,7 @@
 <div class="media log-widget" ng-init="showBtn = false" ng-mouseenter="showBtn=true" ng-mouseleave="showBtn=false">
   <div class="media-left">
     <a href="">
-      <img class="media-object" ng-src="https://warcraftlogs.com/img/icons/warcraft/zone-{{ log.zone }}.png" width="48" height="48"/>
+      <img class="media-object" ng-src="http://warcraftlogs.com/img/icons/warcraft/zone-{{ log.zone }}.png" width="48" height="48"/>
     </a>
   </div>
   <div class="media-body">
@@ -9,6 +9,6 @@
       <i class="fa fa-external-link" aria-hidden="true"></i>
     </a>
     <h4 class="media-heading">{{ log.title }} <small>{{ log.owner }}</small></h4>
-    {{ log.start }} <i class="fa fa-arrow-right" aria-hidden="true"></i> {{ log.end }}
+    <span class="label" ng-style="{ 'background-color': dayColor }">{{ day }}</span> {{ log.start }} <i class="fa fa-arrow-right" aria-hidden="true"></i> {{ log.end }}
   </div>
 </div>

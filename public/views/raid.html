@@ -1,0 +1,25 @@
+<!-- Raid page -->
+<!-- Sidebar -->
+<trmds-side-bar page="raid"></trmds-side-bar>
+
+<div class="rows-wrapper" ng-class="$root.open">
+  <trmds-title-bar page="Raids"></trmds-title-bar>
+  <br/>
+  <div class="row">
+
+    <div class="col-md-8">
+      <span class="label label-warning">En construction</span>
+    </div>
+
+    <div class="col-md-4 text-center" ng-show="vm.logsLoading">
+      <i class="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true"></i>
+    </div>
+    <div class="col-md-4 fade" ng-hide="vm.logsLoading">
+      <div ng-show="vm.logs" ng-repeat="log in vm.logs | limitTo: -10 | orderBy:['-order']">
+        <trmds-logs-widget log="log"></trmds-logs-widget>
+      </div>
+      (10 derniers logs sur les {{ vm.logs.length }} existants)
+    </div>
+
+  </div>
+</div>
