@@ -5,9 +5,9 @@
         .module('app')
         .controller('raidCtrl', RaidCtrl);
 
-    RaidCtrl.$inject = ['CharacterSvc', 'LogsSvc'];
+    RaidCtrl.$inject = ['CharacterSvc', 'LogsSvc', 'UtilsSvc'];
 
-    function RaidCtrl(CharacterSvc, LogsSvc) {
+    function RaidCtrl(CharacterSvc, LogsSvc, UtilsSvc) {
       var vm = this;
       vm.selectedBossId = 102263; // Skorpyron
       vm.roster = [];
@@ -19,6 +19,7 @@
       vm.getRoster = getRoster;
       vm.getLogs = getLogs;
       vm.getRaidersByLootValue = getRaidersByLootValue;
+      vm.getClassColor = getClassColor;
       activate();
 
       //////////////
@@ -77,6 +78,10 @@
           }
         }
         return raiders;
+      }
+
+      function getClassColor(value) {
+        return UtilsSvc.getCssClassByCharacterClass(value, false);
       }
 
     }

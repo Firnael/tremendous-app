@@ -184,25 +184,24 @@ html, body {
 
 /* Raid */
 .raid-loots {
-  height: 600px;
-}
-.raid-loots-content {
-  height: 100%;
-  background-color: #353535;
-  border-radius: 0 10px 10px 0;
-}
-.raid-bosses {
-  padding-right: 0px;
-  .raid-bosses-img {
-    cursor: pointer;
-    border-radius: 10px 0 0 10px;
-    width: 120px;
-    height: 60px;
-    &.selected {
-      background-color: #353535;
+  .raid-loots-table {
+    td {
+      padding: 3px;
     }
-    &:hover {
-      background-color: #353535;
+    .raid-bosses-img {
+      cursor: pointer;
+      border-radius: 10px 10px 0px 0px;
+      width: 80px;
+      height: 40px;
+      &.selected {
+        background-color: #353535;
+      }
+      &:hover {
+        background-color: #353535;
+      }
+    }
+    .raid-loots-value {
+      text-align: center;
     }
   }
 }

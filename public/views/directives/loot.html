@@ -7,5 +7,5 @@
     <a ng-disabled="value === 1" ng-click="changeValue(1, bossId)" class="btn btn-sm btn-default">+2</a>
     <a ng-disabled="value === 0" ng-click="changeValue(0, bossId)" class="btn btn-sm btn-danger">No</a>
   </span>
-  <span ng-hide="showButtons" class="label" ng-class="labelClass">{{ label }}</span>
+  <trmds-loot-value ng-hide="showButtons" value="value"></trmds-loot-value>
 </div>
