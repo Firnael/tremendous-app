@@ -71,7 +71,7 @@
       <div ng-show="vm.logs" ng-repeat="log in vm.logs | limitTo: -10 | orderBy:['-order']">
         <trmds-logs-widget log="log"></trmds-logs-widget>
       </div>
-      (10 derniers logs sur les {{ vm.logs.length }} existants)
+      <div class="text-muted" style="text-align: right;"><strong>10</strong> derniers logs sur les <strong>{{ vm.logs.length }}</strong> existants</div>
     </div>
 
   </div>
