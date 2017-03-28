@@ -18,11 +18,15 @@ html, body {
   font-family: 'Open Sans', sans-serif;
 }
 
-// .label {
-//   font-size: 100%;
-//   background-color: rgba(0, 0, 0, 0);
-//   text-shadow: 1px 1px 1px #000;
-// }
+.label-custom {
+  background-color: @clear;
+  text-shadow: 1px 1px 1px #111;
+  &.label-bis { background: repeating-linear-gradient(45deg, #7777EE, #7777EE 1px, #6666DD 1px, @clear 2px); }
+  &.label-up { background: repeating-linear-gradient(45deg, #77EE77, #77EE77 1px, #66DD66 1px, @clear 2px); }
+  &.label-proc { background: repeating-linear-gradient(45deg, #EEEE77, #EEEE77 1px, #DDDD66 1px, @clear 2px); }
+  &.label-plustwo { background: repeating-linear-gradient(45deg, #EE7733, #EE7733 1px, #DD6622 1px, @clear 2px); }
+  &.label-no { background: repeating-linear-gradient(45deg, #EE5555, #EE5555 1px, #DD4444 1px, @clear 2px); }
+}
 
 .container-fluid {
   padding-left: 0px;
@@ -533,11 +537,12 @@ html, body {
 }
 .guest-button {
   margin-top: 100px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: @clear;
 }
 
 
 /* Colors */
+@clear: rgba(0,0,0,0);
 @brand: #8A0804;
 
 /* Classes colors */
