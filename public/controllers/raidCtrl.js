@@ -33,16 +33,16 @@
 
       function initBossesArray() {
         vm.bosses = [
-          { id: 102263, thumbnail: 'skorpyron' },
-          { id: 104415, thumbnail: 'chronomatic-anomaly' },
-          { id: 104288, thumbnail: 'trilliax' },
-          { id: 101002, thumbnail: 'krosus' },
-          { id: 107699, thumbnail: 'spellblade-aluriel' },
-          { id: 104528, thumbnail: 'botanist' },
-          { id: 103685, thumbnail: 'tichondrius' },
-          { id: 103758, thumbnail: 'star-augur-etraeus' },
-          { id: 110965, thumbnail: 'grand-magistrix-elisande' },
-          { id: 105503, thumbnail: 'guldan' }
+          { id: 102263, thumbnail: 'skorpyron', title: 'Skorpyron' },
+          { id: 104415, thumbnail: 'chronomatic-anomaly', title: 'Anomalie chronomatique' },
+          { id: 104288, thumbnail: 'trilliax', title: 'Trilliax' },
+          { id: 101002, thumbnail: 'krosus', title: 'Krosus' },
+          { id: 107699, thumbnail: 'spellblade-aluriel', title: 'Sorcelame Aluriel' },
+          { id: 104528, thumbnail: 'botanist', title: 'Grand botaniste Tel\'arn' },
+          { id: 103685, thumbnail: 'tichondrius', title: 'Tichondrius' },
+          { id: 103758, thumbnail: 'star-augur-etraeus', title: 'Etraeus, l\'augure stellaire' },
+          { id: 110965, thumbnail: 'grand-magistrix-elisande', title: 'Grand magistrice Elisande' },
+          { id: 105503, thumbnail: 'guldan', title: 'Gul\'dan' }
         ];
       }
 

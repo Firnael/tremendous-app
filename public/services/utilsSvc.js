@@ -26,7 +26,7 @@
        * Accepte 'avatar', 'inset' ou 'profile-main', du plus petit au plus grand
        */
       function getThumbnailPath(type, thumbPath) {
-        if(type !== 'avatar' && type !== 'inset' && type !== 'profile-main') {
+        if(type !== 'avatar' && type !== 'inset' && type !== 'profile-main' && thumbPath === undefined) {
           console.log('getThumbnailPath : bad param');
           return;
         }

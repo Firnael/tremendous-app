@@ -49,7 +49,7 @@
           <tr>
             <th><!-- Name --></th>
             <th ng-repeat="boss in vm.bosses">
-              <img class="raid-bosses-img" ng-src="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-{{ boss.thumbnail }}.png"/>
+              <img class="raid-bosses-img" ng-src="https://wow.zamimg.com/images/wow/journal/ui-ej-boss-{{ boss.thumbnail }}.png" title="{{ ::boss.title }}"/>
             </th>
           </tr>
         </thead>
