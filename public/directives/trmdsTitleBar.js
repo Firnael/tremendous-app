@@ -17,15 +17,16 @@
       };
 
       return {
-          restrict: 'E',
-          templateUrl: 'views/directives/titlebar.html',
-          link: link,
-          scope: {
-            page: '@',
-            lastUpdate: '=',
-            updating: '=',
-            update: '='
-          }
+        restrict: 'E',
+        templateUrl: 'views/directives/titlebar.html',
+        link: link,
+        scope: {
+          page: '@',
+          displayButton: '=',
+          lastUpdate: '=',
+          updating: '=',
+          update: '='
+        }
       };
     }
 })();

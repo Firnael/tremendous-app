@@ -644,20 +644,23 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     function getReputationsData(reputations) {
       var data = [];
       var legionReputations = [
+        // 1899, // Garde de la Lune (???)
+        // 2097, // Ilyssia des Eaux (???)
+        // 2098, // Gardienne Raynae (???)
+        // 2099, // Akule Ruissecorne (???)
+        // 2100, // Corbyn (???)
+        // 2101, // Sha?leth (???)
+        // 2102, // Diablotus (???)
         1828, // Tribu de Haut-Roc (Haut-Roc)
         1883, // Tisse-rêves (Val'sharah)
-        1888, // Vrykul de Jandvik / Valarjar (Stormheim)
-        1894, // Les Gardiennes (Île du Guet - Azsuna)
+        1948, // Valarjar (Stormheim)
+        1894, // Les Gardiennes (Île du Guet)
         1900, // Cour de Farondis (Azsuna)
-
-        // 1899, // Gardes de la lune
-
-        1860, // Soif des Arcanes - Thalyssra (Souffrenuits)
-        1862, // Soif des Arcanes - Oculeth (Souffrenuits)
-        1919, // Soif des Arcanes - Valtrois (Souffrenuits)
-
-        1975, // Adjurateur Margoss (Pêche)
-        1984  // Les Guérisseuses (Secourisme)
+        1859, // Souffrenuit (Suramar)
+        2045, // Armées du Déclin de la Légion (Rivage brisé)
+        2018, // Serre vengeresse (Aviana)
+        2010, // Arène de Castagn'ar(Bastonneurs)
+        1975  // Adjurateur Margoss (Pêche)
       ];
 
       for(var i=0; i<reputations.length; i++) {
@@ -671,7 +674,6 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
           });
         }
       }
-
       return data;
     }
 

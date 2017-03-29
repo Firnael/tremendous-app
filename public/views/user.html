@@ -4,18 +4,17 @@
 
 <div class="rows-wrapper" ng-class="$root.open">
 
-<div class="row title-bar">
-  <div class="col-md-12"><h2>Mon compte</h2></div>
-</div>
+<trmds-title-bar page="Mon compte"></trmds-title-bar>
 <br/>
 
-<div class="row" ng-show="vm.characters">
+<div class="row fade" ng-show="vm.characters">
   <div class="col-md-3">
     <div ng-repeat="(key,character) in vm.characters" style="cursor: pointer;">
       <div class="user-character" ng-class="{'user-character-selected': vm.selectedCharacterIndex === key}" ng-click="vm.selectCharacter(key)">
         <img class="user-character-thumbnail img-thumbnail" ng-src="{{ vm.getThumbnailUrl(character.thumbnail) }}"
              err-src="http://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg" width="64" height="64"/>
-        <span class="user-character-name" ng-class="vm.getClassColor(character.class)">{{ character.name }}</span>
+        <a ng-href="/#/character/{{ character.name }}" class="user-character-name" ng-class="vm.getClassColor(character.class)">{{ character.name }}</a>
+        <span class="text-muted">{{ character.level }}</span>
       </div>
     </div>
   </div>

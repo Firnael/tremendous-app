@@ -17,15 +17,34 @@ html, body {
   height: 100%;
   font-family: 'Open Sans', sans-serif;
 }
+.table-condensed>tbody>tr>td {
+  padding: 3px;
+}
 
 .label-custom {
-  background-color: @clear;
   text-shadow: 1px 1px 1px #111;
-  &.label-bis { background: repeating-linear-gradient(45deg, #7777EE, #7777EE 1px, #6666DD 1px, @clear 2px); }
-  &.label-up { background: repeating-linear-gradient(45deg, #77EE77, #77EE77 1px, #66DD66 1px, @clear 2px); }
-  &.label-proc { background: repeating-linear-gradient(45deg, #EEEE77, #EEEE77 1px, #DDDD66 1px, @clear 2px); }
-  &.label-plustwo { background: repeating-linear-gradient(45deg, #EE7733, #EE7733 1px, #DD6622 1px, @clear 2px); }
-  &.label-no { background: repeating-linear-gradient(45deg, #EE5555, #EE5555 1px, #DD4444 1px, @clear 2px); }
+  // background-color: @clear;
+  // &.label-test { background: repeating-linear-gradient(45deg, #77EE77, #77EE77 1px, #66DD66 1px, @clear 2px); }
+  &.label-bis {
+    border: 1px solid #6666DD;
+    background-color: rgba(102, 102, 221, 0.5);
+  }
+  &.label-up {
+    border: 1px solid #77EE77;
+    background-color: rgba(119, 238, 119, 0.5);
+  }
+  &.label-proc {
+    border: 1px solid #FFEE66;
+    background-color: rgba(255, 238, 102, 0.5);
+  }
+  &.label-plustwo {
+    border: 1px solid #EE7733;
+    background-color: rgba(238, 119, 51, 0.5);
+  }
+  &.label-no {
+    border: 1px solid #EE5555;
+    background-color: rgba(238, 85, 85, 0.5);
+  }
 }
 
 .container-fluid {
@@ -189,9 +208,6 @@ html, body {
 /* Raid */
 .raid-loots {
   .raid-loots-table {
-    td {
-      padding: 3px;
-    }
     .raid-bosses-img {
       cursor: pointer;
       border-radius: 10px 10px 0px 0px;
@@ -491,6 +507,10 @@ html, body {
   }
   .user-character-name {
     font-size: 20px;
+    text-decoration: none !important;
+    &:hover {
+      color: yellow;
+    }
   }
 }
 

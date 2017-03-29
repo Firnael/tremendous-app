@@ -4,7 +4,7 @@
 
 <div class="rows-wrapper" ng-class="$root.open">
 
-<trmds-title-bar page="Roster" updating="vm.updating" last-update="vm.rosterInfos.lastUpdate" update="vm.updateRoster">
+<trmds-title-bar page="Roster" display-button="true" updating="vm.updating" last-update="vm.rosterInfos.lastUpdate" update="vm.updateRoster">
 </trmds-title-bar>
 
 <!-- Update progress -->
@@ -57,9 +57,7 @@
         <!-- Role + Name -->
         <td class="roster-raider-role-name" ng-class="vm.getClassColor(raider.class)">
           <trmds-role-icons role="{{ raider.role }}" size="24"></trmds-role-icons>
-          <a ng-href="#/character/{{ raider.name }}" class="roster-raider-name">
-            {{ raider.name }}
-          </a>
+          <a ng-href="#/character/{{ raider.name }}" class="roster-raider-name">{{ raider.name }}</a>
         </td>
         <td><!-- Separator --></td>
         <!-- ilvl -->
