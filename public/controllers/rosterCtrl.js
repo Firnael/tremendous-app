@@ -14,6 +14,9 @@
         vm.updating = true;
         vm.updateCount = 0;
         vm.rosterSize = 0;
+        vm.orderBy = ['+class', '-averageItemLevel'];
+        vm.orderAttribute = 'class';
+        vm.orderSort = '-';
 
         // Class distribution
         vm.classDistribution = {};
@@ -51,6 +54,7 @@
         vm.getUpdateProgress = getUpdateProgress;
         vm.updateRosterData = updateRosterData;
         vm.getTraitsColor = getTraitsColor;
+        vm.changeOrderBy = changeOrderBy;
         activate();
 
         //////////////
@@ -172,6 +176,22 @@
           else if(count >= 50) { return 'roster-audit-good'; }
           else if(count >= 45) { return 'roster-audit-warning'; }
           else return 'roster-audit-bad';
+        }
+
+        function changeOrderBy(orderBy) {
+          if(orderBy === vm.orderAttribute) {
+            if(vm.orderSort === '-') {
+              vm.orderSort = '+';
+            } else {
+              vm.orderSort = '-';
+            }
+          } else {
+            vm.orderSort = '-';
+            vm.orderAttribute = orderBy;
+          }
+
+          var newOrderBy = vm.orderSort + vm.orderAttribute;
+          vm.orderBy = [newOrderBy];
         }
 
     }
