@@ -50,7 +50,7 @@
         return promise;
       }
 
-      // Get roster (guild rank 0, 1, 2 and 3)
+      // Get roster
       function getRoster() {
         var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/roster/").then(function(response) {
           return response.data;
@@ -58,7 +58,7 @@
         return promise;
       }
 
-      // Get mains (guild rank 0, 1, 2 and 3)
+      // Get mains
       function getMains(){
         var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/character/mains/").then(function(response) {
             return response.data;

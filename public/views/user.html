@@ -17,17 +17,18 @@
         <span class="text-muted">{{ character.level }}</span>
       </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div ng-repeat="item in vm.getSelectedCharacterLoot()">
-      <trmds-loot boss-id="item.bossId" value="item.value" change-value="vm.changeValue"></trmds-loot>
-    </div>
-  </div>
-  <div class="col-md-6">
+    <br/>
     <a href="/logout" class="btn btn-sm btn-default">
       Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
     </a>
   </div>
+  <!--
+  <div class="col-md-9">
+    <div ng-repeat="item in vm.getSelectedCharacterLoot()">
+      <trmds-loot boss-id="item.bossId" value="item.value" change-value="vm.changeValue"></trmds-loot>
+    </div>
+  </div>
+  -->
 </div>
 
 </div>

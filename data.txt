@@ -28,7 +28,7 @@ Bonus:
 - 1808 (socket)
 - 3336 (de guerre)
 
-Enchant : x/5 (epaule + gants pour métiers, 3 autres pour opti)
+Enchant : x/5 (epaule + gants pour mï¿½tiers, 3 autres pour opti)
 ---------------------------------------------------------------
 "tooltipParams": {
   "enchant": 5324
@@ -45,3 +45,9 @@ Set: (x/4)
 "tooltipParams": {
   "set": [124155]
 }
+
+CommentÃ© :
+- La liste des besoins dans la page "User"
+- La page "Raid"
+- La page "Mythic+"
+- La page "Progress"

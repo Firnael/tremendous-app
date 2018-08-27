@@ -15,7 +15,7 @@
         };
         return service;
 
-        // Get progress info for guild "Tremendous"
+        // Get progress info for guild "Wyrd"
         function get() {
           var promise = $http.get(UtilsSvc.getUrlPrefix() + "/api/progress").then(function(response) {
             return response.data;

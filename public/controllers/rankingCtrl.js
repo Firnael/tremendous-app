@@ -47,7 +47,7 @@
       function getGuildRanking() {
         for(var i=0; i<vm.ranking.guilds.length; i++) {
           var guild = vm.ranking.guilds[i];
-          if(guild.name === 'Tremendous') {
+          if(guild.name === 'Wyrd') {
             return guild;
           }
         }

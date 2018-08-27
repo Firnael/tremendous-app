@@ -30,7 +30,7 @@
           console.log('getThumbnailPath : bad param');
           return;
         }
-        var path = 'http://render-api-eu.worldofwarcraft.com/static-render/eu/';
+        var path = 'http://render-eu.worldofwarcraft.com/character/';
         var result = thumbPath.replace('avatar', type);
         return path + result;
       }

@@ -30,12 +30,6 @@
           '#0070DE', '#69CCF0', '#9482C9', '#00FF96', '#FF7D0A', '#A330C9'
         ];
 
-        // Armor types
-        vm.armorTypes = {};
-        vm.armorTypes.data = [0, 0, 0, 0];
-        vm.armorTypes.labels = ['Plaque', 'Maille', 'Cuir', 'Tissu'];
-        vm.armorTypes.colors = ['#333333', '#777777', '#AAAAAA', '#FFFFFF'];
-
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;
         vm.getClassColor = getClassColor;
@@ -152,12 +146,6 @@
             var entry = vm.rosterInfos.classes[i];
             vm.classDistribution.data[i] = entry.count;
           }
-
-          // Armor types
-          vm.armorTypes.data[0] = vm.rosterInfos.armorTypes.plate;
-          vm.armorTypes.data[1] = vm.rosterInfos.armorTypes.mail;
-          vm.armorTypes.data[2] = vm.rosterInfos.armorTypes.leather;
-          vm.armorTypes.data[3] = vm.rosterInfos.armorTypes.cloth;
         }
 
         function getHeartOfAzerothLevelColor(count) {

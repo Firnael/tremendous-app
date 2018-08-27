@@ -11,17 +11,7 @@ var RosterSchema = new Schema({
     highestItemLevel: Number,
     classes: [
       { classId: Number, count: Number }
-    ],
-    armorTypes: {
-      cloth: Number,
-      leather: Number,
-      mail: Number,
-      plate: Number
-    },
-    meleeVsDistant: {
-      melee: Number,
-      distant: Number
-    }
+    ]
 });
 
 module.exports = mongoose.model('Roster', RosterSchema);

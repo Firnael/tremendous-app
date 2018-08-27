@@ -4,7 +4,7 @@ var rosterApiRouter = express.Router();
 var Roster = require('../models/roster');
 var Character = require('../models/character');
 // Data
-var ranks = [0, 1, 2, 3, 4, 5, 6, 7]; // TODO Changer cette merde
+var ranks = [0, 1, 2, 3, 4];
 
 /**
  * Get roster infos
@@ -37,7 +37,6 @@ rosterApiRouter.get('/update', function(req, res) {
       roster.lowestItemLevel = data.lowestItemLevel;
       roster.highestItemLevel = data.highestItemLevel;
       roster.classes = data.classes;
-      roster.armorTypes = data.armorTypes;
       roster.meleeVsDistant = data.meleeVsDistant;
 
       // Save it
@@ -57,12 +56,6 @@ function getRosterData(characters) {
     lowestItemLevel: 0,
     highestItemLevel: 0,
     classes: [],
-    armorTypes: {
-      cloth: 0,
-      leather: 0,
-      mail: 0,
-      plate: 0
-    },
     meleeVsDistant: {
       melee: 0,
       distant: 0
@@ -102,18 +95,6 @@ function getRosterData(characters) {
       }
     } else {
       data.highestItemLevel = character.averageItemLevelEquipped;
-    }
-
-    // Armor types
-    switch(character.class) {
-      case 5: case 8: case 9:
-        data.armorTypes.cloth++; break;
-      case 4: case 10: case 11: case 12:
-        data.armorTypes.leather++; break;
-      case 3: case 7:
-        data.armorTypes.mail++; break;
-      case 1: case 2: case 6:
-        data.armorTypes.plate++; break;
     }
 
     // Classes

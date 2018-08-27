@@ -2,7 +2,7 @@
   <!-- Logo -->
   <div class="sidenav-logo">
     <img src="assets/img/logo.png" width="54" height="54"/>
-    <span class="sidenav-logo-brand fade" ng-show="$root.open === 'open'">Tremendous</span>
+    <span class="sidenav-logo-brand fade" ng-show="$root.open === 'open'">Wyrd</span>
   </div>
   <!-- Home -->
   <!-- <a href="#/home" class="sidenav-element" ng-class="page === 'home' ? 'active' : ''">
@@ -20,7 +20,7 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <!-- Raid -->
+  <!-- Raid 
   <a href="#/raid" class="sidenav-element" ng-class="page === 'raid' ? 'active' : ''">
     <span class="sidenav-element-content">
       <i class="fa fa-handshake-o" aria-hidden="true"></i>
@@ -28,7 +28,8 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <!-- Recipes -->
+  -->
+  <!-- Recipes 
   <a href="#/recipes" class="sidenav-element" ng-class="page === 'recipes' ? 'active' : ''">
     <span class="sidenav-element-content">
       <i class="fa fa-flask" aria-hidden="true"></i>
@@ -36,7 +37,8 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <!-- Mythic+ -->
+  -->
+  <!-- Mythic+ 
   <a href="#/mythic" class="sidenav-element" ng-class="page === 'mythic' ? 'active' : ''">
     <span class="sidenav-element-content">
       <i class="fa fa-medium" aria-hidden="true"></i>
@@ -44,7 +46,8 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <!-- Progress -->
+  -->
+  <!-- Progress
   <a href="#/progress" class="sidenav-element" ng-class="page === 'progress' ? 'active' : ''">
     <span class="sidenav-element-content">
       <i class="fa fa-line-chart" aria-hidden="true"></i>
@@ -52,7 +55,8 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
-  <!-- Ranking -->
+  -->
+  <!-- Ranking 
   <a href="#/ranking" class="sidenav-element" ng-class="page === 'ranking' ? 'active' : ''">
     <span class="sidenav-element-content">
       <i class="fa fa-trophy" aria-hidden="true"></i>
@@ -60,10 +64,11 @@
       <span ng-hide="$root.open === 'open'"></span>
     </span>
   </a>
+  -->
   <!-- User -->
   <a href="#/user" class="sidenav-element" ng-class="page === 'user' ? 'active' : ''">
     <div class="sidenav-element-content">
-      <img ng-src="http://render-api-eu.worldofwarcraft.com/static-render/eu/{{ $root.user.thumbnail }}"/>
+      <img ng-src="http://render-eu.worldofwarcraft.com/character/{{ $root.user.thumbnail }}"/>
       <span class="fade" ng-show="$root.open === 'open'">{{ $root.user.battletag }}</span>
       <span ng-hide="$root.open === 'open'"></span>
     </div>

@@ -10,9 +10,9 @@ var Progress = require('../models/progress');
 // Data
 var guildName = 'Wyrd';
 var forceUpdate = true;
-var mainRanks = [0, 1, 2, 3, 4, 5];
-var rosterRanks = [0, 1, 2, 3];
-var rerollRanks = [6];
+var mainRanks = [0, 1, 2, 3, 4, 8];
+var rosterRanks = [0, 1, 2, 3, 4];
+var rerollRanks = [5, 6];
 
 
 /**
@@ -532,13 +532,36 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       var data = {};
       var missingEnchants = 0;
       var wrongEnchant = 0;
-      var enchantIds = [5946, 5950, 5949, 5948, 5965, 5964, 5963, 5966, 5962, 5942, 5943, 5944, 5945];
+      var enchantIds = [
+        5946, // Enchantement d’arme (Vague côtière)
+        5950, // Enchantement d’arme (Frappe de grand vent)
+        5949, // Enchantement d’arme (Torrent des éléments)
+        5948, // Enchantement d’arme (Siphonnage)
+        5965, // Enchantement d’arme (Navigation meurtrière)
+        5964, // Enchantement d’arme (Navigation magistrale)
+        5963, // Enchantement d’arme (Navigation rapide)
+        5966, // Enchantement d’arme (Navigation assurée)
+        5962, // Enchantement d’arme (Navigation polyvalente)
+        5942, // Pacte de Coup critique
+        5943, // Pacte de Hâte
+        5944, // Pacte de Maîtrise
+        5945  // Pacte de Polyvalence
+      ];
       var gemSlots = 0;
       var equipedGems = 0;
       var equipedKrakenEye = 0;
       var equipedWrongGems = 0;
-      var krakenEyeIds = [153708, 153709, 153707];
-      var gemIds = [154128, 154129, 154127, 154126];
+      var krakenEyeIds = [
+        153708, // Oeil du kraken d’Agilité
+        153709, // Oeil du kraken d’Intelligence
+        153707  // Oeil du kraken de Force
+      ];
+      var gemIds = [
+        154128, // Quartz royal polyvalent
+        154129, // Améthyste des marées magistrale
+        154127, // Strigolite rapide
+        154126  // Ambraisine mortelle
+      ];
 
       for(var key in items) {
         var item = {};
@@ -562,7 +585,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Check gems
         if(item.bonusLists) {
-          if(item.bonusLists.indexOf(1808) >= 0) {
+          if(item.bonusLists.indexOf(4802) >= 0) {
             // Item has gem socket
             gemSlots++;
 
