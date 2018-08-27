@@ -1,5 +1,5 @@
 var express = require('express');
-var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
+var bnet = require('battlenet-api')(process.env.BNET_STRATEGY_CLIENT_ID);
 var progressApiRouter = express.Router();
 // Models
 var Progress = require('../models/progress');

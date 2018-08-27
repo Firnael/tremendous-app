@@ -1,5 +1,5 @@
 var express = require('express');
-var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
+var bnet = require('battlenet-api')(process.env.BNET_STRATEGY_CLIENT_ID);
 var guildApiRouter = express.Router();
 // Model
 var Guild = require('../models/guild');
@@ -74,6 +74,10 @@ guildApiRouter.route('/update').post(function(req, res) {
       });
 
       function populateGuildObjectFromData(guildObject, data, update) {
+        console.log(guildObject);
+        console.log("===");
+        console.log(data);
+
         if(!update) {
           guildObject.name = data.name;
         }

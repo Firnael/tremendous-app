@@ -1,7 +1,7 @@
 var express = require('express');
 var request = require('request');
 var async = require('async');
-var bnet = require('battlenet-api')('tpkmytrfpdp2casqurxt24z8ub5u4khn');
+var bnet = require('battlenet-api')(process.env.BNET_STRATEGY_CLIENT_ID);
 var characterApiRouter = express.Router();
 // Models
 var Character = require('../models/character');
@@ -299,19 +299,21 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         console.log('Updating character ' + character.name + '...');
 
         /*
-        bnet.wow.character.aggregate({
-          origin: 'eu', realm: 'ysondre', name: req.params.characterName,
-          fields: ['items', 'pvp', 'achievements']
-        },
+        bnet.wow.character.aggregate({ origin: 'eu', realm: 'ysondre', name: character.name,
+          fields: ['items', 'pvp', 'achievements']}, function(err, body){
         */
 
         // Getting character from bnet API
         var url = 'https://eu.api.battle.net/wow/character/Ysondre/';
         var fields = '?fields=items%2Cpvp%2Cachievements%2Cprofessions%2Ctalents%2Creputation%2Cfeed%2Cstatistics';
         var locale = '&locale=fr_FR';
-        var apikey = '&apikey=tpkmytrfpdp2casqurxt24z8ub5u4khn';
+        var apikey = '&apikey=' + process.env.BNET_STRATEGY_CLIENT_ID;
         request(url + encodeURI(character.name) + fields + locale + apikey, function (err, response, body) {
-            if(err) { return res.send(err); }
+
+            if(err || body === undefined) {
+              console.log("C'est la merde");
+              return res.send(err);
+            }
             body = JSON.parse(body);
 
             // Don't update if nothing change since the last time
@@ -323,6 +325,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               });
             }
             else {
+              console.log('Bonjour à tous');
               // Root
               character.lastModified = body.lastModified;
               character.class = body.class;
