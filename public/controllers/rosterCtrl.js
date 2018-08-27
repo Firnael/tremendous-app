@@ -36,24 +36,18 @@
         vm.armorTypes.labels = ['Plaque', 'Maille', 'Cuir', 'Tissu'];
         vm.armorTypes.colors = ['#333333', '#777777', '#AAAAAA', '#FFFFFF'];
 
-        // Armor tokens
-        vm.armorTokens = {};
-        vm.armorTokens.data = [0, 0, 0];
-        vm.armorTokens.labels = ['Vanquisher', 'Protector', 'Conqueror'];
-        vm.armorTokens.colors = ['#517a8b', '#a671e4', '#df9659'];
-
         vm.getRoster = getRoster;
         vm.getRosterInfos = getRosterInfos;
         vm.getClassColor = getClassColor;
         vm.getIlvlColor = getIlvlColor;
         vm.getItemQualityColor = getItemQualityColor;
-        vm.getSaberEyeAuditColor = getSaberEyeAuditColor;
+        vm.getKrakenEyeAuditColor = getKrakenEyeAuditColor;
         vm.getGemAuditColor = getGemAuditColor;
         vm.getEnchantAuditColor = getEnchantAuditColor;
         vm.updateRoster = updateRoster;
         vm.getUpdateProgress = getUpdateProgress;
         vm.updateRosterData = updateRosterData;
-        vm.getTraitsColor = getTraitsColor;
+        vm.getHeartOfAzerothLevelColor = getHeartOfAzerothLevelColor;
         vm.changeOrderBy = changeOrderBy;
         activate();
 
@@ -94,11 +88,11 @@
           return UtilsSvc.getCssClassByQuality(value, true);
         }
 
-        function getSaberEyeAuditColor(raider) {
+        function getKrakenEyeAuditColor(raider) {
           if(raider.audit) {
             if(raider.audit.gemSlots === 0) {
               return 'roster-audit-neutral';
-            } else if(raider.audit.equipedSaberEye > 0) {
+            } else if(raider.audit.equipedKrakenEye > 0) {
               return 'roster-audit-good';
             }
             return 'roster-audit-bad';
@@ -164,17 +158,12 @@
           vm.armorTypes.data[1] = vm.rosterInfos.armorTypes.mail;
           vm.armorTypes.data[2] = vm.rosterInfos.armorTypes.leather;
           vm.armorTypes.data[3] = vm.rosterInfos.armorTypes.cloth;
-
-          // Armor tokens
-          vm.armorTokens.data[0] = vm.rosterInfos.armorTokens.vanquisher;
-          vm.armorTokens.data[1] = vm.rosterInfos.armorTokens.protector;
-          vm.armorTokens.data[2] = vm.rosterInfos.armorTokens.conqueror;
         }
 
-        function getTraitsColor(count) {
-          if(count === 54) { return 'roster-audit-awesome'; }
-          else if(count >= 50) { return 'roster-audit-good'; }
-          else if(count >= 45) { return 'roster-audit-warning'; }
+        function getHeartOfAzerothLevelColor(count) {
+          if(count > 20) { return 'roster-audit-awesome'; }
+          else if(count >= 18) { return 'roster-audit-good'; }
+          else if(count >= 16) { return 'roster-audit-warning'; }
           else return 'roster-audit-bad';
         }
 

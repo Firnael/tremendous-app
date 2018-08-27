@@ -1,4 +1,7 @@
 // server.js
+var dotenv = require('dotenv');
+dotenv.load();
+
 var express = require("express");
 var session = require('express-session');
 var fs = require('fs');

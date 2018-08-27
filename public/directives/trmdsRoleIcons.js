@@ -16,7 +16,7 @@
           case '2': value = 'dps'; break;
           default: break;
         }
-        scope.src = 'assets/img/' + value + '.png';
+        scope.src = '../assets/img/' + value + '.png';
         scope.title = value;
       };
 

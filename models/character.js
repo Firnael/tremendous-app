@@ -18,15 +18,14 @@ var CharacterSchema = new Schema({
     items: [
       { slot: String, id: Number, quality: Number, ilvl: Number }
     ],
-    artifactTraits: Number,
+    heartOfAzerothLevel: Number,
     audit: {
       missingEnchants: Number,
       wrongEnchant: Number,
       gemSlots: Number,
-      equipedSaberEye: Number,
+      equipedKrakenEye: Number,
       equipedGems: Number,
-      equipedWrongGems: Number,
-      equipedSetPieces: Number
+      equipedWrongGems: Number
     },
     arena2v2Rating: Number,
     arena3v3Rating: Number,

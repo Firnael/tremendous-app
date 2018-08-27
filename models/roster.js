@@ -18,11 +18,6 @@ var RosterSchema = new Schema({
       mail: Number,
       plate: Number
     },
-    armorTokens: {
-      vanquisher: Number,
-      protector: Number,
-      conqueror: Number
-    },
     meleeVsDistant: {
       melee: Number,
       distant: Number

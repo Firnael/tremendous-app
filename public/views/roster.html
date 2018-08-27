@@ -46,10 +46,10 @@
         <th ><trmds-slot-icons slot="mainHand" size="24"></trmds-slot-icons></th>
         <th><trmds-slot-icons slot="offHand" size="24"></trmds-slot-icons></th>
         <th></th>
-        <th ng-click="vm.changeOrderBy('artifactTraits')"><img src="assets/img/artifact_trait.png" width="24" height="24" title="Traits" class="img-rounded"/></th>
-        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_saberseye.jpg" width="24" height="24" title="Oeil de sabre" class="img-rounded"/></th>
-        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_70_cutgem03_orange.jpg" width="24" height="24" title="Gemmes" class="img-rounded"/></th>
-        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_enchanting_70_chaosshard.jpg" width="24" height="24" title="Enchants" class="img-rounded"/></th>
+        <th ng-click="vm.changeOrderBy('heartOfAzerothLevel')"><img src="../assets/img/heart_of_azeroth.jpg" width="24" height="24" title="Neck" class="img-rounded"/></th>
+        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_80_specialgemcut01.jpg" width="24" height="24" title="Oeil de kraken" class="img-rounded"/></th>
+        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_jewelcrafting_80_cutgem02_orange.jpg" width="24" height="24" title="Gemmes" class="img-rounded"/></th>
+        <th><img src="https://wow.zamimg.com/images/wow/icons/large/inv_enchanting_80_veiledcrystal.jpg" width="24" height="24" title="Enchants" class="img-rounded"/></th>
       </tr>
     </thead>
     <tbody>
@@ -69,13 +69,13 @@
         </td>
         <!-- Separator -->
         <td></td>
-        <!-- Traits -->
-        <td ng-class="vm.getTraitsColor(raider.artifactTraits)">
-          <strong>{{ raider.artifactTraits }}</strong>
+        <!-- Heart of Azeroth level -->
+        <td ng-class="vm.getHeartOfAzerothLevelColor(raider.heartOfAzerothLevel)">
+          <strong>{{ raider.heartOfAzerothLevel }}</strong>
         </td>
-        <!-- +200 stat gem -->
-        <td ng-class="vm.getSaberEyeAuditColor(raider)">
-          {{ raider.audit.equipedSaberEye }}
+        <!-- Epic gem -->
+        <td ng-class="vm.getKrakenEyeAuditColor(raider)">
+          {{ raider.audit.equipedKrakenEye }}
         </td>
         <!-- Other gems -->
         <td ng-class="vm.getGemAuditColor(raider)">
@@ -83,7 +83,7 @@
         </td>
         <!-- Enchants -->
         <td ng-class="vm.getEnchantAuditColor(raider)">
-          {{ 4 - raider.audit.missingEnchants }}/4
+          {{ 4 - raider.audit.missingEnchants }}/3
         </td>
       </tr>
     </tbody>
@@ -128,16 +128,6 @@
         <div class="roster-armor-type roster-armor-type-mail"></div>
         <div class="roster-armor-type roster-armor-type-leather"></div>
         <div class="roster-armor-type roster-armor-type-cloth"></div>
-      </div>
-
-      <!-- Armor Tokens -->
-      <div class="col-md-12">
-        <h4>Armor tokens</h4>
-        <canvas class="chart chart-pie"
-                chart-data="vm.armorTokens.data"
-                chart-labels="vm.armorTokens.labels"
-                chart-colors="vm.armorTokens.colors">
-        </canvas>
       </div>
 
     </div>

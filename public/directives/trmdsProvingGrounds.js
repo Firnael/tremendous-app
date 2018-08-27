@@ -22,7 +22,7 @@
 
                     var url = 'https://wow.zamimg.com/images/wow/icons/large/achievement_challengemode_';
                     if(tmp === '') {
-                      url = 'assets/img/placeholder.png';
+                      url = '../assets/img/placeholder.png';
                     } else {
                       url += tmp + '.jpg';
                     }

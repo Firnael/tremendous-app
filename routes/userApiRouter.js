@@ -8,7 +8,7 @@ var User = require('../models/user');
 var Character = require('../models/character');
 // Data
 var SERVER = 'Ysondre';
-var GUILD = 'Tremendous';
+var GUILD = 'Wyrd';
 
 
 /**

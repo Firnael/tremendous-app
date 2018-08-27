@@ -4,7 +4,7 @@ var guildApiRouter = express.Router();
 // Model
 var Guild = require('../models/guild');
 // Data
-var guildName = 'Tremendous';
+var guildName = 'Wyrd';
 
 
 /**

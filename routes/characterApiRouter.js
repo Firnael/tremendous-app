@@ -8,8 +8,11 @@ var Character = require('../models/character');
 var Guild = require('../models/guild');
 var Progress = require('../models/progress');
 // Data
-var guildName = 'Tremendous';
+var guildName = 'Wyrd';
 var forceUpdate = true;
+var mainRanks = [0, 1, 2, 3, 4, 5];
+var rosterRanks = [0, 1, 2, 3];
+var rerollRanks = [6];
 
 
 /**
@@ -137,23 +140,26 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
  * Get mains
  */
 characterApiRouter.route('/mains').get(function(req, res) {
-  getByGuildRank([0, 1, 2, 3, 4, 5], res);
+  getByGuildRank(mainRanks, res);
 });
 
 /**
  * Get roster
  */
 characterApiRouter.route('/roster').get(function (req, res) {
-  getByGuildRank([0, 1, 2, 3], res);
+  getByGuildRank(rosterRanks, res);
 });
 
 /**
  * Get rerolls
  */
 characterApiRouter.route('/rerolls').get(function(req, res) {
-  getByGuildRank([6], res);
+  getByGuildRank(rerollRanks, res);
 });
 
+/**
+ * Get characters by guild ranks
+ */
 function getByGuildRank(rankArray, res) {
   Character.where('guildRank').in(rankArray).exec(function (err, characters) {
     if (err) { res.send(err); return; }
@@ -330,7 +336,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
                 character.averageItemLevel = body.items.averageItemLevel;
                 character.averageItemLevelEquipped = body.items.averageItemLevelEquipped;
                 character.items = getItemsData(body.items);
-                character.artifactTraits = getArtifactTraitsCount(body.items, character.artifactTraits);
+                character.heartOfAzerothLevel = getHeartOfAzerothLevel(body.items, character.heartOfAzerothLevel);
                 // Audit
                 character.audit = getAuditData(body.items);
               }
@@ -435,14 +441,12 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       data.push(primaryProfession2);
 
       //-- Secondary
-      var secondaryProfession1 = extractProfessionData(professions.secondary[0], false);
-      var secondaryProfession2 = extractProfessionData(professions.secondary[1], false);
-      var secondaryProfession3 = extractProfessionData(professions.secondary[2], false);
-      var secondaryProfession4 = extractProfessionData(professions.secondary[3], false);
+      var secondaryProfession1 = extractProfessionData(professions.secondary[0], false); // Archaeology
+      var secondaryProfession2 = extractProfessionData(professions.secondary[1], false); // Cooking
+      var secondaryProfession3 = extractProfessionData(professions.secondary[2], false); // Fishing
       data.push(secondaryProfession1);
       data.push(secondaryProfession2);
       data.push(secondaryProfession3);
-      data.push(secondaryProfession4);
       return data;
     }
 
@@ -513,43 +517,28 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       return data;
     }
 
-    function getArtifactTraitsCount(items, current) {
+    function getHeartOfAzerothLevel(items, current) {
       if(!current) {
         current = 0;
       }
-      var artifact = items.mainHand;
-      if(artifact.artifactId === 0) {
-        artifact = items.offHand;
-      }
+      var artifact = items.neck;
       if(!artifact) {
         return 0;
       }
-
-      var result = 0;
-      if(artifact.artifactTraits) {
-        for(var i=0; i<artifact.artifactTraits.length; i++) {
-          var trait = artifact.artifactTraits[i];
-          result += trait.rank;
-        }
-      }
-      result -= 3; // relics artificially adds 3 points
-
-      return result > current ? result : current;
+      return artifact.azeriteItem.azeriteLevel;
     }
 
     function getAuditData(items) {
       var data = {};
       var missingEnchants = 0;
       var wrongEnchant = 0;
-      var enchantIds = [5427, 5428, 5429, 5430, 5434, 5435, 5436, 5437, 5438, 5439, 5889, 5890, 5891];
+      var enchantIds = [5946, 5950, 5949, 5948, 5965, 5964, 5963, 5966, 5962, 5942, 5943, 5944, 5945];
       var gemSlots = 0;
       var equipedGems = 0;
-      var equipedSetPieces = 0;
-      var equipedSaberEye = 0;
+      var equipedKrakenEye = 0;
       var equipedWrongGems = 0;
-      var saberEyeIds = [130246, 130247, 130248];
-      var gemIds = [130219, 130220, 130221, 130222];
-      var legendaryNeckOrRing = false;
+      var krakenEyeIds = [153708, 153709, 153707];
+      var gemIds = [154128, 154129, 154127, 154126];
 
       for(var key in items) {
         var item = {};
@@ -560,7 +549,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         }
 
         // Check enchants
-        if(['neck', 'back', 'finger1', 'finger2'].indexOf(key) >= 0) {
+        if(['mainHand', 'finger1', 'finger2'].indexOf(key) >= 0) {
           var enchant = item.tooltipParams.enchant;
           if(!enchant) {
             missingEnchants++;
@@ -573,14 +562,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
         // Check gems
         if(item.bonusLists) {
-          // Legendary necks and rings always have sockets
-          if(['neck', 'finger1', 'finger2'].indexOf(key) >= 0) {
-            if(item.bonusLists.indexOf(1811) >= 0) {
-              legendaryNeckOrRing = true;
-            }
-          }
-
-          if(item.bonusLists.indexOf(1808) >= 0 || legendaryNeckOrRing) {
+          if(item.bonusLists.indexOf(1808) >= 0) {
             // Item has gem socket
             gemSlots++;
 
@@ -588,24 +570,16 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
             if(gem) {
               // Item has gem equipped
               equipedGems++;
-              if(saberEyeIds.indexOf(gem) >= 0) {
-                // Item has +200 stat gem equipped
-                equipedSaberEye++;
+              if(krakenEyeIds.indexOf(gem) >= 0) {
+                // Item has epic gem equipped
+                equipedKrakenEye++;
               }
               else if(gemIds.indexOf(gem) < 0) {
-                console.log(gem);
                 // Item has wrong gem equipped
                 equipedWrongGems++;
               }
             }
           }
-        }
-        legendaryNeckOrRing = false;
-
-
-        // Check set pieces
-        if(item.tooltipParams.set) {
-          equipedSetPieces = item.tooltipParams.set.length;
         }
       }
 
@@ -613,8 +587,7 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       data.wrongEnchant = wrongEnchant;
       data.gemSlots = gemSlots;
       data.equipedGems = equipedGems;
-      data.equipedSetPieces = equipedSetPieces;
-      data.equipedSaberEye = equipedSaberEye;
+      data.equipedKrakenEye = equipedKrakenEye;
       data.equipedWrongGems = equipedWrongGems;
       return data;
     }
@@ -643,29 +616,18 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 
     function getReputationsData(reputations) {
       var data = [];
-      var legionReputations = [
-        // 1899, // Garde de la Lune (???)
-        // 2097, // Ilyssia des Eaux (???)
-        // 2098, // Gardienne Raynae (???)
-        // 2099, // Akule Ruissecorne (???)
-        // 2100, // Corbyn (???)
-        // 2101, // Sha?leth (???)
-        // 2102, // Diablotus (???)
-        1828, // Tribu de Haut-Roc (Haut-Roc)
-        1883, // Tisse-rêves (Val'sharah)
-        1948, // Valarjar (Stormheim)
-        1894, // Les Gardiennes (Île du Guet)
-        1900, // Cour de Farondis (Azsuna)
-        1859, // Souffrenuit (Suramar)
-        2045, // Armées du Déclin de la Légion (Rivage brisé)
-        2018, // Serre vengeresse (Aviana)
-        2010, // Arène de Castagn'ar(Bastonneurs)
-        1975  // Adjurateur Margoss (Pêche)
+      var bfaReputations = [
+        2164, // Champions d'Azeroth
+        2157, // Brigade de l'Honneur
+        2163, // Chercheurs tortollans
+        2156, // ExpÃ©dition de Talanji
+        2103, // Empire zandalari
+        2158  // Volduni 
       ];
 
       for(var i=0; i<reputations.length; i++) {
         var reput = reputations[i];
-        if(legionReputations.indexOf(reput.id) >= 0) {
+        if(bfaReputations.indexOf(reput.id) >= 0) {
           data.push({
             name: reput.name,
             standing: reput.standing,
@@ -682,14 +644,14 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
       data.total = 0;
       data.dungeons = {};
       data.dungeons[8040] = 0; // Oeil d'Azshara
-      data.dungeons[7673] = 0; // Fourré Sombrecoeur
+      data.dungeons[7673] = 0; // Fourrï¿½ Sombrecoeur
       data.dungeons[7546] = 0; // Repaire de Neltharion
       data.dungeons[7672] = 0; // Salles des Valeureux
       data.dungeons[7787] = 0; // Caveau des Gardiennes
       data.dungeons[7805] = 0; // Bastion du Freux
-      data.dungeons[7812] = 0; // La Gueule des âmes
+      data.dungeons[7812] = 0; // La Gueule des ï¿½mes
       data.dungeons[7855] = 0; // L'Arcavia
-      data.dungeons[8079] = 0; // La Cour des étoiles
+      data.dungeons[8079] = 0; // La Cour des ï¿½toiles
 
       for(var i=0; i<dungeonStatsArray.length; i++) {
         var dungeon = dungeonStatsArray[i];
@@ -716,15 +678,15 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
         tags.count = 0;
         tags.dungeons = {};
         tags.dungeons[8040] = 0; // Oeil d'Azshara
-        tags.dungeons[7673] = 0; // Fourré Sombrecoeur
+        tags.dungeons[7673] = 0; // Fourrï¿½ Sombrecoeur
         tags.dungeons[7672] = 0; // Salles des Valeureux
         tags.dungeons[7546] = 0; // Repaire de Neltharion
         tags.dungeons[7996] = 0; // Assaut sur le fort Pourpre
         tags.dungeons[7787] = 0; // Caveau des Gardiennes
         tags.dungeons[7805] = 0; // Bastion du Freux
-        tags.dungeons[7812] = 0; // La Gueule des âmes
+        tags.dungeons[7812] = 0; // La Gueule des ï¿½mes
         tags.dungeons[7855] = 0; // L'Arcavia
-        tags.dungeons[8079] = 0; // La Cour des étoiles
+        tags.dungeons[8079] = 0; // La Cour des ï¿½toiles
       }
 
       var achievementIds = [];

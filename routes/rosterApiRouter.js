@@ -3,6 +3,8 @@ var rosterApiRouter = express.Router();
 // Models
 var Roster = require('../models/roster');
 var Character = require('../models/character');
+// Data
+var ranks = [0, 1, 2, 3, 4, 5, 6, 7]; // TODO Changer cette merde
 
 /**
  * Get roster infos
@@ -18,7 +20,7 @@ rosterApiRouter.get('/', function(req, res) {
  * Update roster infos
  */
 rosterApiRouter.get('/update', function(req, res) {
-  Character.where('guildRank').in([0, 1, 2, 3]).exec(function (err, characters) {
+  Character.where('guildRank').in(ranks).exec(function (err, characters) {
     if (err) { return res.send(err); }
 
     // Delete old
@@ -36,7 +38,6 @@ rosterApiRouter.get('/update', function(req, res) {
       roster.highestItemLevel = data.highestItemLevel;
       roster.classes = data.classes;
       roster.armorTypes = data.armorTypes;
-      roster.armorTokens = data.armorTokens;
       roster.meleeVsDistant = data.meleeVsDistant;
 
       // Save it
@@ -61,11 +62,6 @@ function getRosterData(characters) {
       leather: 0,
       mail: 0,
       plate: 0
-    },
-    armorTokens: {
-      vanquisher: 0,
-      protector: 0,
-      conqueror: 0
     },
     meleeVsDistant: {
       melee: 0,
@@ -118,16 +114,6 @@ function getRosterData(characters) {
         data.armorTypes.mail++; break;
       case 1: case 2: case 6:
         data.armorTypes.plate++; break;
-    }
-
-    // Armor tokens
-    switch(character.class) {
-      case 1: case 3: case 7: case 10: // Warrior, Hunter, Shaman, Monk
-        data.armorTokens.protector++; break;
-      case 2: case 5: case 9: case 12: // Paladin, Priest, Warlock, Demon Hunter
-        data.armorTokens.conqueror++; break;
-      case 4: case 6: case 8: case 11: // Rogue, Death Knight, Mage, Druid
-        data.armorTokens.vanquisher++; break;
     }
 
     // Classes
