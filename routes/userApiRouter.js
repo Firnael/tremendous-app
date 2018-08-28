@@ -77,7 +77,7 @@ userApiRouter.post('/refresh', function(req, res) {
         console.log('No character in guild, gtfo !');
         return res.sendStatus(403);
       }
-      user = compareCharacters(user, data);
+      user.characters = compareCharacters(user, data);
 
       // Match
       if(true) {
