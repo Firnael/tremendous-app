@@ -79,7 +79,7 @@ characterApiRouter.route('/update-collection').post(function(req, res) {
                   newCharacter.lastModified = 0;
                   newCharacter.name = member.name;
                   newCharacter.guildRank = member.rank;
-                  var accountId = member.rank <= 5 ? Math.floor(Math.random() * 10000000000) : 0;
+                  var accountId = member.rank <= 5 ? getRandomId() : 0;
                   console.log(member.name + ', ' + member.rank + ', ' + accountId);
                   newCharacter.role = 2;
                   newCharacter.accountIdentifier = String(accountId);
@@ -786,6 +786,21 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
 });
 
 /**
+ * Generate a new account identifier for this character (hopefully a main)
+ */
+characterApiRouter.route('/account-identifier/:characterName').post(function(req, res) {
+  Character.findOne({ 'name': req.params.characterName }, function(err, character) {
+    if (err) { res.send(err); return; }
+    character.accountIdentifier = getRandomId();
+    character.save(function(errsave) {
+      if (errsave) { return res.send(errsave); }
+      console.log('New ID generated for: ' + character.name);
+      return res.send(character);
+    });
+  });
+});
+
+/**
  * Drop one
  */
 characterApiRouter.route('/drop/:characterName').get(function(req, res) {
@@ -809,6 +824,10 @@ characterApiRouter.route('/drop').get(function(req, res) {
       return res.send({ message: 'Character collection dropped' });
   });
 });
+
+function getRandomId() {
+  return Math.floor(Math.random() * 10000000000);
+}
 
 
 module.exports = characterApiRouter;

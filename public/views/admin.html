@@ -81,7 +81,7 @@
   <!-- Mains / Rerolls -->
   <div class="col-md-3">
     <h4>Rerolls <small>{{ vm.rerolls.length }}</small></h4>
-    <div class="row link-main-reroll" ng-repeat="reroll in vm.rerolls | orderBy:['+accountIdentifier']" ng-click="vm.selectedReroll = reroll"
+    <div class="row link-main-reroll" ng-repeat="reroll in vm.rerolls | orderBy:['accountIdentifier', 'name']" ng-click="vm.selectedReroll = reroll"
           ng-class="reroll.name === vm.selectedReroll.name ? 'selected' : ''">
       <div class="col-md-5">{{ reroll.name }}</div>
       <div class="col-md-2">{{ reroll.guildRank }}</div>
@@ -103,6 +103,11 @@
     <a class="btn btn-default" ng-disabled="!vm.selectedMain || !vm.selectedReroll || vm.linkingRerollToMain" ng-click="vm.linkRerollToMain()">
       <i class="fa fa-refresh fa-spin" ng-show="vm.linkingRerollToMain"></i>
       Link
+    </a>
+    <br/>
+    <a class="btn btn-default" ng-disabled="vm.generatingMainIds" ng-click="vm.generateMainIds()">
+      <i class="fa fa-refresh fa-spin" ng-show="vm.generatingMainIds"></i>
+      Generate missing IDs
     </a>
   </div>
 

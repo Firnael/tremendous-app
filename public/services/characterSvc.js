@@ -22,6 +22,7 @@
         updateCollection: updateCollection,
         linkRerollToMain: linkRerollToMain,
         setRole: setRole,
+        generateAccountIdentifier: generateAccountIdentifier,
         updateLoot: updateLoot
       };
       return service;
@@ -107,6 +108,14 @@
         data.role = role;
 
         var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/role/", data).then(function(response) {
+            return response.data;
+        });
+        return promise;
+      }
+
+      // Generate a new account identifier for this character
+      function generateAccountIdentifier(character) {
+        var promise = $http.post(UtilsSvc.getUrlPrefix() + "/api/character/account-identifier/" + character.name).then(function(response) {
             return response.data;
         });
         return promise;

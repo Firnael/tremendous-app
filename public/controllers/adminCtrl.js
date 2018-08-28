@@ -32,6 +32,9 @@
         vm.checkRerollAccountId = checkRerollAccountId;
         vm.setRole = setRole;
 
+        // Gestion des IDs
+        vm.generateMainIds = generateMainIds;
+
         activate();
 
         //////////////
@@ -113,5 +116,26 @@
             }
           });
         }
+
+        // Generate new IDs for main with ID = -1 (can happen after guild change)
+        function generateMainIds() {
+          for(var i=0; i<vm.mains.length; i++) {
+            var character = vm.mains[i];
+            if(character.accountIdentifier === -1) {
+              console.log("bad ID : " + character.name);
+
+              CharacterSvc.generateAccountIdentifier(character).then(function (updatedCharacter) {
+                for(var j=0; j<vm.mains.length; j++) {
+                  if(vm.mains[j].name === updatedCharacter.name) {
+                    vm.mains[j] = updatedCharacter;
+                    break;
+                  }
+                }
+              });
+            }
+          }
+          console.log("IDs generated");
+        }
+
     }
 })();
