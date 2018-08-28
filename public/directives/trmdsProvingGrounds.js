@@ -14,9 +14,10 @@
                     var tmp;
                     switch(newValue) {
                         case '0': tmp = ''; break;
-                        case '1': tmp = 'bronze'; break;
-                        case '2': tmp = 'silver'; break;
-                        case '3': tmp = 'gold'; break;
+                        case '1': scope.title = "Bronze"; tmp = 'bronze'; break;
+                        case '2': scope.title = "Argent"; tmp = 'silver'; break;
+                        case '3': scope.title = "Or"; tmp = 'gold'; break;
+                        case '4': scope.title = "Infini (Vague 30)"; tmp = 'platinum'; break;
                         default: tmp = ''; break;
                     }
 
@@ -33,7 +34,7 @@
 
         return {
             restrict: "E",
-            template: '<img ng-src="{{ result }}" width="{{ size }}" height="{{ size }}" class="img-circle img-thumbnail"/>',
+            template: '<img ng-src="{{ result }}" width="{{ size }}" height="{{ size }}" title="{{ title }}" class="img-circle img-thumbnail"/>',
             link: link,
             scope: {
               value: '@',

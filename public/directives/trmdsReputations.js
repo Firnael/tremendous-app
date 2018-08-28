@@ -10,14 +10,14 @@
 
       function link (scope, element, attributes) {
         switch(scope.standing) {
-          case '0': scope.reputation = 'Hai'; break;
-          case '1': scope.reputation = 'Hostile'; break;
-          case '2': scope.reputation = 'Inamical'; break;
-          case '3': scope.reputation = 'Neutre'; break;
-          case '4': scope.reputation = 'Amical'; break;
-          case '5': scope.reputation = 'Honore'; break;
-          case '6': scope.reputation = 'Revere'; break;
-          case '7': scope.reputation = 'Exalte'; break;
+          case '0': scope.reputationClass = "hated"; scope.reputation = 'Hai'; break;
+          case '1': scope.reputationClass = "hostile"; scope.reputation = 'Hostile'; break;
+          case '2': scope.reputationClass = "unfriendly"; scope.reputation = 'Inamical'; break;
+          case '3': scope.reputationClass = "neutral"; scope.reputation = 'Neutre'; break;
+          case '4': scope.reputationClass = "friendly"; scope.reputation = 'Amical'; break;
+          case '5': scope.reputationClass = "honored"; scope.reputation = 'Honore'; break;
+          case '6': scope.reputationClass = "revered"; scope.reputation = 'Revere'; break;
+          case '7': scope.reputationClass = "exalted"; scope.reputation = 'Exalte'; break;
           default: break;
         }
 
@@ -26,6 +26,12 @@
         scope.toggleText = toggleText;
 
         function getWidth() {
+          // If Exalted, fill the bar to the max
+          console.log("scope.max : " + scope.max);
+          if(scope.max === '0') {
+            console.log("YES");
+            return 100;
+          }
           return (scope.current / scope.max) * 100;
         }
 

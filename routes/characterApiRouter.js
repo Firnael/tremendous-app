@@ -325,7 +325,6 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
               });
             }
             else {
-              console.log('Bonjour à tous');
               // Root
               character.lastModified = body.lastModified;
               character.class = body.class;
@@ -404,33 +403,39 @@ characterApiRouter.route('/update/:characterName').post(function(req, res) {
     function getProvingGroundsAchievements(type, achievementsCompleted) {
         switch(type) {
           case 'dps':
-            if(achievementsCompleted.indexOf(9574) < 0) { // or
-                if(achievementsCompleted.indexOf(9573) < 0) { // argent
-                    if(achievementsCompleted.indexOf(9572) < 0) { // bronze
-                        return 0;
-                    } else { return 1; }
-                } else { return 2; }
-            } else { return 3; }
+            if(achievementsCompleted.indexOf(9577) < 0) { // platine
+              if(achievementsCompleted.indexOf(9574) < 0) { // or
+                  if(achievementsCompleted.indexOf(9573) < 0) { // argent
+                      if(achievementsCompleted.indexOf(9572) < 0) { // bronze
+                          return 0;
+                      } else { return 1; }
+                  } else { return 2; }
+              } else { return 3; }
+            } else { return 4; }
           break;
 
           case 'tank':
-            if(achievementsCompleted.indexOf(9580) < 0) { // or
-                if(achievementsCompleted.indexOf(9579) < 0) { // argent
-                    if(achievementsCompleted.indexOf(9578) < 0) { // bronze
-                        return 0;
-                    } else { return 1; }
-                } else { return 2; }
-            } else { return 3; }
+            if(achievementsCompleted.indexOf(9583) < 0) { // platine
+              if(achievementsCompleted.indexOf(9580) < 0) { // or
+                  if(achievementsCompleted.indexOf(9579) < 0) { // argent
+                      if(achievementsCompleted.indexOf(9578) < 0) { // bronze
+                          return 0;
+                      } else { return 1; }
+                  } else { return 2; }
+              } else { return 3; }
+            } else { return 4; }
           break;
 
           case 'heal':
-            if(achievementsCompleted.indexOf(9586) < 0) { // or
-                if(achievementsCompleted.indexOf(9585) < 0) { // argent
-                    if(achievementsCompleted.indexOf(9584) < 0) { // bronze
-                        return 0;
-                    } else { return 1; }
-                } else { return 2; }
-            } else { return 3; }
+            if(achievementsCompleted.indexOf(9589) < 0) { // platine
+              if(achievementsCompleted.indexOf(9586) < 0) { // or
+                  if(achievementsCompleted.indexOf(9585) < 0) { // argent
+                      if(achievementsCompleted.indexOf(9584) < 0) { // bronze
+                          return 0;
+                      } else { return 1; }
+                  } else { return 2; }
+              } else { return 3; }
+            } else { return 4; }
           break;
         }
     }

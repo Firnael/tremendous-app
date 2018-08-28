@@ -74,10 +74,6 @@ guildApiRouter.route('/update').post(function(req, res) {
       });
 
       function populateGuildObjectFromData(guildObject, data, update) {
-        console.log(guildObject);
-        console.log("===");
-        console.log(data);
-
         if(!update) {
           guildObject.name = data.name;
         }
@@ -85,6 +81,7 @@ guildApiRouter.route('/update').post(function(req, res) {
         guildObject.level = data.level;
         guildObject.achievementPoints = data.achievementPoints;
         guildObject.members = [];
+        console.log('Updating members names and ranks...');
         for(var i=0; i<data.members.length; i++) {
           var member = {};
           member.name = data.members[i].character.name;
