@@ -37,6 +37,8 @@ rosterApiRouter.get('/update', function(req, res) {
       roster.lowestItemLevel = data.lowestItemLevel;
       roster.highestItemLevel = data.highestItemLevel;
       roster.classes = data.classes;
+      roster.tanks = data.tanks;
+      roster.healers = data.healers;
       roster.meleeVsDistant = data.meleeVsDistant;
 
       // Save it
@@ -56,14 +58,18 @@ function getRosterData(characters) {
     lowestItemLevel: 0,
     highestItemLevel: 0,
     classes: [],
+    tanks: [],
+    healers: [],
     meleeVsDistant: {
       melee: 0,
       distant: 0
     }
   };
 
-  // To store classes counts temporary
+  // To store counts temporary
   var classesTmp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var tanksTmp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  var healersTmp = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   // Do work
   var skippedCharacters = 0;
@@ -98,26 +104,67 @@ function getRosterData(characters) {
     }
 
     // Classes
-    // Melee vs Distant
+    // Tanks & healers
+    // Melee vs Distant => specs[x].selected = true
     switch(character.class) {
-      case 1: classesTmp[1]++; data.meleeVsDistant.melee++; break; // war
-      case 2: classesTmp[2]++; data.meleeVsDistant.melee++; break; // pal
+      case 1: // war
+        if(character.role === 0) { tanksTmp[1]++ };
+        classesTmp[1]++;
+        data.meleeVsDistant.melee++;
+        break;
+      case 2: // pal
+        if(character.role === 0) { tanksTmp[1]++ }
+        else if(character.role === 1) { healersTmp[2]++ };
+        classesTmp[2]++;
+        data.meleeVsDistant.melee++;
+        break;
       case 3: classesTmp[3]++; data.meleeVsDistant.distant++; break; // hunt
       case 4: classesTmp[4]++; data.meleeVsDistant.melee++; break; // rogue
-      case 5: classesTmp[5]++; data.meleeVsDistant.distant++; break; // priest
-      case 6: classesTmp[6]++; data.meleeVsDistant.melee++; break; // dk
-      case 7: classesTmp[7]++; break; // cham
+      case 5: // priest
+        if(character.role === 1) { healersTmp[5]++ };
+        classesTmp[5]++;
+        data.meleeVsDistant.distant++;
+        break; 
+      case 6: // dk
+        if(character.role === 0) { tanksTmp[6]++ }
+        classesTmp[6]++;
+        data.meleeVsDistant.melee++;
+        break;
+      case 7: // cham
+        if(character.role === 1) { healersTmp[7]++ }
+        classesTmp[7]++;
+        break;
       case 8: classesTmp[8]++; data.meleeVsDistant.distant++; break; // mage
       case 9: classesTmp[9]++; data.meleeVsDistant.distant++; break; // warlock
-      case 10: classesTmp[10]++; break; // monk
-      case 11: classesTmp[11]++; break; // druid
-      case 12: classesTmp[12]++; data.meleeVsDistant.melee++; break; // dh
+      case 10: // monk
+        if(character.role === 0) { tanksTmp[10]++ }
+        else if(character.role === 1) { healersTmp[10]++ };
+        classesTmp[10]++;
+        break;
+      case 11: // druid
+        if(character.role === 0) { tanksTmp[11]++ }
+        else if(character.role === 1) { healersTmp[11]++ };
+        classesTmp[11]++;
+        break;
+      case 12: // dh
+        if(character.role === 0) { tanksTmp[12]++ }
+        classesTmp[12]++;
+        data.meleeVsDistant.melee++;
+        break;
     }
   }
 
   // Classes distribution
   for(var i=1; i<classesTmp.length; i++) {
     data.classes.push({ classId: i, count: classesTmp[i] });
+  }
+  // Tanks distribution
+  for(var i=1; i<tanksTmp.length; i++) {
+    data.tanks.push({ classId: i, count: tanksTmp[i] });
+  }
+  // Healers distribution
+  for(var i=1; i<healersTmp.length; i++) {
+    data.healers.push({ classId: i, count: healersTmp[i] });
   }
 
   // Average ilvl

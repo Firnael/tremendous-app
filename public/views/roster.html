@@ -26,7 +26,7 @@
     <table class="table table-condensed table-hover roster-table">
     <thead>
       <tr>
-        <th><!-- Role + Name --></th>
+        <th style="cursor: pointer;" ng-click="vm.resetOrderBy()"></th>
         <th><!-- | --></th>
         <th style="cursor: pointer;" ng-click="vm.changeOrderBy('averageItemLevelEquipped')">ilvl</th>
         <th><!-- | --></th>
@@ -95,20 +95,43 @@
   <div class="col-md-2 fade" ng-show="vm.rosterInfos">
     <div class="row text-center">
       <div class="col-md-12">
+        <br/>
         <h2>{{ vm.rosterInfos.size }} <small>Raiders</small></h2>
 
-        <!-- Class Distribution -->
+        <!-- Ilvl - | ~ | + -->
+        <span class="roster-ilvl-lowest">{{ vm.rosterInfos.lowestItemLevel }}</span>
+        <span class="roster-ilvl-average">{{ vm.rosterInfos.averageItemLevel }}</span>
+        <span class="roster-ilvl-highest">{{ vm.rosterInfos.highestItemLevel }}</span>
+
+        <hr/>
+
+        <!-- General class Distribution -->
+        <span class="text-muted">All</span>
         <canvas class="chart chart-doughnut"
                 chart-data="vm.classDistribution.data"
                 chart-labels="vm.classDistribution.labels"
                 chart-colors="vm.classDistribution.colors">
         </canvas>
 
-        <!-- Ilvl - | ~ | + -->
-        <h3 class="text-muted">ilvl</h3>
-        <span class="roster-ilvl-lowest">{{ vm.rosterInfos.lowestItemLevel }}</span>
-        <span class="roster-ilvl-average">{{ vm.rosterInfos.averageItemLevel }}</span>
-        <span class="roster-ilvl-highest">{{ vm.rosterInfos.highestItemLevel }}</span>
+        <hr/>
+
+        <!-- Tank class Distribution -->
+        <span class="text-muted">Tanks</span>
+        <canvas class="chart chart-doughnut"
+          chart-data="vm.classDistribution.tankData"
+          chart-labels="vm.classDistribution.labels"
+          chart-colors="vm.classDistribution.colors">
+        </canvas>
+
+        <hr/>
+
+        <!-- Healer class Distribution -->
+        <span class="text-muted">Healers</span>
+        <canvas class="chart chart-doughnut"
+        chart-data="vm.classDistribution.healerData"
+        chart-labels="vm.classDistribution.labels"
+        chart-colors="vm.classDistribution.colors">
+      </canvas>
       </div>
 
     </div>

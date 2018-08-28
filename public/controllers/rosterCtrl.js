@@ -14,13 +14,16 @@
         vm.updating = true;
         vm.updateCount = 0;
         vm.rosterSize = 0;
-        vm.orderBy = ['+class', '-averageItemLevel'];
+        vm.defaultOrderBy = ['+class', '+role', '-averageItemLevel'];
+        vm.orderBy = vm.defaultOrderBy;
         vm.orderAttribute = 'class';
         vm.orderSort = '-';
 
         // Class distribution
         vm.classDistribution = {};
         vm.classDistribution.data = [0,0,0,0,0,0,0,0,0,0,0,0];
+        vm.classDistribution.tankData = [0,0,0,0,0,0,0,0,0,0,0,0];
+        vm.classDistribution.healerData = [0,0,0,0,0,0,0,0,0,0,0,0];
         vm.classDistribution.labels = [
           'War', 'Pal', 'Hunt', 'Rogue', 'Priest', 'DK',
           'Cham', 'Mage', 'Demo', 'Monk', 'Drood', 'DH'
@@ -43,6 +46,7 @@
         vm.updateRosterData = updateRosterData;
         vm.getHeartOfAzerothLevelColor = getHeartOfAzerothLevelColor;
         vm.changeOrderBy = changeOrderBy;
+        vm.resetOrderBy = resetOrderBy;
         activate();
 
         //////////////
@@ -146,6 +150,16 @@
             var entry = vm.rosterInfos.classes[i];
             vm.classDistribution.data[i] = entry.count;
           }
+          // Tanks distribution
+          for(var i=0; i<vm.rosterInfos.tanks.length; i++) {
+            var entry = vm.rosterInfos.tanks[i];
+            vm.classDistribution.tankData[i] = entry.count;
+          }
+          // Healers distribution
+          for(var i=0; i<vm.rosterInfos.healers.length; i++) {
+            var entry = vm.rosterInfos.healers[i];
+            vm.classDistribution.healerData[i] = entry.count;
+          }
         }
 
         function getHeartOfAzerothLevelColor(count) {
@@ -169,6 +183,10 @@
 
           var newOrderBy = vm.orderSort + vm.orderAttribute;
           vm.orderBy = [newOrderBy];
+        }
+
+        function resetOrderBy() {
+          vm.orderBy = vm.defaultOrderBy;
         }
 
     }

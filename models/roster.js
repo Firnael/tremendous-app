@@ -11,6 +11,12 @@ var RosterSchema = new Schema({
     highestItemLevel: Number,
     classes: [
       { classId: Number, count: Number }
+    ],
+    tanks: [
+      { classId: Number, count: Number }
+    ],
+    healers: [
+      { classId: Number, count: Number }
     ]
 });
 
